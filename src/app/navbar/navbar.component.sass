@@ -1,0 +1,57 @@
+$primary-01: #2277F4
+$primary-02: #6BA7FF
+$neutro-04: #767676
+$neutro-07: #fff
+
+.navbar
+    background: $primary-01
+    .navbar__left
+        .navbar__brand
+            display: grid
+            span
+                color: $neutro-07
+                font-family: Inter
+                font-size: 17px
+                font-style: normal
+                font-weight: 900
+                line-height: normal
+                text-transform: uppercase
+    .navbar__right
+        align-items: center
+        .navbar__right-icon
+            background-color: transparent
+            margin-right: 35px
+        .navbar__frame-user
+            background-color: transparent
+            border: none
+            outline: none
+            align-items: center
+            padding: 5px 10px
+            .user__content
+                margin: auto
+                align-items: center
+                .user__avatar
+                    width: 48px
+                    height: 48px
+                    margin-right: 13px
+                    border-radius: 50%
+                    background-color: $neutro-07
+                    border: 2px solid $primary-02
+                .user__info
+                    font-family: 'Lato', sans-serif
+                    color: $neutro-07
+                    font-weight: 400
+                    margin-right: 13px
+                    max-width: max-content
+                    text-align: start
+                    .user__name
+                        color: $neutro-07
+                        font-size: 16px
+                        font-style: normal
+                        line-height: 148%
+                    p
+                        font-size: 14px
+                        margin: 0
+                        line-height: 140%
+            button
+                background-color: transparent

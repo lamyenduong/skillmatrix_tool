@@ -1,0 +1,113 @@
+$primary-01: #2277F4
+$primary-02: #6BA7FF
+$neutro-01: #171717
+$neutro-02: #444444
+$neutro-03: #5E5E5E
+$neutro-04: #767676
+$neutro-07: #fff
+$grayscale-spacer-light: #E5E0EB
+
+.main__first-frame
+    background: $primary-02
+    padding-block: 30px
+    .main__frame-action
+        justify-content: center
+        button
+            margin-inline: 10px
+            margin-bottom: 30px
+            width: 25%
+            height: 128px
+            flex-shrink: 0
+            border-radius: 18px
+            background: $neutro-07
+            span
+                font-size: 48px
+                color: $neutro-04
+            p
+                color: $neutro-04
+                font-family: Lato, sans-serif
+                font-size: 18px
+                margin: 0
+                line-height: 22px
+                text-transform: uppercase
+    .main__frame-filter
+        height: 62px
+        padding: 18px
+        justify-content: space-between
+        align-items: center
+        flex-shrink: 0
+        align-self: stretch
+        border-radius: 18px
+        background: $neutro-07
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.57)
+        label
+            color: $neutro-03
+            font-family: Roboto, sans-serif
+            font-size: 22px
+            margin: 0
+            font-weight: 800
+            line-height: 140%
+        .filter__bar-right
+            .filter__searchbar
+                display: flex
+                width: 280px
+                height: 44px
+                padding: 12px
+                border-radius: 8px
+                border: 1px solid $grayscale-spacer-light
+                input
+                    border: none
+                    line-height: 140%
+                    margin: auto
+                    width: 100%
+                    &:focus
+                        outline: none
+                button
+                    background: transparent
+                    span
+                        color: $neutro-03
+            .filter__btn
+                background-color: transparent
+                margin-inline: 22px
+            .filter__time
+                background-color: transparent
+                align-items: center
+                p
+                    color: $neutro-01
+                    font-family: Roboto
+                    font-size: 16px
+                    line-height: 24px
+                    margin: 0
+                    padding-right: 4px
+                span
+                    color: $neutro-02
+
+.main__second-frame
+    background: linear-gradient(180deg, #6BA7FF 0%, #2277F4 100%)
+    padding-bottom: 3rem
+    .main__tabview
+        .tabpanel__header
+            .p-tabview-nav-link
+                width: 155px
+                padding: 10px
+                border-radius: 10px 10px 0px 0px
+                background: $primary-01
+                font-size: 20px
+                font-weight: 700
+                margin-right: 8px
+                span
+                    color: $neutro-07
+                    line-height: 140%
+                &:active
+                    background: $neutro-07
+                    span
+                        color: $primary-01
+                &::after:active
+                    background: $neutro-07
+                    span
+                        color: $primary-01
+        .p-tabview-panel
+            background-color: $neutro-07
+            border-radius: 0 8px 8px 8px
+            padding-inline: 16px
+            padding-block: 30px
