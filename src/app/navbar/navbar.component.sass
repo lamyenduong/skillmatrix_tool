@@ -1,7 +1,5 @@
-$primary-01: #2277F4
-$primary-02: #6BA7FF
-$neutro-04: #767676
-$neutro-07: #fff
+
+@import  "../../styles"
 
 .navbar
     background: $primary-01
@@ -10,7 +8,7 @@ $neutro-07: #fff
             display: grid
             span
                 color: $neutro-07
-                font-family: Inter
+                font-family: Inter, sans-serif
                 font-size: 17px
                 font-style: normal
                 font-weight: 900
@@ -19,10 +17,8 @@ $neutro-07: #fff
     .navbar__right
         align-items: center
         .navbar__right-icon
-            background-color: transparent
             margin-right: 35px
         .navbar__frame-user
-            background-color: transparent
             border: none
             outline: none
             align-items: center
@@ -53,5 +49,3 @@ $neutro-07: #fff
                         font-size: 14px
                         margin: 0
                         line-height: 140%
-            button
-                background-color: transparent

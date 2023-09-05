@@ -1,11 +1,5 @@
-$primary-01: #2277F4
-$primary-02: #6BA7FF
-$neutro-01: #171717
-$neutro-02: #444444
-$neutro-03: #5E5E5E
-$neutro-04: #767676
-$neutro-07: #fff
-$grayscale-spacer-light: #E5E0EB
+
+@import "../../../../src/styles"
 
 .main__first-frame
     background: $primary-02
@@ -62,19 +56,15 @@ $grayscale-spacer-light: #E5E0EB
                     width: 100%
                     &:focus
                         outline: none
-                button
-                    background: transparent
                     span
                         color: $neutro-03
             .filter__btn
-                background-color: transparent
                 margin-inline: 22px
             .filter__time
-                background-color: transparent
                 align-items: center
                 p
                     color: $neutro-01
-                    font-family: Roboto
+                    font-family: Roboto, sans-serif
                     font-size: 16px
                     line-height: 24px
                     margin: 0
@@ -90,6 +80,8 @@ $grayscale-spacer-light: #E5E0EB
             .p-tabview-nav-link
                 width: 155px
                 padding: 10px
+                border: none
+                outline: none
                 border-radius: 10px 10px 0px 0px
                 background: $primary-01
                 font-size: 20px
@@ -99,15 +91,53 @@ $grayscale-spacer-light: #E5E0EB
                     color: $neutro-07
                     line-height: 140%
                 &:active
+                    border: none
+                    outline: none
                     background: $neutro-07
                     span
                         color: $primary-01
-                &::after:active
+                &:hover
                     background: $neutro-07
                     span
                         color: $primary-01
-        .p-tabview-panel
+        li.p-highlight .p-tabview-nav-link
+            background: $neutro-07
+            span
+                color: $primary-01
+            &:focus
+                box-shadow: none
+        .p-tabview-panels
             background-color: $neutro-07
             border-radius: 0 8px 8px 8px
             padding-inline: 16px
             padding-block: 30px
+            .card__body
+                display: flex
+                align-items: center
+                justify-content: space-between
+                padding: 8px
+                border-bottom: 1px solid $neutro-02
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+                .card__content
+                    max-width: fit-content
+                    display: flex
+                    span
+                        font-size: 66px
+                    .card__info
+                        align-self: center
+                        padding-left: 4px
+                        .card__title
+                            font-style: 16px
+                            font-weight: 600
+                            color: $neutro-02
+                            line-height: 100%
+                            margin: 0
+                        .card__subtitle
+                            font-size: 8px
+                            font-weight: 600
+                            color: $neutro-04
+                            line-height: 140%
+                            margin: 0
+
+.main__dialog-upload
+    border-radius: 10px
