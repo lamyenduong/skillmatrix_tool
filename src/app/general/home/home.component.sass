@@ -76,41 +76,44 @@
     background: linear-gradient(180deg, #6BA7FF 0%, #2277F4 100%)
     padding-bottom: 3rem
     .main__tabview
-        .tabpanel__header
-            .p-tabview-nav-link
-                width: 155px
-                padding: 10px
-                border: none
-                outline: none
-                border-radius: 10px 10px 0px 0px
-                background: $primary-01
-                font-size: 20px
-                font-weight: 700
-                margin-right: 8px
-                span
-                    color: $neutro-07
-                    line-height: 140%
-                &:active
+        .p-tabview-nav
+            border: none
+            .tabpanel__header
+                .p-tabview-nav-link
+                    width: 155px
+                    padding: 10px
                     border: none
                     outline: none
-                    background: $neutro-07
+                    border-radius: 10px 10px 0px 0px
+                    background: $primary-01
+                    font-size: 20px
+                    font-weight: 700
+                    margin-right: 8px
                     span
-                        color: $primary-01
-                &:hover
-                    background: $neutro-07
-                    span
-                        color: $primary-01
-        li.p-highlight .p-tabview-nav-link
-            background: $neutro-07
-            span
-                color: $primary-01
-            &:focus
-                box-shadow: none
+                        color: $neutro-07
+                        line-height: 140%
+                    &:active
+                        background: $neutro-07
+                        span
+                            color: $primary-01
+                    &:hover
+                        background: $neutro-07
+                        span
+                            color: $primary-01
+                    &:focus
+                        box-shadow: none
+            li.p-highlight .p-tabview-nav-link
+                background: $neutro-07
+                span
+                    color: $primary-01
+                &:focus
+                    box-shadow: none
         .p-tabview-panels
             background-color: $neutro-07
             border-radius: 0 8px 8px 8px
             padding-inline: 16px
             padding-block: 30px
+            border: none
             .card__body
                 display: flex
                 align-items: center
@@ -140,4 +143,43 @@
                             margin: 0
 
 .main__dialog-upload
-    border-radius: 10px
+    border: none
+    .p-dialog-header
+        border-radius: 10px 10px 0 0
+        .p-dialog-title
+            color: $primary-01
+        .p-dialog-header-close-icon
+            color: $neutro-300
+    .p-dialog-content:last-of-type
+        border-radius: 0 0 10px 10px
+        .dialog__content
+            color: $primary-02
+            font-family: Roboto, sans-serif
+            font-size: 14px
+            font-weight: 700
+            line-height: 22px
+        button
+            display: flex
+            padding: 16px 0px
+            width: 100%
+            height: 200px
+            flex-direction: column
+            align-items: center
+            border-radius: 2px
+            border: 1px solid $neutral-5
+            background: $neutral-2
+            font-family: Roboto, sans-serif
+            text-align: center
+            h5
+                color: $character-title-85
+                font-size: 16px
+                margin-top: 20px
+                font-weight: 400
+                line-height: 24px
+                width: 395px
+            p
+                color: $character-secondary-45
+                font-size: 14px
+                line-height: 22px
+                margin: 0
+                width: 395px
