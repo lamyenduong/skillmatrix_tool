@@ -10,10 +10,11 @@ import { HomeComponent } from './general/home/home.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { FileUploadModule } from 'primeng/fileupload';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
+import { MenuModule } from 'primeng/menu';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,9 +32,10 @@ import { CardModule } from 'primeng/card';
     PaginatorModule,
     TableModule,
     ToastModule,
-    FileUploadModule,
     DialogModule,
     CardModule,
+    MenuModule,
+    HttpClientModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

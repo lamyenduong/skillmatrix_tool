@@ -114,33 +114,36 @@
             padding-inline: 16px
             padding-block: 30px
             border: none
-            .card__body
-                display: flex
-                align-items: center
-                justify-content: space-between
-                padding: 8px
-                border-bottom: 1px solid $neutro-02
-                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
-                .card__content
-                    max-width: fit-content
+            .tabpanel__table
+                .p-paginator-bottom.p-paginator
+                    justify-content: end
+                .card__body
                     display: flex
-                    span
-                        font-size: 66px
-                    .card__info
-                        align-self: center
-                        padding-left: 4px
-                        .card__title
-                            font-style: 16px
-                            font-weight: 600
-                            color: $neutro-02
-                            line-height: 100%
-                            margin: 0
-                        .card__subtitle
-                            font-size: 8px
-                            font-weight: 600
-                            color: $neutro-04
-                            line-height: 140%
-                            margin: 0
+                    align-items: center
+                    justify-content: space-between
+                    padding: 8px
+                    border-bottom: 1px solid $neutro-02
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+                    .card__content
+                        max-width: fit-content
+                        display: flex
+                        span
+                            font-size: 66px
+                        .card__info
+                            align-self: center
+                            padding-left: 4px
+                            .card__title
+                                font-style: 16px
+                                font-weight: 600
+                                color: $neutro-02
+                                line-height: 100%
+                                margin: 0
+                            .card__subtitle
+                                font-size: 8px
+                                font-weight: 600
+                                color: $neutro-04
+                                line-height: 140%
+                                margin: 0
 
 .main__dialog-upload
     border: none
@@ -152,13 +155,14 @@
             color: $neutro-300
     .p-dialog-content:last-of-type
         border-radius: 0 0 10px 10px
+        padding: 24px
         .dialog__content
             color: $primary-02
             font-family: Roboto, sans-serif
             font-size: 14px
             font-weight: 700
             line-height: 22px
-        button
+        .dialog__form-upload
             display: flex
             padding: 16px 0px
             width: 100%
@@ -170,16 +174,23 @@
             background: $neutral-2
             font-family: Roboto, sans-serif
             text-align: center
-            h5
-                color: $character-title-85
-                font-size: 16px
-                margin-top: 20px
-                font-weight: 400
-                line-height: 24px
-                width: 395px
-            p
-                color: $character-secondary-45
-                font-size: 14px
-                line-height: 22px
-                margin: 0
-                width: 395px
+            .form__upload
+                display: grid
+                margin: auto
+                input
+                    z-index: -100
+                    width: 0.1px
+                    height: 0.1px
+                label
+                    color: $character-title-85
+                    font-size: 16px
+                    margin-top: 20px
+                    font-weight: 400
+                    line-height: 24px
+                    width: 395px
+                p
+                    color: $character-secondary-45
+                    font-size: 14px
+                    line-height: 22px
+                    margin: 0
+                    width: 395px

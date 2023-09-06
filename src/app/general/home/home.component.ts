@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Form } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -8,6 +9,7 @@ import { MessageService } from 'primeng/api';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+  forms!: Form[]
   displayUploadButton!: boolean
 
   constructor() { }
@@ -17,5 +19,9 @@ export class HomeComponent implements OnInit {
 
   showUploadDialog() {
     this.displayUploadButton = true
+  }
+
+  uploadDragStart(event: DragEvent) {
+
   }
 }
