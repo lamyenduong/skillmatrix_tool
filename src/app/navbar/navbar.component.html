@@ -23,7 +23,11 @@
                 </svg>
             </button>
             <p-menu class="noti__menu" #notiMenu [popup]="true">
+                <ng-template pTemplate="menuitem" let-notification let-i="index">
+                    <app-card-notification [notification]="notification"></app-card-notification>
+                </ng-template>
             </p-menu>
+
 
             <div class="navbar__frame-user d-flex">
                 <div class="user__content d-flex">

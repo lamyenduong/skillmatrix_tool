@@ -14,11 +14,13 @@ import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { MenuModule } from 'primeng/menu';
+import { MenubarModule } from 'primeng/menubar';
 import { HttpClientModule } from '@angular/common/http';
 import { EditComponent } from './pages/edit/edit.component';
 import { StepsModule } from 'primeng/steps';
 import { AvatarModule } from 'primeng/avatar';
 import { CardNotificationComponent } from './components/card-notification/card-notification.component';
+import { FormComponent } from './components/form/form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { CardNotificationComponent } from './components/card-notification/card-n
     NavbarComponent,
     HomeComponent,
     EditComponent,
-    CardNotificationComponent
+    CardNotificationComponent,
+    FormComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -41,6 +44,7 @@ import { CardNotificationComponent } from './components/card-notification/card-n
     DialogModule,
     CardModule,
     MenuModule,
+    MenubarModule,
     HttpClientModule,
     StepsModule,
     AvatarModule
