@@ -74,8 +74,35 @@
                 </p-table>
             </p-tabPanel>
             <p-tabPanel header="Owner by me" headerStyleClass="tabpanel__header">
+                <p-table styleClass="tabpanel__table" [value]="forms" [rowHover]="true" [rows]="15"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30]" [paginator]="true">
+                    <ng-template pTemplate="body">
+                        <tr class="p-selectable-row">
+                            <td>
+                                <div class="card__body">
+                                    <div class="card__content">
+                                        <span class="material-icons-outlined">description</span>
+                                        <div class="card__info">
+                                            <p class="card__title">Contract name</p>
+                                            <p class="card__subtitle">Owner name</p>
+                                            <p class="card__subtitle">30/04/2023</p>
+                                        </div>
+                                    </div>
+                                    <button><span style="color: #7a7a7a;"
+                                            class="material-icons-outlined">more_horiz</span></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td>No forms found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </p-tabPanel>
             <p-tabPanel header="Draft" headerStyleClass="tabpanel__header">
+
             </p-tabPanel>
             <p-tabPanel header="Domain" headerStyleClass="tabpanel__header">
             </p-tabPanel>
@@ -87,7 +114,7 @@
     [draggable]="false" [resizable]="false" styleClass="main__dialog-upload">
     <p class="dialog__content">Download example file .exe</p>
     <form class="dialog__form-upload" method="post">
-        <div class="form__upload" draggable="true" ondragstart="uploadDragStart($event)">
+        <div class="form__upload" (drag)="dragFile($event)">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
                     <path
@@ -95,9 +122,9 @@
                         fill="#2277F4" />
                 </svg>
             </span>
-            <input type="file" name="files[]" id="file" accept=".xls,.xlsx" id="uploadForm"
-                data-multiple-caption="{count} files selected" multiple>
-            <label for="file">Click or drag file to this area to upload</label>
+            <!-- <div class="upload__thumb" data-label="myfile.txt"></div> -->
+            <input type="file" name="upload-file" accept=".xls,.xlsx" class="upload__input" multiple>
+            <label>Click or drag file to this area to upload</label>
             <p>Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
             </p>
         </div>

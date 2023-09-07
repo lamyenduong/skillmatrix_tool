@@ -14,7 +14,7 @@
                         fill="white" />
                 </svg>
             </button>
-            <button class="navbar__right-icon">
+            <button class="navbar__right-icon" (click)="notiMenu.toggle($event)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M19 17V11.8C18.5 11.9 18 12 17.5 12H17V18H6.99997V11C6.99997 8.2 9.19997 6 12 6C12.1 4.7 12.7 3.6 13.5 2.7C13.2 2.3 12.6 2 12 2C10.9 2 9.99997 2.9 9.99997 4V4.3C6.99997 5.2 4.99997 7.9 4.99997 11V17L2.99997 19V20H21V19L19 17ZM9.99997 21C9.99997 22.1 10.9 23 12 23C13.1 23 14 22.1 14 21H9.99997ZM21 6.5C21 8.4 19.4 10 17.5 10C15.6 10 14 8.4 14 6.5C14 4.6 15.6 3 17.5 3C19.4 3 21 4.6 21 6.5Z"
@@ -22,21 +22,23 @@
                     <circle cx="17.5" cy="6.5" r="3.5" fill="#D51A52" />
                 </svg>
             </button>
+            <p-menu class="noti__menu" #notiMenu [popup]="true">
+            </p-menu>
 
             <div class="navbar__frame-user d-flex">
                 <div class="user__content d-flex">
-                    <img class="user__avatar" src="">
+                    <p-avatar image="" shape="circle" class="user__avatar"></p-avatar>
                     <div class="user__info">
                         <a class="user__name" href="">Trần Lương Thành..</a>
                         <p>Ad. information</p>
                     </div>
                 </div>
-                <button type="button" (click)="menu.toggle($event)">
+                <button type="button" (click)="userMenu.toggle($event)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M22 8L12 18L2 8L3.775 6.225L12 14.45L20.225 6.225L22 8Z" fill="white" />
                     </svg>
                 </button>
-                <p-menu class="user__dropdown-menu" #menu [popup]="true" [model]="profileTagItems"></p-menu>
+                <p-menu class="user__menu" #userMenu [popup]="true" [model]="profileTagItems"></p-menu>
             </div>
 
         </div>

@@ -33,6 +33,9 @@
                     border-radius: 50%
                     background-color: $neutro-07
                     border: 2px solid $primary-02
+                    .p-avatar-image
+                        width: 100%
+                        height: 100%
                 .user__info
                     font-family: 'Lato', sans-serif
                     color: $neutro-07
@@ -49,9 +52,10 @@
                         font-size: 14px
                         margin: 0
                         line-height: 140%
-            .user__dropdown-menu
+            .user__menu
                 .p-menu.p-menu-overlay
                     border: none
+                    width: 140px
                     top: 66px !important
                     border-radius: 5px
                     background: $primary-01
@@ -62,3 +66,17 @@
                             background: $primary-03
                         &:focus
                             box-shadow: none
+        .noti__menu
+            .p-menu.p-menu-overlay
+                border: none
+                width: 300px
+                top: 66px !important
+                border-radius: 5px
+                background: $primary-02
+                .p-menuitem-link
+                    span
+                        color: $neutro-07 !important
+                    &:hover
+                        background: $primary-03
+                    &:focus
+                        box-shadow: none

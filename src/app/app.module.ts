@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TabViewModule } from 'primeng/tabview';
 import { RippleModule } from 'primeng/ripple';
-import { HomeComponent } from './general/home/home.component';
+import { HomeComponent } from './pages/home/home.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -15,12 +15,18 @@ import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { MenuModule } from 'primeng/menu';
 import { HttpClientModule } from '@angular/common/http';
+import { EditComponent } from './pages/edit/edit.component';
+import { StepsModule } from 'primeng/steps';
+import { AvatarModule } from 'primeng/avatar';
+import { CardNotificationComponent } from './components/card-notification/card-notification.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    EditComponent,
+    CardNotificationComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -35,7 +41,9 @@ import { HttpClientModule } from '@angular/common/http';
     DialogModule,
     CardModule,
     MenuModule,
-    HttpClientModule
+    HttpClientModule,
+    StepsModule,
+    AvatarModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

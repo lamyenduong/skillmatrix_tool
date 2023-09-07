@@ -21,7 +21,18 @@ export class HomeComponent implements OnInit {
     this.displayUploadButton = true
   }
 
-  uploadDragStart(event: DragEvent) {
-
+  dragFile(event: DragEvent) {
+    event.preventDefault();
+    document.querySelectorAll('.upload__input').forEach(input => {
+      const formElement = event.currentTarget as HTMLElement;
+      formElement?.addEventListener('dragover', e => {
+        formElement.classList.add('.form__upload-over')
+      });
+      ['dragleave', 'dragend'].forEach(type => {
+        formElement?.addEventListener(type, e => {
+          formElement.classList.remove('.form__upload-over')
+        })
+      });
+    })
   }
 }

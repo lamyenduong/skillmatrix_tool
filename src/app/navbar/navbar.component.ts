@@ -1,5 +1,6 @@
 import { MenuItem } from 'primeng/api';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Notification } from '../models/notification.model';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +20,15 @@ export class NavbarComponent implements OnInit {
     }, {
       label: 'Settings',
       icon: 'pi pi-cog'
+    }]
+
+    Notification = [{
+      avatar: 'hihi',
+      message: 'Lorem ipsum dolor sit amet, consectetur adip incididunt',
+      createAt: '1 days ago'
+    },
+    {
+
     }]
   }
 
