@@ -2,7 +2,6 @@
 @import "../../../../src/styles"
 
 .main__first-frame
-    background: $primary-02
     padding-block: 30px
     .main__frame-action
         justify-content: center
@@ -14,14 +13,12 @@
             flex-shrink: 0
             border-radius: 18px
             background: $neutro-07
-            span
-                font-size: 48px
-                color: $neutro-04
             p
                 color: $neutro-04
-                font-family: Lato, sans-serif
+                font-family: $secondary-font
                 font-size: 18px
                 margin: 0
+                padding-top: 16px
                 line-height: 22px
                 text-transform: uppercase
     .main__frame-filter
@@ -36,10 +33,11 @@
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.57)
         label
             color: $neutro-03
-            font-family: Roboto, sans-serif
-            font-size: 22px
+            font-family: $secondary-font
+            font-size: 20px
             margin: 0
-            font-weight: 800
+            text-transform: uppercase
+            font-weight: 700
             line-height: 140%
         .filter__bar-right
             .filter__searchbar
@@ -56,24 +54,19 @@
                     width: 100%
                     &:focus
                         outline: none
-                    span
-                        color: $neutro-03
             .filter__btn
                 margin-inline: 22px
             .filter__time
                 align-items: center
                 p
                     color: $neutro-01
-                    font-family: Roboto, sans-serif
+                    font-family: $secondary-font
                     font-size: 16px
                     line-height: 24px
                     margin: 0
                     padding-right: 4px
-                span
-                    color: $neutro-02
 
 .main__second-frame
-    background: linear-gradient(180deg, #6BA7FF 0%, #2277F4 100%)
     padding-bottom: 3rem
     .main__tabview
         .p-tabview-nav
@@ -114,36 +107,6 @@
             padding-inline: 16px
             padding-block: 30px
             border: none
-            .tabpanel__table
-                .p-paginator-bottom.p-paginator
-                    justify-content: end
-                .card__body
-                    display: flex
-                    align-items: center
-                    justify-content: space-between
-                    padding: 8px
-                    border-bottom: 1px solid $neutro-02
-                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
-                    .card__content
-                        max-width: fit-content
-                        display: flex
-                        span
-                            font-size: 66px
-                        .card__info
-                            align-self: center
-                            padding-left: 4px
-                            .card__title
-                                font-style: 16px
-                                font-weight: 600
-                                color: $neutro-02
-                                line-height: 100%
-                                margin: 0
-                            .card__subtitle
-                                font-size: 8px
-                                font-weight: 600
-                                color: $neutro-04
-                                line-height: 140%
-                                margin: 0
 
 .main__dialog-upload
     border: none
@@ -157,8 +120,8 @@
         border-radius: 0 0 10px 10px
         padding: 24px
         .dialog__content
-            color: $primary-02
-            font-family: Roboto, sans-serif
+            color: $primary-03
+            font-family: $secondary-font
             font-size: 14px
             font-weight: 700
             line-height: 22px
@@ -173,7 +136,7 @@
                 border-radius: 2px
                 border: 1px solid $neutral-5
                 background: $neutral-2
-                font-family: Roboto, sans-serif
+                font-family: $secondary-font
                 text-align: center
                 .upload__input
                     display: none

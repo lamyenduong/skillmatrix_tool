@@ -1,7 +1,14 @@
-<div class="noti__card">
-    <p-avatar image="{{notification.avatar}}" shape="circle" class="noti__avatar"></p-avatar>
-    <div class="noti__content">
-        <p class="noti__message">{{notification.message}}</p>
-        <p class="noti__time">{{notification.createAt}}</p>
-    </div>
-</div>
+<ng-container *ngIf="notifications.length > 0; else noNotifications">
+    <li *ngFor="let notification of notifications"><a href="">
+            <div class="noti__card">
+                <p-avatar image="{{notification.avatar}}" shape="circle" class="noti__avatar"></p-avatar>
+                <div class="noti__content">
+                    <p class="noti__message">{{notification.message}}</p>
+                    <p class="noti__time">{{notification.createAt}}</p>
+                </div>
+            </div>
+        </a></li>
+</ng-container>
+<ng-template #noNotifications>
+    <li style="color: white; padding-left: 8px;">No notifications</li>
+</ng-template>

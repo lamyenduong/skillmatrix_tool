@@ -21,18 +21,17 @@ export class HomeComponent implements OnInit {
     this.displayUploadButton = true
   }
 
-  dragFile(event: DragEvent) {
-    event.preventDefault();
-    document.querySelectorAll('.upload__input').forEach(input => {
-      const formElement = event.currentTarget as HTMLElement;
-      formElement?.addEventListener('dragover', e => {
-        formElement.classList.add('.form__upload-over')
-      });
-      ['dragleave', 'dragend'].forEach(type => {
-        formElement?.addEventListener(type, e => {
-          formElement.classList.remove('.form__upload-over')
-        })
-      });
-    })
+  uploadFileByClick() {
+    const fileInput = document.querySelector("#file") as HTMLInputElement;;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const fileName = fileInput.files[0].name;
+      const label = document.getElementById('fileLabel') as HTMLLabelElement;
+      label.innerText = fileName;
+    }
   }
+
+  text = {
+    mainFirstBar: 'Form Survey',
+  }
+
 }

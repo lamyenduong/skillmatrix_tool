@@ -16,20 +16,22 @@ import { CardModule } from 'primeng/card';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 import { HttpClientModule } from '@angular/common/http';
-import { EditComponent } from './pages/edit/edit.component';
 import { StepsModule } from 'primeng/steps';
 import { AvatarModule } from 'primeng/avatar';
 import { CardNotificationComponent } from './components/card-notification/card-notification.component';
 import { FormComponent } from './components/form/form.component';
+import { CardFormComponent } from './components/card-form/card-form.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    EditComponent,
     CardNotificationComponent,
-    FormComponent
+    FormComponent,
+    CardFormComponent,
+    PaginationComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
