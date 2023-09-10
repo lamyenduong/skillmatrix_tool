@@ -1,6 +1,5 @@
 import { MenuItem } from 'primeng/api';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Notification } from '../models/notification.model';
 
 @Component({
   selector: 'app-navbar',
@@ -9,18 +8,20 @@ import { Notification } from '../models/notification.model';
   encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
-  profileTagItems!: MenuItem[]
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.profileTagItems = [{
+  profileTagItems: MenuItem[] = [
+    {
       label: 'Profile',
       icon: 'pi pi-user'
     }, {
       label: 'Settings',
       icon: 'pi pi-cog'
-    }]
+    }
+  ]
+
+  constructor() { }
+
+  ngOnInit(): void {
+
   }
 
 

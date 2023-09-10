@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Form } from '@angular/forms';
+import { Form } from '../../models/form.model';
 import { MessageService } from 'primeng/api';
+import { FormService } from 'src/app/services/form-service.service';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +13,10 @@ export class HomeComponent implements OnInit {
   forms!: Form[]
   displayUploadButton!: boolean
 
-  constructor() { }
+  constructor(private formService: FormService) { }
 
   ngOnInit(): void {
+    this.formService.getForms().then(forms => this.forms = forms);
   }
 
   showUploadDialog() {

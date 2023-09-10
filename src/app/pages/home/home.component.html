@@ -15,7 +15,7 @@
                 <label>{{text.mainFirstBar}}</label>
                 <div class="filter__bar-right d-flex">
                     <div class="filter__searchbar">
-                        <input type="text" placeholder="Text">
+                        <input type="text" placeholder="Search">
                         <button><i class="pi pi-search" style="color: #7a7a7a; font-size: 24px;"></i></button>
                     </div>
                     <button class="filter__btn">
@@ -34,17 +34,33 @@
         <div class="container">
             <p-tabView class="main__tabview">
                 <p-tabPanel header="Assign me" headerStyleClass="tabpanel__header">
-                    <ng-container>
-                        <tr class="p-selectable-row">
-                            <!---->
-                            <td></td>
-                        </tr>
-                    </ng-container>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td>No forms found.</td>
-                        </tr>
-                    </ng-template>
+                    <p-table [value]="forms" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
+                        [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
+                        <ng-template pTemplate="body" let-form>
+                            <tr>
+                                <td>
+                                    <div class="card__body">
+                                        <div class="card__content">
+                                            <i class="pi pi-file" style="font-size: 48px; color: #2C7A90;"></i>
+                                            <!-- <span class="material-icons-outlined">description</span> -->
+                                            <div class="card__info">
+                                                <p class="card__title">{{form.formName}}</p>
+                                                <p class="card__subtitle">{{form.user}}</p>
+                                                <p class="card__subtitle">3{{form.create__date}}</p>
+                                            </div>
+                                        </div>
+                                        <button><span style="color: #7a7a7a;"
+                                                class="material-icons-outlined">more_horiz</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td>No forms found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
                 </p-tabPanel>
                 <p-tabPanel header="Owner by me" headerStyleClass="tabpanel__header">
                     <ng-container>

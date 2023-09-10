@@ -20,7 +20,6 @@ import { StepsModule } from 'primeng/steps';
 import { AvatarModule } from 'primeng/avatar';
 import { CardNotificationComponent } from './components/card-notification/card-notification.component';
 import { FormComponent } from './components/form/form.component';
-import { CardFormComponent } from './components/card-form/card-form.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     HomeComponent,
     CardNotificationComponent,
     FormComponent,
-    CardFormComponent,
     PaginationComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
