@@ -1,4 +1,4 @@
-<div class="frame">
+<div class="frame__secondary">
     <div class="container mx-auto">
         <div class="search__frame">
             <div class="search__frame-header">{{searchPageText.searchFrameHeader}}</div>
@@ -11,24 +11,29 @@
                 <button pButton class="p-button-outlined" label="Filter" icon="pi pi-filter"></button>
             </div>
         </div>
-        <p-table class="search__table">
-            <ng-template pTemplate="header">
+        <p-table styleClass="search__table">
+            <ng-template pTemplate="header" let-user>
                 <tr>
-                    <th>ID</th>
-                    <th>Avatar</th>
-                    <th>Gender</th>
-                    <th>Birthday</th>
-                    <th>E-mail</th>
-                    <th>Phone</th>
-                    <th>Status</th>
+                    <th style="border-radius: 10px 0 0 0; border: none; background: #5396fa; color: white;">ID</th>
+                    <th style="border: none; background: #5396fa; color: white;">Avatar</th>
+                    <th style="border: none; background: #5396fa; color: white;">Gender</th>
+                    <th style="border: none; background: #5396fa; color: white;">Birthday</th>
+                    <th style="border: none; background: #5396fa; color: white;">E-mail</th>
+                    <th style="border: none; background: #5396fa; color: white;">Phone</th>
+                    <th style="border: none; background: #5396fa; color: white;">Status</th>
+                    <th style="border-radius: 0 10px 0 0; border: none; background: #5396fa; color: white;"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body">
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>1651654</td>
+                    <td>
+                    </td>
+                    <td>gewrgqeg</td>
+                    <td>eqrgeqrg</td>
+                    <td>qergerg</td>
+                    <td>qregerg</td>
+                    <td>reqgqergerg</td>
                 </tr>
             </ng-template>
         </p-table>
