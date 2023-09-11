@@ -11,21 +11,29 @@
                 <i class="pi pi-globe" style="color: white; font-size: 20px;"></i>
             </button>
             <div class="dropdown">
-                <button class="navbar__right-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="navbar__right-icon btn__notification" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="pi pi-bell" style="color: white; font-size: 20px;"></i>
+                    <span id="notiCount"></span>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end noti__menu">
+                <ul class="dropdown-menu dropdown-menu-end noti__menu" (change)="closeNotification()">
                     <p class="menu__header">Notification</p>
-
+                    <li *ngFor="let notification of notifications"><a href="" class="noti__link">
+                            <div class="noti__card">
+                                <p-avatar image="{{notification.avatar}}" shape="circle"
+                                    class="noti__avatar"></p-avatar>
+                                <div class="noti__content">
+                                    <p class="noti__message">{{notification.message}}</p>
+                                    <p class="noti__time">{{notification.createAt}}</p>
+                                </div>
+                            </div>
+                        </a></li>
                 </ul>
             </div>
-
-
             <div class="navbar__frame-user d-flex">
                 <div class="user__content d-flex">
                     <p-avatar image="" shape="circle" class="user__avatar"></p-avatar>
                     <div class="user__info">
-                        <a class="user__name" href="">Trần Lương Thành..</a>
+                        <p class="user__name">Trần Lương Thành Tín</p>
                         <p>Ad. information</p>
                     </div>
                 </div>
@@ -34,7 +42,6 @@
                 </button>
                 <p-menu class="user__menu" #userMenu [popup]="true" [model]="profileTagItems"></p-menu>
             </div>
-
         </div>
     </div>
 </nav>

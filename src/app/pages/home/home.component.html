@@ -12,12 +12,12 @@
                 </button>
             </div>
             <div class="main__frame-filter d-flex">
-                <label>{{text.mainFirstBar}}</label>
+                <label>{{homePageText.mainFirstBar}}</label>
                 <div class="filter__bar-right d-flex">
-                    <div class="filter__searchbar">
-                        <input type="text" placeholder="Search">
-                        <button><i class="pi pi-search" style="color: #7a7a7a; font-size: 24px;"></i></button>
-                    </div>
+                    <span class="filter__searchbar p-input-icon-right">
+                        <input type="text" pInputText placeholder="Search">
+                        <i class="pi pi-search" style="color: #7a7a7a; font-size: 24px;"></i>
+                    </span>
                     <button class="filter__btn">
                         <i class="pi pi-sort-alpha-down" style="color: #7a7a7a; font-size: 24px;"></i>
                     </button>
@@ -41,16 +41,41 @@
                                 <td>
                                     <div class="card__body">
                                         <div class="card__content">
-                                            <i class="pi pi-file" style="font-size: 48px; color: #2C7A90;"></i>
-                                            <!-- <span class="material-icons-outlined">description</span> -->
+                                            <i class="pi pi-file" style="font-size: 48px; color: dodgerblue;"></i>
                                             <div class="card__info">
                                                 <p class="card__title">{{form.formName}}</p>
                                                 <p class="card__subtitle">{{form.user}}</p>
                                                 <p class="card__subtitle">3{{form.create__date}}</p>
                                             </div>
                                         </div>
-                                        <button><span style="color: #7a7a7a;"
-                                                class="material-icons-outlined">more_horiz</span></button>
+                                        <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td>{{homePageText.noFormFound}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Owner by me" headerStyleClass="tabpanel__header">
+                    <p-table [value]="forms" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
+                        [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
+                        <ng-template pTemplate="body" let-form>
+                            <tr>
+                                <td>
+                                    <div class="card__body">
+                                        <div class="card__content">
+                                            <i class="pi pi-file" style="font-size: 48px;"></i>
+                                            <div class="card__info">
+                                                <p class="card__title">{{form.formName}}</p>
+                                                <p class="card__subtitle">{{form.user}}</p>
+                                                <p class="card__subtitle">3{{form.create__date}}</p>
+                                            </div>
+                                        </div>
+                                        <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -62,18 +87,6 @@
                         </ng-template>
                     </p-table>
                 </p-tabPanel>
-                <p-tabPanel header="Owner by me" headerStyleClass="tabpanel__header">
-                    <ng-container>
-                        <tr class="p-selectable-row">
-                            <td></td>
-                        </tr>
-                    </ng-container>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td>No forms found.</td>
-                        </tr>
-                    </ng-template>
-                </p-tabPanel>
                 <p-tabPanel header="Draft" headerStyleClass="tabpanel__header">
                 </p-tabPanel>
                 <p-tabPanel header="Domain" headerStyleClass="tabpanel__header">
@@ -84,17 +97,17 @@
 
     <p-dialog header="Upload Excel" [(visible)]="displayUploadButton" [modal]="true" [style]="{width: '50vw'}"
         [draggable]="false" [resizable]="false" styleClass="main__dialog-upload">
-        <p class="dialog__content">Download example file .exe</p>
+        <p class="dialog__content">{{homePageText.uploadFileHeader}}</p>
         <form class="dialog__form-upload" method="post">
             <div class="form__upload">
-                <i class="pi pi-inbox" style="font-size: 36px; color: #5C95A3;"></i>
-                <!-- <div class="upload__thumb" data-label="myfile.txt"></div> -->
+                <i class="pi pi-inbox" style="font-size: 36px;"></i>
                 <input type="file" id="file" name="file" accept=".xls,.xlsx" class="upload__input"
-                    onchange="uploadFileByClick()" multiple>
+                    (change)=" changeUploadLabel()" multiple #fileUpload>
                 <label for="file" id="fileLabel">Click or drag file to this area to upload</label>
                 <p>Support for a single or bulk upload. Strictly prohibit from uploading company data or other band
                     files
                 </p>
+                <button type="submit" (click)="onUploadFile()">Upload</button>
             </div>
         </form>
     </p-dialog>

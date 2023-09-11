@@ -21,6 +21,10 @@ import { AvatarModule } from 'primeng/avatar';
 import { CardNotificationComponent } from './components/card-notification/card-notification.component';
 import { FormComponent } from './components/form/form.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { TextService } from './services/text-service.service';
+import { SearchComponent } from './pages/search/search.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     HomeComponent,
     CardNotificationComponent,
     FormComponent,
-    PaginationComponent
+    PaginationComponent,
+    SearchComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -47,9 +52,11 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     MenubarModule,
     HttpClientModule,
     StepsModule,
-    AvatarModule
+    AvatarModule,
+    InputTextModule,
+    ButtonModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, TextService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

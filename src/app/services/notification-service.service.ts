@@ -1,25 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Form } from '../models/form.model';
+import { Notification } from '../models/notification.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FormService {
+export class NotificationService {
 
   constructor(private http: HttpClient) { }
 
-  getForms() {
-    return this.http.get<any>('assets/data/form.json')
+  getAllNotifications() {
+    return this.http.get<any>('assets/data/notification.json')
       .toPromise()
       .then(res => {
         console.log('Response:', res);
-        return <Form[]>res;
+        return <Notification[]>res;
       })
       .catch(error => {
         console.error('An error occurred:', error);
         throw error;
       });
   }
-
 }

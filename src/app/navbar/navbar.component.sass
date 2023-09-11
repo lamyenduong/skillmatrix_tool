@@ -18,6 +18,51 @@
         align-items: center
         .navbar__right-icon
             margin-right: 35px
+        .btn__notification
+            #notiCount
+                position: absolute
+                width: 10px
+                height: 10px
+                background-color: #ff2323
+                border-radius: 100px
+                top: -12%
+                right: 61%
+        .noti__link
+            font-weight: 600
+            &:visited
+                font-weight: 400
+            .noti__card
+                display: flex
+                align-items: center
+                padding: 10px
+                max-width: 346px
+                cursor: pointer
+                &:hover
+                    background: $primary-03
+                .noti__avatar
+                    width: 48px
+                    height: 48px
+                    margin-right: 8px
+                    border-radius: 50%
+                    background-color: $neutro-07
+                    border: 2px solid $neutro-05
+                    .p-avatar-image
+                        width: 100%
+                        height: 100%
+                .noti__content
+                    display: grid
+                    font-family: Lato, sans-serif
+                    color: $neutro-07
+                    .noti__message
+                        max-width: 270px
+                        font-size: 14px
+                        overflow: hidden
+                        white-space: nowrap
+                        text-overflow: ellipsis
+                        margin: 0
+                    .noti__time
+                        font-size: 10px
+                        margin: 0
         .navbar__frame-user
             border: none
             outline: none
@@ -43,6 +88,7 @@
                     max-width: max-content
                     text-align: start
                     .user__name
+                        width: 155px
                         color: $neutro-07
                         font-size: 16px
                         line-height: 148%
