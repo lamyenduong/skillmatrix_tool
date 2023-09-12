@@ -1,6 +1,5 @@
-<div class="d-flex vh-100">
-    <div class="col-6">
-        <div class="background"></div>
+<div class="d-flex">
+    <div class="col-6 background">
     </div>
     <div class="col-6 form__container">
         <div class="container">
@@ -14,18 +13,18 @@
                 <div class="form__row">
                     <label for="fname">Full name:</label>
                     <div class="form__input">
-                        <input type="text" pInputText formControlName="fname" placeholder="Enter your full name" ngModel
+                        <input type="text" pInputText formControlName="fname" placeholder="Enter your full name"
                             name="fname" />
-                        <!-- <small
+                        <small
                             *ngIf="registerForm.get('fname')?.hasError('required') && (registerForm.get('fname')?.touched || registerForm.get('fname')?.dirty)">Full
-                            name is required.</small> -->
+                            name is required.</small>
                     </div>
                 </div>
                 <!--E-mail-->
                 <div class="form__row">
                     <label for="email">E-mail:</label>
                     <div class="form__input">
-                        <input type="email" pInputText formControlName="email" placeholder="Enter your e-mail" ngModel
+                        <input type="email" pInputText formControlName="email" placeholder="Enter your e-mail"
                             name="email" />
                         <!-- <small
                             *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
@@ -41,8 +40,7 @@
                 <div class="form__row">
                     <label for="dob">Date of birth:</label>
                     <div class="form__input">
-                        <input type="date" [max]="calculateMaxDate()" pInputText formControlName="dob" ngModel
-                            name="dob" />
+                        <input type="date" [max]="calculateMaxDate()" pInputText formControlName="dob" name="dob" />
                         <!-- <small
                             *ngIf="registerForm.get('dob')?.hasError('required') && (registerForm.get('dob')?.touched || registerForm.get('dob')?.dirty)">
                             Date of birth is required.
@@ -56,11 +54,11 @@
                 <!--Gender-->
                 <div class="form__row">
                     <label for="gender">Gender:</label>
-                    <div class="">
-                        <input class="p-radiobutton" type="radio" name="groupname" inputId="female"
+                    <div class="form__input-gender">
+                        <input class="p-radiobutton" type="radio" name="gender" value="female" inputId="female"
                             formControlName="gender">
                         <label for="female">Female</label>
-                        <input class="p-radiobutton" type="radio" name="groupname" inputId="male"
+                        <input class="p-radiobutton" type="radio" name="gender" value="male" inputId="male"
                             formControlName="gender">
                         <label for="male">Male</label>
                     </div>
@@ -70,7 +68,7 @@
                     <label for="phone">Phone number:</label>
                     <div class="form__input">
                         <input type="tel" minlength="10" pInputText formControlName="phone"
-                            placeholder="Enter your phone number" ngModel name="phone" />
+                            placeholder="Enter your phone number" name="phone" />
                         <!-- <small
                             *ngIf="registerForm.get('phone')?.hasError('required') && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)">
                             Phone number is required.
@@ -87,7 +85,7 @@
                     <div class="form__input">
                         <div class="form__row-password">
                             <input type="{{hide? 'password': 'text'}}" name="password" placeholder="Enter your password"
-                                formControlName="password" ngModel />
+                                formControlName="password" />
                             <button type="button" class="btn__visibility" (click)="hide = !hide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><span
                                     class="material-icons md-24">{{hide?
@@ -136,7 +134,7 @@
             </form>
 
             <!--LOGIN FORM-->
-            <form action="" *ngIf="isLoginForm" class="form form__login" id="formLogin" [formGroup]="loginForm">
+            <form action="" *ngIf="isLoginForm" class="form form__login vh-100" id="formLogin" [formGroup]="loginForm">
                 <p class="form__title">LOGIN</p>
                 <!--E-mail-->
                 <div class="form__row">

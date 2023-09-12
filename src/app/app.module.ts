@@ -30,6 +30,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { CalendarModule } from 'primeng/calendar';
 //Service
 import { TextService } from './services/text-service.service';
 
@@ -66,6 +67,7 @@ import { TextService } from './services/text-service.service';
     FormsModule,
     ReactiveFormsModule,
     RadioButtonModule,
+    CalendarModule
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

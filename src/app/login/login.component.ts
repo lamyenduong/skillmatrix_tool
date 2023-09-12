@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NavbarService } from '../services/navbar-service.service';
 
 @Component({
@@ -19,6 +19,19 @@ export class LoginComponent implements OnInit {
   constructor(private formbuilder: FormBuilder, public navbarService: NavbarService) { }
 
   ngOnInit(): void {
+    this.registerForm = this.formbuilder.group({
+      fname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      dob: ['', [Validators.required,]],
+      phone: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      password: ['', Validators.required],
+      confirm: ['', Validators.required],
+    });
+    this.loginForm = this.formbuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    })
   }
 
   //Max attribute for date input 
