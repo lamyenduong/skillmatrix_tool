@@ -1,0 +1,183 @@
+<div class="d-flex vh-100">
+    <div class="col-6">
+        <div class="background"></div>
+    </div>
+    <div class="col-6 form__container">
+        <div class="container">
+            <!--Success toast-->
+            <p-toast position="top-center"></p-toast>
+            <!--REGISTER FORM-->
+            <form *ngIf="!isLoginForm" class="form form__register" id="formRegister" [formGroup]="registerForm"
+                method="POST">
+                <p class="form__title">REGISTER</p>
+                <!--Full name-->
+                <div class="form__row">
+                    <label for="fname">Full name:</label>
+                    <div class="form__input">
+                        <input type="text" pInputText formControlName="fname" placeholder="Enter your full name" ngModel
+                            name="fname" />
+                        <!-- <small
+                            *ngIf="registerForm.get('fname')?.hasError('required') && (registerForm.get('fname')?.touched || registerForm.get('fname')?.dirty)">Full
+                            name is required.</small> -->
+                    </div>
+                </div>
+                <!--E-mail-->
+                <div class="form__row">
+                    <label for="email">E-mail:</label>
+                    <div class="form__input">
+                        <input type="email" pInputText formControlName="email" placeholder="Enter your e-mail" ngModel
+                            name="email" />
+                        <!-- <small
+                            *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
+                            Email is required.
+                        </small>
+                        <small
+                            *ngIf="registerForm.get('email')?.hasError('email') && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
+                            Invalid email format.
+                        </small> -->
+                    </div>
+                </div>
+                <!--Dob-->
+                <div class="form__row">
+                    <label for="dob">Date of birth:</label>
+                    <div class="form__input">
+                        <input type="date" [max]="calculateMaxDate()" pInputText formControlName="dob" ngModel
+                            name="dob" />
+                        <!-- <small
+                            *ngIf="registerForm.get('dob')?.hasError('required') && (registerForm.get('dob')?.touched || registerForm.get('dob')?.dirty)">
+                            Date of birth is required.
+                        </small>
+                        <small
+                            *ngIf="registerForm.get('dob')?.hasError('invalidDate') && !registerForm.get('dob')?.hasError('required') && (registerForm.get('dob')?.touched || registerForm.get('dob')?.dirty)">
+                            Invalid date format.
+                        </small> -->
+                    </div>
+                </div>
+                <!--Gender-->
+                <div class="form__row">
+                    <label for="gender">Gender:</label>
+                    <div class="">
+                        <input class="p-radiobutton" type="radio" name="groupname" inputId="female"
+                            formControlName="gender">
+                        <label for="female">Female</label>
+                        <input class="p-radiobutton" type="radio" name="groupname" inputId="male"
+                            formControlName="gender">
+                        <label for="male">Male</label>
+                    </div>
+                </div>
+                <!--Phone number-->
+                <div class="form__row">
+                    <label for="phone">Phone number:</label>
+                    <div class="form__input">
+                        <input type="tel" minlength="10" pInputText formControlName="phone"
+                            placeholder="Enter your phone number" ngModel name="phone" />
+                        <!-- <small
+                            *ngIf="registerForm.get('phone')?.hasError('required') && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)">
+                            Phone number is required.
+                        </small>
+                        <small
+                            *ngIf="registerForm.get('phone')?.hasError('invalidPhone') && !registerForm.get('phone')?.hasError('required') &&  (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)">
+                            Invalid phone number format.
+                        </small> -->
+                    </div>
+                </div>
+                <!--Password-->
+                <div class="form__row">
+                    <label for="password">Password:</label>
+                    <div class="form__input">
+                        <div class="form__row-password">
+                            <input type="{{hide? 'password': 'text'}}" name="password" placeholder="Enter your password"
+                                formControlName="password" ngModel />
+                            <button type="button" class="btn__visibility" (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><span
+                                    class="material-icons md-24">{{hide?
+                                    'visibility' :
+                                    'visibility_off'}}</span></button>
+                        </div>
+                        <!-- <small
+                            *ngIf="registerForm.get('password')?.hasError('required') && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)">
+                            Password is required.
+                        </small> -->
+                    </div>
+                </div>
+                <!--Confirm password-->
+                <div class="form__row">
+                    <label for="cfpassword">Confirm password:</label>
+                    <div class="form__input">
+                        <div class="form__row-password">
+                            <input type="{{cfhide? 'password': 'text'}}" name="cfpassword"
+                                placeholder="Confirm password" formControlName="confirm" />
+                            <button type="button" class="btn__visibility" (click)="cfhide = !cfhide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="cfhide"><span
+                                    class="material-icons md-24">{{cfhide?
+                                    'visibility' :
+                                    'visibility_off'}}</span></button>
+                        </div>
+                        <!-- <small
+                            *ngIf="registerForm.get('confirm')?.hasError('required') && (registerForm.get('confirm')?.touched || registerForm.get('confirm')?.dirty)">
+                            Confirm password is required.
+                        </small>
+                        <small
+                            *ngIf="registerForm.get('confirm')?.hasError('confirmPassword') && (registerForm.get('confirm')?.touched || registerForm.get('confirm')?.dirty)">
+                            Password does not match.
+                        </small> -->
+                    </div>
+                </div>
+                <!--Submit-->
+                <div class="form__row">
+                    <div class="form__row-connect">
+                        <p>Have an Account?</p>
+                        <button type="button" (click)="isLoginForm = !isLoginForm"> {{ isLoginForm ? 'Register' :
+                            'Sign in' }}</button>
+                    </div>
+                    <button pButton pRipple type="submit" label="Register"
+                        class="p-button-secondary btn__submit"></button>
+                </div>
+            </form>
+
+            <!--LOGIN FORM-->
+            <form action="" *ngIf="isLoginForm" class="form form__login" id="formLogin" [formGroup]="loginForm">
+                <p class="form__title">LOGIN</p>
+                <!--E-mail-->
+                <div class="form__row">
+                    <label for="email">E-mail:</label>
+                    <div class="form__input">
+                        <input type="email" pInputText formControlName="email" placeholder="Enter your e-mail" />
+                        <!-- <small
+                            *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
+                            Email is required.
+                        </small> -->
+                    </div>
+                </div>
+                <!--Password-->
+                <div class="form__row">
+                    <label for="password">Password:</label>
+                    <div class="form__input">
+                        <div class="form__row-password">
+                            <input type="{{hide? 'password': 'text'}}" name="password" placeholder="Enter your password"
+                                formControlName="password">
+                            <button type="button" class="btn__visibility" (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><span
+                                    class="material-icons md-24">{{hide?
+                                    'visibility' :
+                                    'visibility_off'}}</span></button>
+                        </div>
+                        <!-- <small
+                            *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)">
+                            Password is required.
+                        </small> -->
+                    </div>
+                </div>
+                <!--Submit-->
+                <div class="form__row">
+                    <div class="form__row-connect">
+                        <p>Don't have an Account?</p>
+                        <button type="button" (click)="isLoginForm = !isLoginForm"> {{ isLoginForm ? 'Register' :
+                            'Sign in' }}</button>
+                    </div>
+                    <button pButton pRipple type="submit" label="Login" class="p-button-secondary btn__submit"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

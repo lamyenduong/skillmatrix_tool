@@ -10,4 +10,5 @@ export interface User {
     status: boolean
     role: string
     create_date: string
+    avatar: string
 }

@@ -11,29 +11,41 @@
                 <button pButton class="p-button-outlined" label="Filter" icon="pi pi-filter"></button>
             </div>
         </div>
-        <p-table styleClass="search__table">
+        <p-table styleClass="search__table" [value]="users" [rows]="15">
             <ng-template pTemplate="header" let-user>
                 <tr>
-                    <th style="border-radius: 10px 0 0 0; border: none; background: #5396fa; color: white;">ID</th>
-                    <th style="border: none; background: #5396fa; color: white;">Avatar</th>
-                    <th style="border: none; background: #5396fa; color: white;">Gender</th>
-                    <th style="border: none; background: #5396fa; color: white;">Birthday</th>
-                    <th style="border: none; background: #5396fa; color: white;">E-mail</th>
-                    <th style="border: none; background: #5396fa; color: white;">Phone</th>
-                    <th style="border: none; background: #5396fa; color: white;">Status</th>
-                    <th style="border-radius: 0 10px 0 0; border: none; background: #5396fa; color: white;"></th>
+                    <th style="width: 10%; border-radius: 10px 0 0 0; border: none; background: #5396fa; color: white;">
+                        ID</th>
+                    <th style="width: 20%; border: none; background: #5396fa; color: white;">Avatar</th>
+                    <th style="width: 10%; border: none; background: #5396fa; color: white;">Gender</th>
+                    <th style="width: 10%; border: none; background: #5396fa; color: white;">Birthday</th>
+                    <th style="width: 16%; border: none; background: #5396fa; color: white;">E-mail</th>
+                    <th style="width: 12%; border: none; background: #5396fa; color: white;">Phone</th>
+                    <th style="width: 14%; border: none; background: #5396fa; color: white;">Status</th>
+                    <th style="width: 8%; border-radius: 0 10px 0 0; border: none; background: #5396fa; color: white;">
+                    </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body">
-                <tr>
-                    <td>1651654</td>
-                    <td>
+            <ng-template pTemplate="body" let-user>
+                <tr style="font-size: 14px;">
+                    <td>{{user.user_id}}</td>
+                    <td style="display: flex; align-items: center;">
+                        <p-avatar image="{{user.avatar}}" shape="circle"></p-avatar>
+                        <div class="search__user-info" style="display: grid; margin-left: 8px;">
+                            <span style="font-size: 14px;">{{user.full_name}}</span>
+                            <span style="font-size: 8px;">{{user.role}}</span>
+                        </div>
                     </td>
-                    <td>gewrgqeg</td>
-                    <td>eqrgeqrg</td>
-                    <td>qergerg</td>
-                    <td>qregerg</td>
-                    <td>reqgqergerg</td>
+                    <td>{{user.gender}}</td>
+                    <td>{{user.birthday}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone_number}}</td>
+                    <td style="align-items: center;">
+                        <i class="pi pi-circle-fill" style="font-size: 8px; margin-right: 4px;"></i>
+                        <span>{{user.status}}</span>
+                    </td>
+                    <td style="text-align: center;"><button><i class="pi pi-ellipsis-h"
+                                style="color: #7a7a7a;"></i></button></td>
                 </tr>
             </ng-template>
         </p-table>

@@ -2,6 +2,7 @@ import { MenuItem } from 'primeng/api';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NotificationService } from '../services/notification-service.service';
 import { Notification } from '../models/notification.model';
+import { NavbarService } from '../services/navbar-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,13 +22,16 @@ export class NavbarComponent implements OnInit {
     }
   ]
 
-  constructor(private notificationService: NotificationService) { }
+  constructor(private notificationService: NotificationService, public navbarService: NavbarService) {
+  }
 
   ngOnInit(): void {
     this.notificationService.getAllNotifications().then(notifications => this.notifications = notifications);
   }
+
   closeNotification() {
     const notiCount = document.querySelector('#notiCount') as HTMLSpanElement
     notiCount.style.display = "none";
   }
+
 }

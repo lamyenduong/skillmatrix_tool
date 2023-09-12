@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './pages/search/search.component';
+import { LoginComponent } from './login/login.component';
+import { ErrorComponent } from './pages/error/error.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: '', component: SearchComponent }
+  { path: '', component: LoginComponent },
+  { path: 'search', component: SearchComponent },
+  { path: '404', component: ErrorComponent },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({

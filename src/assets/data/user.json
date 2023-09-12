@@ -1,3 +1,58 @@
 [
-    {}
+    {
+        "user_id": "587369",
+        "username": "a123",
+        "password": "string",
+        "full_name": "Nguyen Van A",
+        "gender": "Male",
+        "phone_number": "0954536525",
+        "birthday": "09/09/2001",
+        "email": "a123@gmail.com",
+        "status": "Incomplete",
+        "role": "Contractor",
+        "create_date": "string",
+        "avatar": "string"
+    },
+    {
+        "user_id": "587369",
+        "username": "a123",
+        "password": "string",
+        "full_name": "Nguyen Van A",
+        "gender": "Male",
+        "phone_number": "0954536525",
+        "birthday": "09/09/2001",
+        "email": "a123@gmail.com",
+        "status": "Incomplete",
+        "role": "Contractor",
+        "create_date": "string",
+        "avatar": "string"
+    },
+    {
+        "user_id": "587369",
+        "username": "a123",
+        "password": "string",
+        "full_name": "Nguyen Van A",
+        "gender": "Male",
+        "phone_number": "0954536525",
+        "birthday": "09/09/2001",
+        "email": "a123@gmail.com",
+        "status": "Incomplete",
+        "role": "Contractor",
+        "create_date": "string",
+        "avatar": "string"
+    },
+    {
+        "user_id": "587369",
+        "username": "a123",
+        "password": "string",
+        "full_name": "Nguyen Van A",
+        "gender": "Male",
+        "phone_number": "0954536525",
+        "birthday": "09/09/2001",
+        "email": "a123@gmail.com",
+        "status": "Incomplete",
+        "role": "Contractor",
+        "create_date": "string",
+        "avatar": "string"
+    }
 ]
