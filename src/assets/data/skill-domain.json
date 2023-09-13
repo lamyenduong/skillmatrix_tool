@@ -1,0 +1,12 @@
+[
+    {
+        "domain_id": "dm01",
+        "domain_main": "Frontend",
+        "project": "Project A"
+    },
+    {
+        "domain_id": "dm02",
+        "domain_main": "Backend",
+        "project": "Project A"
+    }
+]

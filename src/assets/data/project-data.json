@@ -1,0 +1,12 @@
+[
+    {
+        "project_id": "pj01",
+        "project_name": "Project A",
+        "status": true
+    },
+    {
+        "project_id": "pj02",
+        "project_name": "Project B",
+        "status": true
+    }
+]

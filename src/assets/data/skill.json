@@ -1,7 +1,27 @@
 [
     {
-        "skill_id": "skil01",
-        "skill_name": "ReactJS",
+        "skill_id": "sk01",
+        "skill_name": "React",
         "skill_domain": "Frontend"
+    },
+    {
+        "skill_id": "sk02",
+        "skill_name": "Angular",
+        "skill_domain": "Frontend"
+    },
+    {
+        "skill_id": "sk03",
+        "skill_name": "Javascript",
+        "skill_domain": "Frontend"
+    },
+    {
+        "skill_id": "sk04",
+        "skill_name": "Java",
+        "skill_domain": "Backend"
+    },
+    {
+        "skill_id": "sk05",
+        "skill_name": "NodeJS",
+        "skill_domain": "Backend"
     }
 ]
