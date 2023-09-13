@@ -31,6 +31,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
+import { ChipsModule } from 'primeng/chips';
 //Service
 import { TextService } from './services/text-service.service';
 
@@ -67,7 +68,8 @@ import { TextService } from './services/text-service.service';
     FormsModule,
     ReactiveFormsModule,
     RadioButtonModule,
-    CalendarModule
+    CalendarModule,
+    ChipsModule
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

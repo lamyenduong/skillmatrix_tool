@@ -4,13 +4,12 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class NavbarService {
-    isNavbar: boolean
+    isNavbar: boolean = true
 
     constructor() {
-        this.isNavbar = true
     }
     hide() {
-        this.isNavbar = !this.isNavbar;
+        this.isNavbar = false;
     }
     display() {
         this.isNavbar = true

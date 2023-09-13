@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavbarService } from '../services/navbar-service.service';
 
 @Component({
@@ -16,7 +16,9 @@ export class LoginComponent implements OnInit {
 
   selectedValue: any
 
-  constructor(private formbuilder: FormBuilder, public navbarService: NavbarService) { }
+  constructor(private formbuilder: FormBuilder, public navbarService: NavbarService) {
+    this.navbarService.hide();
+  }
 
   ngOnInit(): void {
     this.registerForm = this.formbuilder.group({

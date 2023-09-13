@@ -1,53 +1,71 @@
-<div class="frame__secondary">
-    <div class="container mx-auto">
-        <div class="search__frame">
+<div class="primary-frame">
+    <div class="container-fluid mx-auto primary-frame">
+        <div class="container">
             <div class="search__frame-header">{{searchPageText.searchFrameHeader}}</div>
-            <div class="search__frame-bar">
-                <button pButton class="p-button-outlined" label="Back" icon="pi pi-arrow-left"></button>
-                <span class="p-input-icon-left search__bar">
-                    <i class="pi pi-search"></i>
-                    <input type="text" pInputText placeholder="Search" />
-                </span>
-                <button pButton class="p-button-outlined" label="Filter" icon="pi pi-filter"></button>
-            </div>
         </div>
-        <p-table styleClass="search__table" [value]="users" [rows]="15">
-            <ng-template pTemplate="header" let-user>
-                <tr>
-                    <th style="width: 10%; border-radius: 10px 0 0 0; border: none; background: #5396fa; color: white;">
-                        ID</th>
-                    <th style="width: 20%; border: none; background: #5396fa; color: white;">Avatar</th>
-                    <th style="width: 10%; border: none; background: #5396fa; color: white;">Gender</th>
-                    <th style="width: 10%; border: none; background: #5396fa; color: white;">Birthday</th>
-                    <th style="width: 16%; border: none; background: #5396fa; color: white;">E-mail</th>
-                    <th style="width: 12%; border: none; background: #5396fa; color: white;">Phone</th>
-                    <th style="width: 14%; border: none; background: #5396fa; color: white;">Status</th>
-                    <th style="width: 8%; border-radius: 0 10px 0 0; border: none; background: #5396fa; color: white;">
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-user>
-                <tr style="font-size: 14px;">
-                    <td>{{user.user_id}}</td>
-                    <td style="display: flex; align-items: center;">
-                        <p-avatar image="{{user.avatar}}" shape="circle"></p-avatar>
-                        <div class="search__user-info" style="display: grid; margin-left: 8px;">
-                            <span style="font-size: 14px;">{{user.full_name}}</span>
-                            <span style="font-size: 8px;">{{user.role}}</span>
-                        </div>
-                    </td>
-                    <td>{{user.gender}}</td>
-                    <td>{{user.birthday}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.phone_number}}</td>
-                    <td style="align-items: center;">
-                        <i class="pi pi-circle-fill" style="font-size: 8px; margin-right: 4px;"></i>
-                        <span>{{user.status}}</span>
-                    </td>
-                    <td style="text-align: center;"><button><i class="pi pi-ellipsis-h"
-                                style="color: #7a7a7a;"></i></button></td>
-                </tr>
-            </ng-template>
-        </p-table>
     </div>
+
+    <div class="container-fluid mx-auto" style="border-radius: 30px 30px 0 0; background: white;">
+        <div class="container">
+            <div class="search__frame">
+                <div class="search__frame-bar">
+                    <button pRipple pButton class="p-button-outlined" label="Back" icon="pi pi-arrow-left"></button>
+                    <span class="p-input-icon-left search__bar">
+                        <i class="pi pi-search"></i>
+                        <input type="text" pInputText placeholder="Search" />
+                    </span>
+                    <button pRipple pButton class="p-button-outlined" label="Filter" icon="pi pi-filter"
+                        (click)="showFilterDialog()"></button>
+                </div>
+            </div>
+            <p-table styleClass="search__table" [value]="users" [rows]="15">
+                <ng-template pTemplate="header" let-user>
+                    <tr>
+                        <th style="width: 10%;">ID</th>
+                        <th style="width: 20%;">Avatar</th>
+                        <th style="width: 10%;">Gender</th>
+                        <th style="width: 10%;">Birthday</th>
+                        <th style="width: 16%;">E-mail</th>
+                        <th style="width: 12%;">Phone</th>
+                        <th style="width: 14%;">Status</th>
+                        <th style="width: 8%; ">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user>
+                    <tr>
+                        <td>{{user.user_id}}</td>
+                        <td class="table__col-avatar">
+                            <p-avatar image="{{user.avatar}}" shape="circle"></p-avatar>
+                            <div class="col__content">
+                                <span>{{user.full_name}}</span>
+                                <p>{{user.role}}</p>
+                            </div>
+                        </td>
+                        <td>{{user.gender}}</td>
+                        <td>{{user.birthday}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.phone_number}}</td>
+                        <td class="table__col-status">
+                            <i class="pi pi-circle-fill" style="font-size: 10px; margin-right: 4px;"></i>
+                            <span>{{user.status}}</span>
+                        </td>
+                        <td class="text-center"><button><i class="pi pi-ellipsis-h"
+                                    style="color: #7a7a7a;"></i></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <p-dialog header="Filter" [(visible)]="displayFilterButton" [modal]="true" [style]="{width: '50vw'}"
+        [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
+        <select>
+            <!-- dsach ten skill domain -->
+            <option value=""></option>
+        </select>
+        <p-chips>
+
+        </p-chips>
+    </p-dialog>
 </div>
