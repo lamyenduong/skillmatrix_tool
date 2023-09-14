@@ -100,16 +100,19 @@
     <p-dialog header="Upload Excel" [(visible)]="displayUploadButton" [modal]="true" [style]="{width: '50vw'}"
         [draggable]="false" [resizable]="false" styleClass="main__dialog-upload">
         <p class="dialog__content">{{homePageText.uploadFileHeader}}</p>
-        <form class="dialog__form-upload" method="post">
+        <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)">
             <div class="form__upload">
                 <i class="pi pi-inbox" style="font-size: 36px;"></i>
                 <input type="file" id="file" name="file" accept=".xls,.xlsx" class="upload__input"
-                    (change)=" changeUploadLabel()" multiple #fileUpload>
-                <label for="file" id="fileLabel">Click or drag file to this area to upload</label>
+                    (change)="onFileInputChange($event)" multiple #fileUpload>
+                <label for="file" id="fileLabel" [ngClass]="{'drag-over': isDragOver}">Click or drag file to this area
+                    to upload</label>
                 <p>Support for a single or bulk upload. Strictly prohibit from uploading company data or other band
                     files
                 </p>
-                <button type="submit" (click)="onUploadFile()">Upload</button>
+                <button pButton class="upload__btn" type="submit" (click)="onUploadFile()"
+                    *ngIf="fileSelected">Upload</button>
             </div>
         </form>
     </p-dialog>
