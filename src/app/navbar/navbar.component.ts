@@ -29,6 +29,8 @@ export class NavbarComponent implements OnInit {
     this.notificationService.getAllNotifications().then(notifications => this.notifications = notifications);
   }
 
+  //Notification
+  isNewNotification!: boolean
   closeNotification() {
     const notiCount = document.querySelector('#notiCount') as HTMLSpanElement
     notiCount.style.display = "none";

@@ -58,14 +58,29 @@
         </div>
     </div>
 
-    <p-dialog header="Filter" [(visible)]="displayFilterButton" [modal]="true" [style]="{width: '50vw'}"
+    <p-dialog header="Filter" [(visible)]="displayFilterButton" [modal]="true" [style]="{width: '40vw'}"
         [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
-        <select>
-            <!-- dsach ten skill domain -->
-            <option value=""></option>
-        </select>
-        <p-chips>
+        <form action="" [formGroup]="reactiveSkillDomainForm">
+            <select class="filter__form" formControlName="skillDomainsControl">
+                <option *ngFor="let domain of skillDomains" value="{{domain.domain_name}}">{{domain.domain_name}}
+                </option>
+            </select>
+        </form>
+        <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('skillDomainsControl')?.value">
+            <span>{{domain.domain_name}}</span>
+            <span>4</span>
+        </p-chip>
+        <div class="filter__btn-point">
+            <button value="Any" pButton type=" button" label="Any" class="p-button-outlined p-button-rounded"></button>
+            <ng-container *ngFor="let point of points">
+                <button value="{{point}}" pButton type="button" label="{{point}}"
+                    class="p-button-outlined p-button-rounded btn__point-number"></button>
+            </ng-container>
+        </div>
+        <div class="filter__btn-control">
+            <button pButton type="button" class="p-button-outlined p-button-rounded" label="Cancel"></button>
+            <button pButton type="submit" class="p-button-rounded" label="Submit"></button>
+        </div>
 
-        </p-chips>
     </p-dialog>
 </div>

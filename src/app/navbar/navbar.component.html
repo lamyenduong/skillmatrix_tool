@@ -21,7 +21,7 @@
                             <div class="noti__card">
                                 <p-avatar image="{{notification.avatar}}" shape="circle"
                                     class="noti__avatar"></p-avatar>
-                                <div class="noti__content">
+                                <div class="noti__content" [style.font-weight]="isNewNotification ? '700' : '400'">
                                     <p class="noti__message">{{notification.message}}</p>
                                     <p class="noti__time">{{notification.createAt}}</p>
                                 </div>

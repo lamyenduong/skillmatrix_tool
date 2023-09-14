@@ -23,11 +23,10 @@ export class HomeComponent implements OnInit {
     });
     this.formService.getForms().then(forms => this.forms = forms);
   }
-
+  //Upload File
   showUploadDialog() {
     this.displayUploadButton = true
   }
-
   changeUploadLabel() {
     const fileInput = document.querySelector("#file") as HTMLInputElement;;
     if (fileInput.files && fileInput.files.length > 0) {
@@ -36,8 +35,11 @@ export class HomeComponent implements OnInit {
       label.innerText = fileName;
     }
   }
-
   onUploadFile() {
-
   }
+  //Search
+  onSearchChangeHome(event: any) {
+    console.log(event.target.value);
+  }
+
 }

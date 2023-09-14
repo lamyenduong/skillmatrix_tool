@@ -31,9 +31,10 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
-import { ChipsModule } from 'primeng/chips';
+import { ChipModule } from 'primeng/chip';
 //Service
 import { TextService } from './services/text-service.service';
+import { CreateFormComponent } from './pages/create-form/create-form.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TextService } from './services/text-service.service';
     FormComponent,
     SearchComponent,
     LoginComponent,
-    ErrorComponent
+    ErrorComponent,
+    CreateFormComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -69,7 +71,7 @@ import { TextService } from './services/text-service.service';
     ReactiveFormsModule,
     RadioButtonModule,
     CalendarModule,
-    ChipsModule
+    ChipModule,
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

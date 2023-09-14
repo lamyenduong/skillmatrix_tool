@@ -2,7 +2,7 @@
     <div class="main__first-frame">
         <div class="container">
             <div class="main__frame-action d-flex ">
-                <button pRipple class="action__create">
+                <button pRipple class="action__create" routerLink="/create">
                     <i class="pi pi-plus" style="color: #767676; font-size: 40px;"></i>
                     <p>create form</p>
                 </button>
@@ -15,7 +15,7 @@
                 <label>{{homePageText.mainFirstBar}}</label>
                 <div class="filter__bar-right d-flex">
                     <span class="filter__searchbar p-input-icon-right">
-                        <input type="text" pInputText placeholder="Search">
+                        <input type="text" pInputText placeholder="Search" (input)="onSearchChangeHome($event)">
                         <i class="pi pi-search" style="color: #7a7a7a; font-size: 24px;"></i>
                     </span>
                     <button class="filter__btn">

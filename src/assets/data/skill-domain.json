@@ -1,12 +1,14 @@
 [
     {
         "domain_id": "dm01",
-        "domain_main": "Frontend",
-        "project": "Project A"
+        "domain_name": "Frontend",
+        "project": "Project A",
+        "status": "ok"
     },
     {
         "domain_id": "dm02",
-        "domain_main": "Backend",
-        "project": "Project A"
+        "domain_name": "Backend",
+        "project": "Project A",
+        "status": "ok"
     }
 ]

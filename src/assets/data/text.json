@@ -2,5 +2,6 @@
     "mainFirstBar": "Form Survey",
     "uploadFileHeader": "Download example file .exe",
     "noFormFound": "No forms found.",
-    "searchFrameHeader": "Name Form"
+    "searchFrameHeader": "Name Form",
+    "createFormFrameHeader": "Create Form"
 }

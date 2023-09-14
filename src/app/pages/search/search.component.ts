@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
 import { SkillDomainService } from 'src/app/services/skil-domain-service.service';
@@ -16,18 +17,34 @@ export class SearchComponent implements OnInit {
   users!: User[]
   displayFilterButton!: boolean
   skillDomains!: SkillDomain[]
+  reactiveSkillDomainForm!: FormGroup
+  points: number[] = [1, 2, 3, 4, 5]
 
-  constructor(private textService: TextService, private userService: UserService, private skillDomainnService: SkillDomainService) { }
+  constructor(private textService: TextService, private userService: UserService, private skillDomainService: SkillDomainService) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
       this.searchPageText = data;
     });
     this.userService.getAllUsers().then(users => this.users = users)
-    this.skillDomainnService.getAllSkillDomains().then(skillDomains => this.skillDomains = skillDomains)
+    this.skillDomainService.getAllSkillDomains().then(skillDomains => this.skillDomains = skillDomains)
+    this.reactiveSkillDomainForm = new FormGroup({
+      skillDomainsControl: new FormControl({}),
+    })
+    this.subscribeDomainsChange()
   }
-
   showFilterDialog() {
     this.displayFilterButton = true
   }
+
+  subscribeDomainsChange() {
+    const domainCtrl = this.reactiveSkillDomainForm.get('skillDomainsControl');
+    console.log(domainCtrl)
+    if (domainCtrl) {
+      domainCtrl.valueChanges.subscribe((data) => {
+        console.log(data)
+      })
+    }
+  }
+
 }
