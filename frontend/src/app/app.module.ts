@@ -1,5 +1,5 @@
 // Angular
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +13,10 @@ import { ErrorComponent } from './pages/error/error.component';
 import { SearchComponent } from './pages/search/search.component';
 import { FormComponent } from './components/form/form.component';
 import { LoginComponent } from './login/login.component';
+import { CreateFormComponent } from './pages/create-form/create-form.component';
+import { CreateStep1Component } from './pages/create-form/components/create-step1/create-step1.component';
+import { CreateStep2Component } from './pages/create-form/components/create-step2/create-step2.component';
+import { CreateStep3Component } from './pages/create-form/components/create-step3/create-step3.component';
 // Primeng
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
@@ -22,6 +26,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { StepsModule } from 'primeng/steps';
 import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TabViewModule } from 'primeng/tabview';
@@ -34,7 +39,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { ChipModule } from 'primeng/chip';
 //Service
 import { TextService } from './services/text-service.service';
-import { CreateFormComponent } from './pages/create-form/create-form.component';
 
 @NgModule({
   declarations: [
@@ -45,9 +49,11 @@ import { CreateFormComponent } from './pages/create-form/create-form.component';
     SearchComponent,
     LoginComponent,
     ErrorComponent,
-    CreateFormComponent
+    CreateFormComponent,
+    CreateStep1Component,
+    CreateStep2Component,
+    CreateStep3Component
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -72,6 +78,7 @@ import { CreateFormComponent } from './pages/create-form/create-form.component';
     RadioButtonModule,
     CalendarModule,
     ChipModule,
+    InputTextareaModule,
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+<form class="step__form">
+    <div class="step__form-row">
+        <label for="formName">Form Name</label>
+        <input class="form__input" type="text" pInputText placeholder="Enter form name">
+    </div>
+    <div class="step__form-row">
+        <label for="formDescription">Description</label>
+        <textarea class="form__input" type="text" pInputTextarea placeholder="Enter form description"
+            rows="10"></textarea>
+    </div>
+    <div class="step__form-btn text-end">
+        <button pButton pRipple icon="pi pi-arrow-right" label="Next" iconPos="right" (click)="nextPage()"></button>
+    </div>
+</form>
