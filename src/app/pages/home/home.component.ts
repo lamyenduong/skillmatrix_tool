@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     this.textService.getAllTexts().subscribe(data => {
       this.homePageText = data;
     });
-    this.formService.getForms().then(forms => this.forms = forms);
+    this.formService.getAllForms().then(forms => this.forms = forms);
   }
 
   //Upload File  
