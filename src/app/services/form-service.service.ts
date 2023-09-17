@@ -11,30 +11,13 @@ export class FormService {
   constructor(private http: HttpClient) { }
 
   getAllForms() {
-    const url = `${this.apiUrl}`;
-    return this.http.get<Form[]>(url)
-      .toPromise()
-      .then(res => {
-        console.log('Response:', res);
-        return <Form[]>res;
-      })
-      .catch(error => {
-        console.error('An error occurred:', error);
-        throw error;
-      });
-  }
-  getFormById(formID: string) {
-    const url = `${this.apiUrl}/forms/${formID}`;
-    return this.http.get<Form[]>(url)
-      .toPromise()
-      .then(res => {
-        console.log('Response:', res);
-        return res;
-      })
-      .catch(error => {
-        console.error('An error occurred:', error);
-        throw error;
-      });
+    return this.http.get<Form[]>(`${this.apiUrl}/forms`)
   }
 
+  getFormById(formID: string) {
+    return this.http.get<Form[]>(`${this.apiUrl}/forms/${formID}`)
+  }
+  getFormHasJoinInByName(formName: string, userId: number) {
+
+  }
 }

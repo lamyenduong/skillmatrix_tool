@@ -1,8 +1,8 @@
 import { Project } from "./project.model"
 
 export interface SkillDomain {
-    domain_id: number
-    domain_name: string
+    domainId: number
+    domainName: string
     project: Project
     status: string
 }

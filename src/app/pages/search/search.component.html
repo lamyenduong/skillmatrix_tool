@@ -33,18 +33,18 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
                     <tr>
-                        <td>{{user.user_id}}</td>
+                        <td>{{user.userId}}</td>
                         <td class="table__col-avatar">
                             <p-avatar image="{{user.avatar}}" shape="circle"></p-avatar>
                             <div class="col__content">
-                                <span>{{user.full_name}}</span>
+                                <span>{{user.fullName}}</span>
                                 <p>{{user.role}}</p>
                             </div>
                         </td>
                         <td>{{user.gender}}</td>
                         <td>{{user.birthday}}</td>
                         <td>{{user.email}}</td>
-                        <td>{{user.phone_number}}</td>
+                        <td>{{user.phoneNumber}}</td>
                         <td class="table__col-status">
                             <i class="pi pi-circle-fill" style="font-size: 10px; margin-right: 4px;"></i>
                             <span>{{user.status}}</span>
@@ -62,12 +62,12 @@
         [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
         <form action="" [formGroup]="reactiveSkillDomainForm">
             <select class="filter__form" formControlName="skillDomainsControl">
-                <option *ngFor="let domain of skillDomains" value="{{domain.domain_name}}">{{domain.domain_name}}
+                <option *ngFor="let domain of skillDomains" value="{{domain.domainName}}">{{domain.domainName}}
                 </option>
             </select>
         </form>
         <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('skillDomainsControl')?.value">
-            <span>{{domain.domain_name}}</span>
+            <span>{{domain.domainName}}</span>
             <span>4</span>
         </p-chip>
         <div class="filter__btn-point">
