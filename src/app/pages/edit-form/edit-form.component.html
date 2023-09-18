@@ -25,8 +25,33 @@
                 Skill Domain
             </ng-template>
             <ng-template pTemplate="icons">
-                <p-menu #menu [popup]="true"></p-menu>
+                <p-menu #menu [popup]="true">
+                </p-menu>
             </ng-template>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="radio-labels col-10">
+                    <label for="0">0</label>
+                    <label for="1">1</label>
+                    <label for="2">2</label>
+                    <label for="3">3</label>
+                    <label for="4">4</label>
+                    <label for="5">5</label>
+                </div>
+            </div>
+            <div class="radio-form d-flex align-items-center">
+                <div class="col-2">
+                    <p style="margin:0;">Skill name</p>
+                </div>
+                <div class="radio-options w-100">
+                    <p-radioButton id="0" name="number" [(ngModel)]="selectedValue" value="0">0</p-radioButton>
+                    <p-radioButton id="1" name="number" [(ngModel)]="selectedValue" value="1">0</p-radioButton>
+                    <p-radioButton id="2" name="number" [(ngModel)]="selectedValue" value="2"></p-radioButton>
+                    <p-radioButton id="3" name="number" [(ngModel)]="selectedValue" value="3"></p-radioButton>
+                    <p-radioButton id="4" name="number" [(ngModel)]="selectedValue" value="4"></p-radioButton>
+                    <p-radioButton id="5" name="number" [(ngModel)]="selectedValue" value="5"></p-radioButton>
+                </div>
+            </div>
         </p-panel>
     </div>
 </div>

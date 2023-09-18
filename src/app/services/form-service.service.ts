@@ -17,7 +17,4 @@ export class FormService {
   getFormById(formId: string) {
     return this.http.get<Form[]>(`${this.apiUrl}/forms/${formId}`)
   }
-  getFormHasJoinInByName(formName: string, userId: string) {
-
-  }
 }

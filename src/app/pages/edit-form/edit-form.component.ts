@@ -9,6 +9,7 @@ import { TextService } from 'src/app/services/text-service.service';
   encapsulation: ViewEncapsulation.None
 })
 export class EditFormComponent implements OnInit {
+  selectedValue!: string
   editFormPageText: any
 
   constructor(public textService: TextService) { }

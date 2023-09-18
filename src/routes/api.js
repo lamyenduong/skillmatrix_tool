@@ -34,31 +34,31 @@ const apiRoute = (app) => {
       const db = getDb();
       const formCollection = db.collection("form");
       const formParticipantCollection = db.collection("form-participant");
-      formCollection.aggregate([
-        {
-          $lookup: {
-            from: "formParticipantCollection",
-            localField: "form_id",
-            foreignField: "form.form_id",
-            as: "participants",
+      const participants = await formParticipantCollection
+        .aggregate([
+          {
+            $match: { "form.form_id": form_id },
           },
-        },
-        {
-          $unwind: "$participants",
-        },
-        {
-          $match: {
-            "participants.user.user_id": userIDValue,
+          {
+            $lookup: {
+              from: "user",
+              localField: "user.user_id",
+              foreignField: "user_id",
+              as: "participant_user",
+            },
           },
-        },
-        {
-          $project: {
-            _id: 0,
-            formID: 1,
+          {
+            $unwind: "$participant_user",
           },
-        },
-      ]);
-      res.status(200).json(forms);
+          {
+            $project: {
+              _id: 0,
+              "participant_user.user_name": 1,
+            },
+          },
+        ])
+        .toArray();
+      res.status(200).json(participants);
     } catch (error) {
       console.error("Error fetching forms:", error);
       res.status(500).json({ error: "An error occurred" });
