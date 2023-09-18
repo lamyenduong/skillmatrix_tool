@@ -1,5 +1,8 @@
+import { User } from "./user.model"
+
 export interface Notification {
-    avatar: string
+    noti_id: string
+    user: User
     message: string
-    createAt: string
+    create_at: string
 }

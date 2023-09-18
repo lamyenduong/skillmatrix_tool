@@ -14,10 +14,10 @@
             <div class="main__frame-filter d-flex">
                 <label>{{homePageText.mainFirstBar}}</label>
                 <div class="filter__bar-right d-flex">
-                    <span class="filter__searchbar p-input-icon-right">
+                    <form class="filter__searchbar p-input-icon-right" (submit)="submitSearchForm()">
                         <input type="text" pInputText placeholder="Search" (input)="onSearchChangeHome($event)">
                         <i class="pi pi-search" style="color: #7a7a7a; font-size: 24px;"></i>
-                    </span>
+                    </form>
                     <button class="filter__btn">
                         <i class="pi pi-sort-alpha-down" style="color: #7a7a7a; font-size: 24px;"></i>
                     </button>
@@ -44,9 +44,9 @@
                                             <span class="material-icons"
                                                 style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
                                             <div class="card__info">
-                                                <p class="card__title">{{form.formName}}</p>
+                                                <a class="card__title" routerLink="">{{form.form_name}}</a>
                                                 <p class="card__subtitle">{{form.user}}</p>
-                                                <p class="card__subtitle">{{form.createDate}}</p>
+                                                <p class="card__subtitle">{{form.create_date}}</p>
                                             </div>
                                         </div>
                                         <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>
@@ -72,9 +72,9 @@
                                             <span class="material-icons"
                                                 style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
                                             <div class="card__info">
-                                                <p class="card__title">{{form.formName}}</p>
+                                                <a class="card__title" routerLink="">{{form.form_name}}</a>
                                                 <p class="card__subtitle">{{form.user}}</p>
-                                                <p class="card__subtitle">{{form.createDate}}</p>
+                                                <p class="card__subtitle">{{form.create_date}}</p>
                                             </div>
                                         </div>
                                         <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>

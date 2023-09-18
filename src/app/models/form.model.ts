@@ -1,10 +1,10 @@
 import { User } from "./user.model"
 
 export interface Form {
-    formId: string
-    formName: string
-    createDate: string
-    formDeadline: string
-    formDescription: string
+    form_id: string
+    form_name: string
+    create_date: string
+    form_deadline: string
+    form_description: string
     user: User
 }

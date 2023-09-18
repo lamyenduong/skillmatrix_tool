@@ -1,5 +1,5 @@
 export interface Project {
-    projectId: number
-    projectName: string
+    project_id: number
+    project_name: string
     status: boolean
 }

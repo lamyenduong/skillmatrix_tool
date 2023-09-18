@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
     this.textService.getAllTexts().subscribe(data => {
       this.searchPageText = data;
     });
-    this.userService.getAllUsers().then(users => this.users = users)
+    this.userService.getAllUsers().subscribe(users => this.users = users)
     this.skillDomainService.getAllSkillDomains().then(skillDomains => this.skillDomains = skillDomains)
     this.reactiveSkillDomainForm = new FormGroup({
       skillDomainsControl: new FormControl({}),

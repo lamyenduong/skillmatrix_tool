@@ -1,0 +1,32 @@
+<div class="container-fluid primary-frame">
+    <div class="container mx-auto d-flex justify-content-between">
+        <div class="edit__frame-header align-items-center d-flex"><span class="material-icons"
+                style="font-size: 48px; color: rgb(103, 0, 172); margin-right: 8px;">description</span>
+            <p>{{editFormPageText.editFormFrameHeader}}</p>
+        </div>
+        <div class="d-flex edit__frame-btn">
+            <button class="frame__btn-back" pButton icon="pi pi-arrow-left" label="Back"></button>
+            <button pRipple pButton icon="pi pi-file-edit" label="Edit"></button>
+        </div>
+    </div>
+</div>
+<div class="container mx-auto row edit__frame-content">
+    <div class="frame__profile">
+        <div class="frame__profile-card text-center">
+            <p-avatar image=""></p-avatar>
+            <p class="card__title">Name</p>
+            <p class="card__subtitle">contractor</p>
+            <button pButton pRipple label="View profile"></button>
+        </div>
+    </div>
+    <div class="frame__form">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                Skill Domain
+            </ng-template>
+            <ng-template pTemplate="icons">
+                <p-menu #menu [popup]="true"></p-menu>
+            </ng-template>
+        </p-panel>
+    </div>
+</div>

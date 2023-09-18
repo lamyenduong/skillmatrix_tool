@@ -1,7 +1,7 @@
 import { SkillDomain } from "./skill-domain.model"
 
 export interface Skill {
-    skillId: string
-    skillName: string
-    skillDomain: SkillDomain
+    skill_id: string
+    skill_name: string
+    skill_domain: SkillDomain
 }

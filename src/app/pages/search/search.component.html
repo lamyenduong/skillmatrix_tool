@@ -21,30 +21,28 @@
             <p-table styleClass="search__table" [value]="users" [rows]="15">
                 <ng-template pTemplate="header" let-user>
                     <tr>
-                        <th style="width: 10%;">ID</th>
                         <th style="width: 20%;">Avatar</th>
                         <th style="width: 10%;">Gender</th>
                         <th style="width: 10%;">Birthday</th>
-                        <th style="width: 16%;">E-mail</th>
-                        <th style="width: 12%;">Phone</th>
-                        <th style="width: 14%;">Status</th>
-                        <th style="width: 8%; ">Action</th>
+                        <th style="width: 20%;">E-mail</th>
+                        <th style="width: 15%;">Phone</th>
+                        <th style="width: 15%;">Status</th>
+                        <th style="width: 10%; ">Action</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
                     <tr>
-                        <td>{{user.userId}}</td>
                         <td class="table__col-avatar">
                             <p-avatar image="{{user.avatar}}" shape="circle"></p-avatar>
                             <div class="col__content">
-                                <span>{{user.fullName}}</span>
+                                <span>{{user.full_name}}</span>
                                 <p>{{user.role}}</p>
                             </div>
                         </td>
                         <td>{{user.gender}}</td>
                         <td>{{user.birthday}}</td>
                         <td>{{user.email}}</td>
-                        <td>{{user.phoneNumber}}</td>
+                        <td>{{user.phone_number}}</td>
                         <td class="table__col-status">
                             <i class="pi pi-circle-fill" style="font-size: 10px; margin-right: 4px;"></i>
                             <span>{{user.status}}</span>
@@ -62,7 +60,7 @@
         [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
         <form action="" [formGroup]="reactiveSkillDomainForm">
             <select class="filter__form" formControlName="skillDomainsControl">
-                <option *ngFor="let domain of skillDomains" value="{{domain.domainName}}">{{domain.domainName}}
+                <option *ngFor="let domain of skillDomains" value="{{domain.domain_name}}">{{domain.domain_name}}
                 </option>
             </select>
         </form>

@@ -1,13 +1,13 @@
 export interface User {
-    userId: number
-    userName: string
+    user_id: string
+    username: string
     password: string
-    fullName: string
+    full_name: string
     gender: string
-    phoneNumber: string
+    phone_number: string
     birthday: string
     email: string
-    status: boolean
+    status: string
     role: string
     create_date: string
     avatar: string

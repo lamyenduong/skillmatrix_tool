@@ -11,12 +11,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { SearchComponent } from './pages/search/search.component';
-import { FormComponent } from './components/form/form.component';
 import { LoginComponent } from './login/login.component';
 import { CreateFormComponent } from './pages/create-form/create-form.component';
 import { CreateStep1Component } from './pages/create-form/components/create-step1/create-step1.component';
 import { CreateStep2Component } from './pages/create-form/components/create-step2/create-step2.component';
 import { CreateStep3Component } from './pages/create-form/components/create-step3/create-step3.component';
+import { EditFormComponent } from './pages/edit-form/edit-form.component';
 // Primeng
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
@@ -37,6 +37,7 @@ import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
 import { ChipModule } from 'primeng/chip';
+import { PanelModule } from 'primeng/panel';
 //Service
 import { TextService } from './services/text-service.service';
 
@@ -45,14 +46,14 @@ import { TextService } from './services/text-service.service';
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    FormComponent,
     SearchComponent,
     LoginComponent,
     ErrorComponent,
     CreateFormComponent,
     CreateStep1Component,
     CreateStep2Component,
-    CreateStep3Component
+    CreateStep3Component,
+    EditFormComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +80,7 @@ import { TextService } from './services/text-service.service';
     CalendarModule,
     ChipModule,
     InputTextareaModule,
+    PanelModule
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

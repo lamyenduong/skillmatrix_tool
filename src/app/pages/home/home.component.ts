@@ -83,4 +83,5 @@ export class HomeComponent implements OnInit {
   onSearchChangeHome(event: any) {
     console.log(event.target.value);
   }
+  submitSearchForm() { }
 }

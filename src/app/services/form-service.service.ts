@@ -14,10 +14,10 @@ export class FormService {
     return this.http.get<Form[]>(`${this.apiUrl}/forms`)
   }
 
-  getFormById(formID: string) {
-    return this.http.get<Form[]>(`${this.apiUrl}/forms/${formID}`)
+  getFormById(formId: string) {
+    return this.http.get<Form[]>(`${this.apiUrl}/forms/${formId}`)
   }
-  getFormHasJoinInByName(formName: string, userId: number) {
+  getFormHasJoinInByName(formName: string, userId: string) {
 
   }
 }
