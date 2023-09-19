@@ -24,9 +24,8 @@ export class HomeComponent implements OnInit {
     this.formService.getAllForms().subscribe(data => { this.forms = data; });
   }
 
-  getId(form_id: string) {
-    console.log(form_id)
-    this.formService.getFormById(form_id);
+  getFormId(form_id: string) {
+    this.router.navigate(['/detail', form_id]);
   }
 
   //Upload File  

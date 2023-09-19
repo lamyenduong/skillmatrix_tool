@@ -21,7 +21,7 @@ const apiRoute = (app) => {
     try {
       const db = getDb();
       const formCollection = db.collection("form");
-      const form = await formCollection.findOne({ _id: ObjectId(form_id) });
+      const form = await formCollection.findOne({ _id: new ObjectId(form_id) });
       res.status(200).json(form);
       console.log(form);
     } catch (error) {

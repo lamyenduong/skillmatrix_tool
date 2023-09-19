@@ -15,6 +15,6 @@ export class FormService {
   }
 
   getFormById(form_id: string) {
-    return this.http.get<Form[]>(`${this.apiUrl}/forms/${form_id}`)
+    return this.http.get<Form>(`${this.apiUrl}/forms/${form_id}`)
   }
 }
