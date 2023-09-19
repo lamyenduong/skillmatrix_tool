@@ -38,6 +38,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
 import { ChipModule } from 'primeng/chip';
 import { PanelModule } from 'primeng/panel';
+import { SplitButtonModule } from 'primeng/splitbutton';
 //Service
 import { TextService } from './services/text-service.service';
 
@@ -80,7 +81,8 @@ import { TextService } from './services/text-service.service';
     CalendarModule,
     ChipModule,
     InputTextareaModule,
-    PanelModule
+    PanelModule,
+    SplitButtonModule
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

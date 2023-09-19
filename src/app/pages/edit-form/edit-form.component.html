@@ -23,14 +23,15 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 Skill Domain
+                <span style="margin-left: 8px; color: rgb(255, 144, 103);">4.5</span>
             </ng-template>
             <ng-template pTemplate="icons">
                 <p-menu #menu [popup]="true">
                 </p-menu>
             </ng-template>
-            <div class="row">
+            <div class="radio__header d-flex mb-2">
                 <div class="col-2"></div>
-                <div class="radio-labels col-10">
+                <div class="radio__labels col-10">
                     <label for="0">0</label>
                     <label for="1">1</label>
                     <label for="2">2</label>
@@ -39,11 +40,11 @@
                     <label for="5">5</label>
                 </div>
             </div>
-            <div class="radio-form d-flex align-items-center">
+            <div class="radio__form d-flex align-items-center">
                 <div class="col-2">
-                    <p style="margin:0;">Skill name</p>
+                    <span>Skill name</span>
                 </div>
-                <div class="radio-options w-100">
+                <div class="radio__options col-10">
                     <p-radioButton id="0" name="number" [(ngModel)]="selectedValue" value="0">0</p-radioButton>
                     <p-radioButton id="1" name="number" [(ngModel)]="selectedValue" value="1">0</p-radioButton>
                     <p-radioButton id="2" name="number" [(ngModel)]="selectedValue" value="2"></p-radioButton>

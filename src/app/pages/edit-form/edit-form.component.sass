@@ -60,10 +60,12 @@
     .frame__form
         width: 80%
         .p-panel
+            margin-bottom: 24px
             border: $neutro-03
             .p-panel-header
                 color: $neutro-01
                 background: $primary-04
+                border-radius: 12px
                 font-size: 16px
                 font-weight: 600
                 .p-panel-header-icon
@@ -81,12 +83,24 @@
                             box-shadow: none
                         &:hover
                             color: $neutro-07
-            .p-panel-expanded .p-panel-header
+        .p-panel-expanded .p-panel-header
+            color: $neutro-07
+            background: $primary-02
+            border-radius: 12px 12px 0 0
+            .p-panel-header-icon
                 color: $neutro-07
-                background: $primary-02
-                .p-panel-header-icon
-                    color: $neutro-07
-                    &:focus
-                        box-shadow: none
+                &:focus
+                    box-shadow: none
                     &:hover
                         color: $neutro-07
+        .p-toggleable-content .p-panel-content
+            border-radius: 0 0 12px 12px
+            .radio__header .radio__labels
+                padding-inline: 0
+                label
+                    width: calc( 100%/6 )
+                    text-align: center
+            .radio__form .radio__options .p-element
+                width: calc( 100%/6 )
+                .p-radiobutton
+                    margin: auto

@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SkillDomain } from '../models/skill-domain.model';
 import { environment } from 'src/environments/environment';
+import { Team } from '../models/team.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SkillDomainService {
+export class TeamService {
     private apiUrl = environment.apiUrl
-
     constructor(private http: HttpClient) { }
 
-    getAllSkillDomains() {
-        return this.http.get<SkillDomain[]>(`${this.apiUrl}/domains`)
+    getAllTeams() {
+        return this.http.get<Team[]>(`${this.apiUrl}/teams`)
     }
+
 }

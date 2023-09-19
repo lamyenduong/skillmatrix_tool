@@ -3,6 +3,7 @@ import { Form } from '../../models/form.model';
 import { MessageService } from 'primeng/api';
 import { FormService } from 'src/app/services/form-service.service';
 import { TextService } from 'src/app/services/text-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,18 @@ export class HomeComponent implements OnInit {
   forms!: Form[]
   homePageText: any
 
-  constructor(private formService: FormService, private textService: TextService) { }
+  constructor(private formService: FormService, private textService: TextService, private router: Router) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
       this.homePageText = data;
     });
     this.formService.getAllForms().subscribe(data => { this.forms = data; });
+  }
+
+  getId(form_id: string) {
+    console.log(form_id)
+    this.formService.getFormById(form_id);
   }
 
   //Upload File  
@@ -83,5 +89,7 @@ export class HomeComponent implements OnInit {
   onSearchChangeHome(event: any) {
     console.log(event.target.value);
   }
-  submitSearchForm() { }
+  submitSearchForm() {
+
+  }
 }

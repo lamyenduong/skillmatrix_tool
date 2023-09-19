@@ -1,9 +1,32 @@
 <form class="step__form">
-    <div class="step__form-row">
-
+    <div class="row">
+        <div class="step__form-row col-6">
+            <label for="formStartTime">Time from</label>
+            <input class="form__input" type="date" pInputText placeholder="Select date">
+        </div>
+        <div class="step__form-row col-6">
+            <label for="formDeadline">Time to</label>
+            <input class="form__input" type="date" pInputText placeholder="Select date">
+        </div>
     </div>
     <div class="step__form-row">
-
+        <label for="formAddManager">Add manager</label>
+        <input class="form__input" type="text" pInputText placeholder="Enter manager name">
+    </div>
+    <div class="step__form-row">
+        <label for="formTeam">Team survey</label>
+        <p-multiSelect styleClass="form__input px-0" defaultLabel="Select teams" [options]="teams" [(ngModel)]="teams"
+            optionLabel="team_name" display="chip"></p-multiSelect>
+    </div>
+    <div class="step__form-row">
+        <label for="formMember">Member survey</label>
+        <p-multiSelect styleClass="form__input px-0" defaultLabel="Select members" [options]="users" [(ngModel)]="users"
+            optionLabel="full_name" display="chip"></p-multiSelect>
+    </div>
+    <div class="step__form-row">
+        <label for="formDomain">Domain</label>
+        <p-dropdown styleClass="form__input px-0" defaultLabel="Select members" [options]="domains"
+            [(ngModel)]="domains" optionLabel="domain_name"></p-dropdown>
     </div>
     <div class="step__form-btn text-end">
         <button pButton pRipple icon="pi pi-arrow-left" label="Back" (click)="previousPage()"></button>
