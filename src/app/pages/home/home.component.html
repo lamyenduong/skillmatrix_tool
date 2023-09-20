@@ -46,7 +46,7 @@
                                             <div class="card__info">
                                                 <a class="card__title" role="button"
                                                     (click)="getFormId(form._id)">{{form.form_name}}</a>
-                                                <p class="card__subtitle">{{form.user}}</p>
+                                                <p class="card__subtitle">{{form.user.full_name}}</p>
                                                 <p class="card__subtitle">{{form.create_date}}</p>
                                             </div>
                                         </div>
@@ -74,8 +74,8 @@
                                                 style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
                                             <div class="card__info">
                                                 <p class="card__title">{{form.form_name}}</p>
-                                                <p class="card__subtitle">{{form.user}}</p>
-                                                <p class="card__subtitle">{{form.create_date}}</p>
+                                                <p class="card__subtitle">{{form.user.full_name}}</p>
+                                                <p class="card__subtitle">{{form.create_date | date}}</p>
                                             </div>
                                         </div>
                                         <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
-import { SkillDomainService } from 'src/app/services/skil-domain-service.service';
+import { SkillDomainService } from 'src/app/services/skill-domain-service.service';
 import { TextService } from 'src/app/services/text-service.service';
 import { UserService } from 'src/app/services/user-service.service';
 

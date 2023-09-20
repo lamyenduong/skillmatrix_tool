@@ -46,6 +46,6 @@
         <button class="btn__previous" type="button" pButton pRipple icon="pi pi-arrow-left" label="Back"
             (click)="previousPage()"></button>
         <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [model]="items" label="Submit"
-            icon="pi pi-send" pRipple></p-splitButton>
+            icon="pi pi-send" pRipple (onClick)="createForm()"></p-splitButton>
     </div>
 </form>

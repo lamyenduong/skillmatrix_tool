@@ -14,15 +14,15 @@
     <div class="frame__profile">
         <div class="frame__profile-card text-center">
             <p-avatar image=""></p-avatar>
-            <p class="card__title">Name</p>
-            <p class="card__subtitle">contractor</p>
+            <p class="card__title">{{form.user.full_name}}</p>
+            <p class="card__subtitle">{{form.user.role}}</p>
             <button pButton pRipple label="View profile"></button>
         </div>
     </div>
     <div class="frame__form">
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
-                Skill Domain
+                {{formSkill.skill.skill_domain.domain_name}}
                 <span style="margin-left: 8px; color: rgb(255, 144, 103);">4.5</span>
             </ng-template>
             <ng-template pTemplate="icons">
@@ -42,7 +42,7 @@
             </div>
             <div class="radio__form d-flex align-items-center">
                 <div class="col-2">
-                    <span>Skill name</span>
+                    <span> {{formSkill.skill.skill_name}}</span>
                 </div>
                 <div class="radio__options col-10">
                     <p-radioButton id="0" name="number" [(ngModel)]="selectedValue" value="0">0</p-radioButton>

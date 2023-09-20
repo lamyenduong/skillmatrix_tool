@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
-import { SkillDomainService } from 'src/app/services/skil-domain-service.service';
+import { SkillDomainService } from 'src/app/services/skill-domain-service.service';
 import { TeamService } from 'src/app/services/team-service.service';
 import { UserService } from 'src/app/services/user-service.service';
 
