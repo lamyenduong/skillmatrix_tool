@@ -6,14 +6,14 @@
             <p-toast position="top-center"></p-toast>
             <!--REGISTER FORM-->
             <form *ngIf="!isLoginForm" class="form form__register" id="formRegister" [formGroup]="registerForm"
-                method="POST">
+                method="POST" (submit)="registerUserSubmit()">
                 <p class="form__title">REGISTER</p>
                 <!--Full name-->
                 <div class="form__row">
                     <label for="fname">Full name:</label>
                     <div class="form__input">
-                        <input type="text" pInputText formControlName="fname" placeholder="Enter your full name"
-                            name="fname" />
+                        <input type="text" pInputText formControlName="fname" id="fname" autocomplete="name"
+                            placeholder="Enter your full name" name="fname" [(ngModel)]="user.full_name" />
                         <small
                             *ngIf="registerForm.get('fname')?.hasError('required') && (registerForm.get('fname')?.touched || registerForm.get('fname')?.dirty)">Full
                             name is required.</small>
@@ -21,10 +21,10 @@
                 </div>
                 <!--E-mail-->
                 <div class="form__row">
-                    <label for="email">E-mail:</label>
+                    <label for="emailRes">E-mail:</label>
                     <div class="form__input">
-                        <input type="email" pInputText formControlName="email" placeholder="Enter your e-mail"
-                            name="email" />
+                        <input type="email" pInputText formControlName="email" id="emailRes" autocomplete="email"
+                            placeholder="Enter your e-mail" name="email" [(ngModel)]="user.email" />
                         <small
                             *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
                             Email is required.
@@ -39,7 +39,8 @@
                 <div class="form__row">
                     <label for="dob">Date of birth:</label>
                     <div class="form__input">
-                        <input type="date" [max]="calculateMaxDate()" pInputText formControlName="dob" name="dob" />
+                        <input type="date" [max]="calculateMaxDate()" pInputText formControlName="dob" id="dob"
+                            name="dob" [(ngModel)]="user.birthday" autocomplete="bday" />
                         <small
                             *ngIf="registerForm.get('dob')?.hasError('required') && (registerForm.get('dob')?.touched || registerForm.get('dob')?.dirty)">
                             Date of birth is required.
@@ -52,13 +53,13 @@
                 </div>
                 <!--Gender-->
                 <div class="form__row">
-                    <label for="gender">Gender:</label>
+                    <label>Gender:</label>
                     <div class="form__input-gender">
-                        <input class="p-radiobutton" type="radio" name="gender" value="female" inputId="female"
-                            formControlName="gender">
+                        <input class="p-radiobutton" type="radio" name="gender" value="Female" id="female"
+                            formControlName="gender" [(ngModel)]="user.gender">
                         <label for="female">Female</label>
-                        <input class="p-radiobutton" type="radio" name="gender" value="male" inputId="male"
-                            formControlName="gender">
+                        <input class="p-radiobutton" type="radio" name="gender" value="Male" id="male"
+                            formControlName="gender" [(ngModel)]="user.gender">
                         <label for="male">Male</label>
                     </div>
                 </div>
@@ -67,7 +68,8 @@
                     <label for="phone">Phone number:</label>
                     <div class="form__input">
                         <input type="tel" minlength="10" pInputText formControlName="phone"
-                            placeholder="Enter your phone number" name="phone" />
+                            placeholder="Enter your phone number" name="phone" id="phone"
+                            [(ngModel)]="user.phone_number" autocomplete="tel" />
                         <small
                             *ngIf="registerForm.get('phone')?.hasError('required') && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)">
                             Phone number is required.
@@ -80,11 +82,12 @@
                 </div>
                 <!--Password-->
                 <div class="form__row">
-                    <label for="password">Password:</label>
+                    <label for="passwordRes">Password:</label>
                     <div class="form__input">
                         <div class="form__row-password">
                             <input type="{{hide? 'password': 'text'}}" name="password" placeholder="Enter your password"
-                                formControlName="password" />
+                                formControlName="password" id="passwordRes" [(ngModel)]="user.password"
+                                autocomplete="new-password" />
                             <button type="button" class="btn__visibility" (click)="hide = !hide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><span
                                     class="material-icons md-24">{{hide?
@@ -102,7 +105,7 @@
                     <label for="cfpassword">Confirm password:</label>
                     <div class="form__input">
                         <div class="form__row-password">
-                            <input type="{{cfhide? 'password': 'text'}}" name="cfpassword"
+                            <input type="{{cfhide? 'password': 'text'}}" id="cfpassword" name="cfpassword"
                                 placeholder="Confirm password" formControlName="confirm" />
                             <button type="button" class="btn__visibility" (click)="cfhide = !cfhide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="cfhide"><span
@@ -133,15 +136,16 @@
             </form>
 
             <!--LOGIN FORM-->
-
-            <form action="" *ngIf="isLoginForm" class="form form__login vh-100" id="formLogin" [formGroup]="loginForm">
+            <form *ngIf="isLoginForm" class="form form__login vh-100" id="formLogin" [formGroup]="loginForm"
+                (submit)="loginSubmit()">
                 <div style="position: relative; top: 50%; transform: translateY(-50%);">
                     <p class="form__title">LOGIN</p>
                     <!--E-mail-->
                     <div class="form__row">
                         <label for="email">E-mail:</label>
                         <div class="form__input">
-                            <input type="email" pInputText formControlName="email" placeholder="Enter your e-mail" />
+                            <input type="email" pInputText id="email" formControlName="email"
+                                placeholder="Enter your e-mail" name="email" />
                             <small
                                 *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.touched || registerForm.get('email')?.dirty)">
                                 Email is required.
@@ -153,7 +157,7 @@
                         <label for="password">Password:</label>
                         <div class="form__input">
                             <div class="form__row-password">
-                                <input type="{{hide? 'password': 'text'}}" name="password"
+                                <input type="{{hide? 'password': 'text'}}" id="password" name="password"
                                     placeholder="Enter your password" formControlName="password">
                                 <button type="button" class="btn__visibility" (click)="hide = !hide"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><span

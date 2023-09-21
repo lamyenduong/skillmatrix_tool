@@ -2,6 +2,10 @@ const express = require("express");
 const apiRouter = express.Router();
 const { getDb } = require("../routes/database");
 const { ObjectId } = require("mongodb");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const salt = bcrypt.genSaltSync(10);
+import JWT_SECRET from "../app/services/jwt-service.service";
 
 const apiRoute = (app) => {
   //form
@@ -37,7 +41,7 @@ const apiRoute = (app) => {
     try {
       const db = getDb();
       const formCollection = db.collection("form");
-      const form = formCollection.insert({
+      const form = formCollection.insertOne({
         _id: new ObjectId(),
         form_name: form_name,
         form_description: form_description,
@@ -62,7 +66,51 @@ const apiRoute = (app) => {
       res.status(500).json({ error: "An error occurred" });
     }
   });
-
+  app.post("/api/users", async (req, res) => {
+    const user = req.body;
+    const hashPassword = await bcrypt.hashSync(user.password, salt);
+    const newUser = {
+      full_name: user.full_name,
+      email: user.email,
+      phone_number: user.phone_number,
+      birthday: user.birthday,
+      password: hashPassword,
+      create_date: new Date(Date.now()),
+      role: "Contractor",
+      status: "",
+      gender: user.gender,
+      avatar: "",
+    };
+    try {
+      const db = getDb();
+      const userCollection = db.collection("user");
+      const users = await userCollection.insertOne(newUser);
+      res.status(200).json(users);
+    } catch (error) {
+      console.error("Error fetching forms:", error);
+      res.status(500).json({ error: "An error occurred" });
+    }
+  });
+  app.post("/api/login", async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      const db = getDb();
+      const userCollection = db.collection("user");
+      const user = await userCollection.findOne({ email });
+      if (!user) {
+        res.json({ message: "Invalid email" });
+      }
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        res.json({ message: "Invalid password" });
+      }
+      const token = jwt.sign({ user_id: user._id }, JWT_SECRET);
+      res.json({ token });
+    } catch (error) {
+      console.error("Error fetching forms:", error);
+      res.status(500).json({ error: "An error occurred" });
+    }
+  });
   //team
   app.get("/api/teams", async (req, res) => {
     try {
