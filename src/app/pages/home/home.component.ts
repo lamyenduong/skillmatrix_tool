@@ -1,10 +1,10 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Form } from '../../models/form.model';
 import { MessageService } from 'primeng/api';
 import { FormService } from 'src/app/services/form-service.service';
 import { TextService } from 'src/app/services/text-service.service';
 import { Router } from '@angular/router';
+import { ReadFileService } from 'src/app/services/read-file.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +16,9 @@ export class HomeComponent implements OnInit {
   forms!: Form[]
   homePageText: any
 
-  constructor(private formService: FormService, private textService: TextService, private router: Router) { }
+  constructor(private formService: FormService,
+    private textService: TextService, private router: Router,
+    private readFileService: ReadFileService) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
@@ -73,16 +75,43 @@ export class HomeComponent implements OnInit {
   onUploadFile() {
     if (this.droppedFile) {
       console.log("Uploading dropped file:", this.droppedFile);
+      this.readFileService.readFile(this.droppedFile)
+        .then((dataArray: any[][]) => {
+          console.log("Data from dropped file:", dataArray);
+        })
+        .catch(error => {
+          console.error("Error reading dropped file:", error);
+        });
     } else {
       const fileInput = document.querySelector("#file") as HTMLInputElement;
       const filesToUpload = fileInput.files;
       if (filesToUpload && filesToUpload.length > 0) {
         const uploadedFile = filesToUpload[0];
         console.log("Uploading file from input:", uploadedFile);
+        this.readFileService.readFile(uploadedFile)
+          .then((dataArray: any[][]) => {
+            console.log("Data from input file:", dataArray);
+            this.sendData(dataArray);
+          })
+          .catch(error => {
+            console.error("Error reading input file:", error);
+          });
       } else {
         console.log("No file selected for upload.");
       }
     }
+  }
+  sendData(dataArray: any[][]): void {
+    // Call a method on your API service to send the data to your API
+    this.formService.createFormByUpload(dataArray)
+      .subscribe(
+        (response) => {
+          console.log('Data sent to the server successfully:', response);
+        },
+        (error) => {
+          console.error('Error sending data to the server:', error);
+        }
+      );
   }
 
   //Search
