@@ -12,6 +12,6 @@ export class SkillDomainService {
     constructor(private http: HttpClient) { }
 
     getAllSkillDomains() {
-        return this.http.get<SkillDomain[]>(`${this.apiUrl}/domains`)
+        return this.http.get<SkillDomain>(`${this.apiUrl}/domains`)
     }
 }

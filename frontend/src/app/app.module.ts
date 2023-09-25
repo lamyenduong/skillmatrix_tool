@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 // Component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +39,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ChipModule } from 'primeng/chip';
 import { PanelModule } from 'primeng/panel';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { DropdownModule } from 'primeng/dropdown';
 //Service
 import { TextService } from './services/text-service.service';
 
@@ -83,7 +83,8 @@ import { TextService } from './services/text-service.service';
     ChipModule,
     InputTextareaModule,
     PanelModule,
-    SplitButtonModule
+    SplitButtonModule,
+    DropdownModule
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

@@ -16,7 +16,7 @@ export class SearchComponent implements OnInit {
   searchPageText: any
   users!: User[]
   displayFilterButton!: boolean
-  skillDomains!: SkillDomain[]
+  skillDomains!: SkillDomain
   reactiveSkillDomainForm!: FormGroup
   points: number[] = [1, 2, 3, 4, 5]
 
@@ -31,20 +31,20 @@ export class SearchComponent implements OnInit {
     this.reactiveSkillDomainForm = new FormGroup({
       skillDomainsControl: new FormControl({}),
     })
-    this.subscribeDomainsChange()
+    // this.subscribeDomainsChange()
   }
   showFilterDialog() {
     this.displayFilterButton = true
   }
 
-  subscribeDomainsChange() {
-    const domainCtrl = this.reactiveSkillDomainForm.get('skillDomainsControl');
-    console.log(domainCtrl)
-    if (domainCtrl) {
-      domainCtrl.valueChanges.subscribe((data) => {
-        console.log(data)
-      })
-    }
-  }
+  // subscribeDomainsChange() {
+  //   const domainCtrl = this.reactiveSkillDomainForm.get('skillDomainsControl');
+  //   console.log(domainCtrl)
+  //   if (domainCtrl) {
+  //     domainCtrl.valueChanges.subscribe((data) => {
+  //       console.log(data)
+  //     })
+  //   }
+  // }
 
 }
