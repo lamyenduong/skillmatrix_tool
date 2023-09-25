@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
 import { SkillDomainService } from 'src/app/services/skill-domain-service.service';
@@ -16,11 +16,15 @@ export class SearchComponent implements OnInit {
   searchPageText: any
   users!: User[]
   displayFilterButton!: boolean
-  skillDomains!: SkillDomain
+  skillDomains!: SkillDomain[]
   reactiveSkillDomainForm!: FormGroup
   points: number[] = [1, 2, 3, 4, 5]
 
-  constructor(private textService: TextService, private userService: UserService, private skillDomainService: SkillDomainService) { }
+
+
+  constructor(private textService: TextService,
+    private userService: UserService, private skillDomainService: SkillDomainService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
@@ -28,13 +32,23 @@ export class SearchComponent implements OnInit {
     });
     this.userService.getAllUsers().subscribe(users => this.users = users)
     this.skillDomainService.getAllSkillDomains().subscribe(skillDomains => this.skillDomains = skillDomains)
-    this.reactiveSkillDomainForm = new FormGroup({
+    this.reactiveSkillDomainForm = this.fb.group({
       skillDomainsControl: new FormControl({}),
+      selectedDomains: this.fb.array([])
     })
     // this.subscribeDomainsChange()
   }
   showFilterDialog() {
     this.displayFilterButton = true
+  }
+
+  addToChip(selectedDomain: string) {
+    if (selectedDomain) {
+      const selectedDomains = this.reactiveSkillDomainForm.get('selectedDomains') as FormControl;
+      const currentSelectedDomains = selectedDomains.value as string[];
+      currentSelectedDomains.push(selectedDomain);
+      selectedDomains.setValue(currentSelectedDomains); // Update the form control
+    }
   }
 
   // subscribeDomainsChange() {

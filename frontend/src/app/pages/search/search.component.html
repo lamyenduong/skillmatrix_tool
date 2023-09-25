@@ -59,15 +59,16 @@
     <p-dialog header="Filter" [(visible)]="displayFilterButton" [modal]="true" [style]="{width: '40vw'}"
         [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
         <form action="" [formGroup]="reactiveSkillDomainForm">
-            <p-dropdown styleClass="filter__form" formControlName="skillDomainsControl"
-                [options]="skillDomains.domain_name"></p-dropdown>
-            <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('skillDomainsControl')?.value">
-                <span class="domain__value-name">{{domain}}</span>
-                <span class="domain__value-point">4</span>
-            </p-chip>
+            <p-dropdown styleClass="filter__form" formControlName="skillDomainsControl" [options]="skillDomains"
+                optionLabel="domain_name" (onChange)="addToChip($event.value)"></p-dropdown>
         </form>
+        <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('selectedDomains')?.value">
+            <span class="domain__value-name">{{domain}}</span>
+            <span class="domain__value-point">4</span>
+        </p-chip>
 
         <div class="filter__btn-point">
+            <h6>Domain name</h6>
             <button value="Any" pButton type=" button" label="Any" class="p-button-outlined p-button-rounded"></button>
             <ng-container *ngFor="let point of points">
                 <button value="{{point}}" pButton type="button" label="{{point}}"
