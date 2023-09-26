@@ -1,4 +1,4 @@
-<div class="primary-frame">
+< class="primary-frame">
     <div class="container-fluid mx-auto primary-frame">
         <div class="container">
             <div class="search__frame-header">{{searchPageText.searchFrameHeader}}</div>
@@ -62,9 +62,9 @@
             <p-dropdown styleClass="filter__form" formControlName="skillDomainsControl" [options]="skillDomains"
                 optionLabel="domain_name" (onChange)="addToChip($event.value)"></p-dropdown>
         </form>
-        <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('selectedDomains')?.value">
-            <span class="domain__value-name">{{domain}}</span>
-            <span class="domain__value-point">4</span>
+        <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('selectedDomains')?.value;">
+            <span class="domain__value-name">{{domain.domain_name}}</span>
+            <span class="domain__value-point">{{selectedPoint}}</span>
         </p-chip>
 
         <div class="filter__btn-point">
@@ -79,6 +79,4 @@
             <button pButton type="button" class="p-button-outlined p-button-rounded" label="Cancel"></button>
             <button pButton type="submit" class="p-button-rounded" label="Submit"></button>
         </div>
-
     </p-dialog>
-</div>

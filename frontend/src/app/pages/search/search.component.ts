@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
 import { SkillDomainService } from 'src/app/services/skill-domain-service.service';
@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit {
   skillDomains!: SkillDomain[]
   reactiveSkillDomainForm!: FormGroup
   points: number[] = [1, 2, 3, 4, 5]
-
+  selectedPoint: number | null = null;
 
 
   constructor(private textService: TextService,
@@ -44,10 +44,9 @@ export class SearchComponent implements OnInit {
 
   addToChip(selectedDomain: string) {
     if (selectedDomain) {
-      const selectedDomains = this.reactiveSkillDomainForm.get('selectedDomains') as FormControl;
-      const currentSelectedDomains = selectedDomains.value as string[];
-      currentSelectedDomains.push(selectedDomain);
-      selectedDomains.setValue(currentSelectedDomains); // Update the form control
+      const selectedDomains = this.reactiveSkillDomainForm.get('selectedDomains') as FormArray;
+      selectedDomains.push(new FormControl(selectedDomain));
+      this.selectedPoint = 5;
     }
   }
 
