@@ -18,9 +18,8 @@ export class SearchComponent implements OnInit {
   displayFilterButton!: boolean
   skillDomains!: SkillDomain[]
   reactiveSkillDomainForm!: FormGroup
-  points: number[] = [1, 2, 3, 4, 5]
+  points: any[] = ["any", 1, 2, 3, 4, 5]
   selectedPoint: number | null = null;
-
 
   constructor(private textService: TextService,
     private userService: UserService, private skillDomainService: SkillDomainService,
@@ -36,28 +35,28 @@ export class SearchComponent implements OnInit {
       skillDomainsControl: new FormControl({}),
       selectedDomains: this.fb.array([])
     })
-    // this.subscribeDomainsChange()
   }
+  //Filter button
   showFilterDialog() {
     this.displayFilterButton = true
   }
-
   addToChip(selectedDomain: string) {
     if (selectedDomain) {
       const selectedDomains = this.reactiveSkillDomainForm.get('selectedDomains') as FormArray;
       selectedDomains.push(new FormControl(selectedDomain));
-      this.selectedPoint = 5;
+      this.reactiveSkillDomainForm.disable()
+    }
+  }
+  addPoint(selectedPoint: number) {
+    if (selectedPoint) {
+      this.selectedPoint = selectedPoint;
+      this.reactiveSkillDomainForm.enable()
+      //document.getElementById("pointValue")?.
     }
   }
 
-  // subscribeDomainsChange() {
-  //   const domainCtrl = this.reactiveSkillDomainForm.get('skillDomainsControl');
-  //   console.log(domainCtrl)
-  //   if (domainCtrl) {
-  //     domainCtrl.valueChanges.subscribe((data) => {
-  //       console.log(data)
-  //     })
-  //   }
-  // }
-
+  //Search
+  searchEvent(e: any) {
+    console.log(e.target.value)
+  }
 }

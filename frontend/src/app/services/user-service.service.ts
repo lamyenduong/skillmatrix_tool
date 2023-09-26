@@ -16,8 +16,20 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}/users`)
   }
 
+  getUserById(user_id: string) {
+    return this.http.get<User>(`${this.apiUrl}/users/${user_id}`)
+  }
+
+  getUserByEmail() {
+    return this.http.get<User>(`${this.apiUrl}/users/email`)
+  }
+
+  getUserByName() {
+    return this.http.get<User>(`${this.apiUrl}/users/full-name`)
+  }
+
   registerUser(user: User) {
-    return this.http.post<User>(`${this.apiUrl}/users`, user)
+    return this.http.post<User>(`${this.apiUrl}/create-user`, user)
   }
 
   login(email: string) {

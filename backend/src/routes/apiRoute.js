@@ -10,6 +10,8 @@ const {
   getAllUsers,
   registerUser,
   getUserById,
+  getUserByName,
+  getUserByEmail,
 } = require("../controllers/userController");
 const {
   getAllDomains,
@@ -26,6 +28,8 @@ const apiRoute = (app) => {
   //user
   apiRouter.get("/users", getAllUsers);
   apiRouter.get("/users/:user_id", getUserById);
+  apiRouter.get("/users/full-name", getUserByName);
+  apiRouter.get("/users/email", getUserByEmail);
   apiRouter.post("/create-user", registerUser);
   //domain
   apiRouter.get("/domains", getAllDomains);

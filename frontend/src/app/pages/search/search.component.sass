@@ -45,6 +45,18 @@
                         margin: 0
             .table__col-status
                 align-items: center
+    .p-paginator
+        justify-content: end
+        border: none
+        .p-paginator-icon
+            color: $primary-01
+        .p-link
+            border: none
+            border-radius: 100%
+        .p-paginator-pages .p-paginator-page.p-highlight
+            background: $primary-01
+            &:focus
+                box-shadow: none
 .search__dialog-filter
     .filter__form
         width: 100%
@@ -71,13 +83,12 @@
         border-top: 0.5px solid $neutro-03
         margin-top: 16px
         padding-block: 16px
-        button
+        .btn__point-number
             margin-top: 16px
             height: 36px
             font-size: 14px
             margin-right: 12px
-        .btn__point-number
-            width: 36px
+            width: 48px
     .filter__btn-control
         position: relative
         text-align: end

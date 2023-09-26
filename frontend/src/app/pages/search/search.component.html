@@ -1,4 +1,4 @@
-< class="primary-frame">
+<div class="primary-frame">
     <div class="container-fluid mx-auto primary-frame">
         <div class="container">
             <div class="search__frame-header">{{searchPageText.searchFrameHeader}}</div>
@@ -12,13 +12,14 @@
                     <button pRipple pButton class="p-button-outlined" label="Back" icon="pi pi-arrow-left"></button>
                     <span class="p-input-icon-left search__bar">
                         <i class="pi pi-search"></i>
-                        <input type="text" pInputText placeholder="Search" />
+                        <input type="text" pInputText placeholder="Search" (input)="searchEvent($event)" />
                     </span>
                     <button pRipple pButton class="p-button-outlined" label="Filter" icon="pi pi-filter"
                         (click)="showFilterDialog()"></button>
                 </div>
             </div>
-            <p-table styleClass="search__table" [value]="users" [rows]="15">
+            <p-table styleClass="search__table" [value]="users" [paginator]="true" [rows]="10"
+                [showCurrentPageReport]="false" [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
                 <ng-template pTemplate="header" let-user>
                     <tr>
                         <th style="width: 20%;">Avatar</th>
@@ -60,18 +61,16 @@
         [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
         <form action="" [formGroup]="reactiveSkillDomainForm">
             <p-dropdown styleClass="filter__form" formControlName="skillDomainsControl" [options]="skillDomains"
-                optionLabel="domain_name" (onChange)="addToChip($event.value)"></p-dropdown>
+                optionLabel="domain_name" placeholder="Domain name" (onChange)="addToChip($event.value)"></p-dropdown>
+            <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('selectedDomains')?.value;">
+                <span class="domain__value-name">{{domain.domain_name}}</span>
+                <span class="domain__value-point" id="pointValue">{{selectedPoint}}</span>
+            </p-chip>
         </form>
-        <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('selectedDomains')?.value;">
-            <span class="domain__value-name">{{domain.domain_name}}</span>
-            <span class="domain__value-point">{{selectedPoint}}</span>
-        </p-chip>
-
         <div class="filter__btn-point">
             <h6>Domain name</h6>
-            <button value="Any" pButton type=" button" label="Any" class="p-button-outlined p-button-rounded"></button>
             <ng-container *ngFor="let point of points">
-                <button value="{{point}}" pButton type="button" label="{{point}}"
+                <button value="{{point}}" pButton type="button" label="{{point}}" (click)="addPoint(point)"
                     class="p-button-outlined p-button-rounded btn__point-number"></button>
             </ng-container>
         </div>
@@ -80,3 +79,4 @@
             <button pButton type="submit" class="p-button-rounded" label="Submit"></button>
         </div>
     </p-dialog>
+</div>

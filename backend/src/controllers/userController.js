@@ -61,8 +61,36 @@ const registerUser = async (req, res) => {
   }
 };
 
+const getUserByName = async (req, res) => {
+  const full_name = req.body;
+  try {
+    const db = getDb();
+    const userCollection = db.collection("user");
+    const user = await userCollection.find().sort({ full_name: full_name });
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
+const getUserByEmail = async (req, res) => {
+  const email = req.body;
+  try {
+    const db = getDb();
+    const userCollection = db.collection("user");
+    const user = await userCollection.find().sort({ email: email });
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 module.exports = {
   getAllUsers,
   registerUser,
   getUserById,
+  getUserByName,
+  getUserByEmail,
 };

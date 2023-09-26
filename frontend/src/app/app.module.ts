@@ -13,9 +13,6 @@ import { ErrorComponent } from './pages/error/error.component';
 import { SearchComponent } from './pages/search/search.component';
 import { LoginComponent } from './login/login.component';
 import { CreateFormComponent } from './pages/create-form/create-form.component';
-import { CreateStep1Component } from './pages/create-form/components/create-step1/create-step1.component';
-import { CreateStep2Component } from './pages/create-form/components/create-step2/create-step2.component';
-import { CreateStep3Component } from './pages/create-form/components/create-step3/create-step3.component';
 import { DetailFormComponent } from './pages/detail-form/detail-form.component';
 // Primeng
 import { MessageService } from 'primeng/api';
@@ -52,9 +49,6 @@ import { TextService } from './services/text-service.service';
     LoginComponent,
     ErrorComponent,
     CreateFormComponent,
-    CreateStep1Component,
-    CreateStep2Component,
-    CreateStep3Component,
     DetailFormComponent
   ],
   imports: [

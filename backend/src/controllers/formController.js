@@ -42,7 +42,7 @@ const getFormManager = async (req, res) => {
       ({
         $lookup: {
           from: "form-participant",
-          localField: "form_id",
+          localField: "_id",
           foreignField: "form.form_id",
           as: "participants",
         },
@@ -52,23 +52,22 @@ const getFormManager = async (req, res) => {
         $lookup: {
           from: "user",
           localField: "participants.user.user_id",
-          foreignField: "user_id",
-          as: "user",
+          foreignField: "_id",
+          as: "users",
         },
       },
       {
-        $unwind: "$user",
+        $unwind: "$users",
       },
       {
         $match: {
-          role: "manager",
-          "user.user_id": user_id,
+          "user.user_id": ObjectId(user_id),
         },
       },
       {
         $project: {
           _id: 0,
-          forms: "$$ROOT",
+          form: "$$ROOT",
         },
       })
     ];
@@ -88,7 +87,7 @@ const getFormParticipants = async (req, res) => {
       {
         $lookup: {
           from: "form-participant",
-          localField: "form_id",
+          localField: "_id",
           foreignField: "form.form_id",
           as: "participants",
         },
