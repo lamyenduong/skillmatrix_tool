@@ -29,6 +29,29 @@ const getUserById = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const db = getDb();
+    const userCollection = db.collection("user");
+    const user = await userCollection.findOne({ email });
+    if (!user) {
+      res.status(400).json({ message: "Invalid email" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      res.status(400).json({ message: "Invalid password" });
+    }
+    const token = jwt.sign({ user_id: user._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "1d",
+    });
+    res.json({ token });
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(400).json({ error: "An error occurred" });
+  }
+};
+
 const registerUser = async (req, res) => {
   const user = req.body;
   const checkExistMail = await userCollection.findOne({
@@ -90,6 +113,7 @@ const getUserByEmail = async (req, res) => {
 module.exports = {
   getAllUsers,
   registerUser,
+  loginUser,
   getUserById,
   getUserByName,
   getUserByEmail,

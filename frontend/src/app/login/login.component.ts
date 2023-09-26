@@ -77,7 +77,14 @@ export class LoginComponent implements OnInit {
 
   loginSubmit() {
     if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.get('email')?.value);
+      this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
+        (response) => {
+          this.router.navigate(['/home']);
+        },
+        (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed!' });
+        }
+      )
     } else {
       this.markFormControlsAsTouched(this.loginForm);
     }

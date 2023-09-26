@@ -32,8 +32,4 @@ export class UserService {
     return this.http.post<User>(`${this.apiUrl}/create-user`, user)
   }
 
-  login(email: string) {
-    return this.http.post<User>(`${this.apiUrl}/login`, email)
-  }
-
 }
