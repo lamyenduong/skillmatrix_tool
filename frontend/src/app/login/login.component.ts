@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService, private router: Router,
     private authService: AuthenticatorService) {
     this.navbarService.hide();
+
   }
 
   ngOnInit(): void {
@@ -74,11 +75,11 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
   loginSubmit() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
-        (response) => {
+        () => {
+          this.navbarService.display();
           this.router.navigate(['/home']);
         },
         (error) => {

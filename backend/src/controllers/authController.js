@@ -17,13 +17,12 @@ const loginUser = async (req, res) => {
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      res.statusCode = 404;
+      res.statusCode = 401;
     }
     const accessToken = jwt.sign({ email: email }, secretkey, {
       expiresIn: "1d",
     });
     const refreshToken = jwt.sign({ email: email }, secretkey);
-    refreshTokens.push(refreshToken);
     res.json({ accessToken, refreshToken });
   } catch (error) {
     console.error("Error fetching forms:", error);

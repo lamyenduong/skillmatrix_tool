@@ -30,6 +30,7 @@
     "@angular/cli": "~14.2.12",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
+    "@types/jsonwebtoken": "^9.0.3",
     "concurrently": "^8.2.1",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",

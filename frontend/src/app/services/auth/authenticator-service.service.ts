@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment';
@@ -11,7 +12,10 @@ export class AuthenticatorService {
     private apiUrl = environment.apiUrl
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
-    constructor(private http: HttpClient) {
+    currentUser!: User;
+
+
+    constructor(private http: HttpClient, private router: Router) {
         this.checkToken();
     }
     register(user: any): Observable<any> {
@@ -19,15 +23,21 @@ export class AuthenticatorService {
     }
 
     login(email: string, password: string): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
-            tap((response) => {
-                if (response.accessToken) {
-                    localStorage.setItem('access_token', response.accessToken);
-                    localStorage.setItem('refresh_token', response.refreshToken);
-                    this.isAuthenticatedSubject.next(true);
-                }
-            })
-        );
+        return this.http.post<any>(`${this.apiUrl}/login`, { email, password })
+        // .pipe(
+        //     tap
+        //         ((user) => {
+        //             this.currentUser = user;
+        //             console.log(this.currentUser)
+        //         })
+        // tap((response) => {
+        //     if (response.accessToken) {
+        //         localStorage.setItem('access_token', response.accessToken);
+        //         localStorage.setItem('refresh_token', response.refreshToken);
+        //         this.isAuthenticatedSubject.next(true);
+        //     }
+        // })
+        // );
     }
 
     logout() {
