@@ -2,9 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { TextService } from 'src/app/services/text-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormService } from 'src/app/services/form-service.service';
+import { FormService } from 'src/app/services/form/form-service.service';
 import { Form } from 'src/app/models/form.model';
-import { FormSkillService } from 'src/app/services/form-skill-service.service';
+import { FormSkillService } from 'src/app/services/form/form-skill-service.service';
 import { FormSkill } from 'src/app/models/form-skill.model';
 
 @Component({

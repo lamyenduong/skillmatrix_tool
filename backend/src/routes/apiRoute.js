@@ -8,19 +8,26 @@ const {
 } = require("../controllers/formController");
 const {
   getAllUsers,
-  registerUser,
   getUserById,
   getUserByName,
   getUserByEmail,
-  loginUser,
 } = require("../controllers/userController");
 const {
   getAllDomains,
   getDomainById,
   createDomain,
 } = require("../controllers/domainController");
+const {
+  loginUser,
+  registerUser,
+  refreshToken,
+} = require("../controllers/authController");
 
 const apiRoute = (app) => {
+  //auth
+  apiRouter.post("/register", registerUser);
+  apiRouter.post("/login", loginUser);
+  apiRouter.post("/refresh-token", refreshToken);
   //form
   apiRouter.get("/forms/owner/:user_id", getFormOwner);
   apiRouter.get("/forms/:form_id", getFormById);
@@ -31,8 +38,6 @@ const apiRoute = (app) => {
   apiRouter.get("/users/:user_id", getUserById);
   apiRouter.get("/users/full-name", getUserByName);
   apiRouter.get("/users/email", getUserByEmail);
-  apiRouter.post("/create-user", registerUser);
-  apiRouter.post("/login", loginUser);
   //domain
   apiRouter.get("/domains", getAllDomains);
   apiRouter.get("/domains/:domain_id", getDomainById);

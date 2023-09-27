@@ -2,9 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
-import { SkillDomainService } from 'src/app/services/skill-domain-service.service';
+import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
 import { TextService } from 'src/app/services/text-service.service';
-import { UserService } from 'src/app/services/user-service.service';
+import { UserService } from 'src/app/services/user/user-service.service';
 
 @Component({
   selector: 'app-search',

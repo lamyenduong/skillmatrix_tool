@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavbarService } from '../services/navbar-service.service';
-import { UserService } from '../services/user-service.service';
-import { User } from '../models/user.model';
+import { UserService } from '../services/user/user-service.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { AuthenticatorService } from '../services/authenticator-service.service';
+import { AuthenticatorService } from '../services/auth/authenticator-service.service';
 
 @Component({
   selector: 'app-login',
@@ -18,18 +17,7 @@ export class LoginComponent implements OnInit {
   isLoginForm = true;
   registerForm!: FormGroup;
   loginForm!: FormGroup;
-  user: User = {
-    password: '',
-    full_name: '',
-    gender: '',
-    phone_number: '',
-    birthday: '',
-    email: '',
-    status: '',
-    role: '',
-    create_date: '',
-    avatar: ''
-  }
+  user: any
   selectedValue: any
 
   constructor(private formbuilder: FormBuilder,
@@ -93,7 +81,7 @@ export class LoginComponent implements OnInit {
 
   registerUserSubmit() {
     if (this.registerForm.valid) {
-      this.userService.registerUser(this.user).subscribe(
+      this.authService.register(this.user).subscribe(
         (response) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration successful!' });
           this.isLoginForm = true;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Form } from '../../models/form.model';
 import { MessageService } from 'primeng/api';
-import { FormService } from 'src/app/services/form-service.service';
+import { FormService } from 'src/app/services/form/form-service.service';
 import { TextService } from 'src/app/services/text-service.service';
 import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
