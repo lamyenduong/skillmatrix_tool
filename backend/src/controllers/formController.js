@@ -14,7 +14,20 @@ const getFormById = async (req, res) => {
   }
 };
 
-const createForm = async (req, res) => {};
+const createForm = async (req, res) => {
+  const form = req.body;
+
+  const newForm = {};
+  try {
+    const db = getDb();
+    const formCollection = db.collection("form");
+    const form = await formCollection.insertOne(newForm);
+    res.status(200).json(form);
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
 
 const getFormOwner = async (req, res) => {
   const user_id = req.params.user_id;
@@ -79,19 +92,31 @@ const getFormManager = async (req, res) => {
 };
 
 const getFormParticipants = async (req, res) => {
-  const user_id = req.params.user_id;
+  const form_id = req.params;
   try {
     const db = getDb();
     const formCollection = db.collection("form");
     const forms = await formCollection.aggregate[
-      {
+      ({
         $lookup: {
           from: "form-participant",
           localField: "_id",
           foreignField: "form.form_id",
           as: "participants",
         },
-      }
+      },
+      { $unwind: "$participants" },
+      {
+        $match: {
+          _id: ObjectId(form_id),
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          f: "$participants.user",
+        },
+      })
     ];
     res.status(200).json(forms);
   } catch (error) {

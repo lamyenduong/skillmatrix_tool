@@ -5,6 +5,7 @@ import { UserService } from '../services/user/user-service.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthenticatorService } from '../services/auth/authenticator-service.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,18 @@ export class LoginComponent implements OnInit {
   isLoginForm = true;
   registerForm!: FormGroup;
   loginForm!: FormGroup;
-  user: any
+  user: User = {
+    full_name: '',
+    password: '',
+    gender: '',
+    phone_number: '',
+    birthday: '',
+    email: '',
+    status: '',
+    role: '',
+    create_date: '',
+    avatar: ''
+  }
   selectedValue: any
 
   constructor(private formbuilder: FormBuilder,
@@ -82,7 +94,7 @@ export class LoginComponent implements OnInit {
   registerUserSubmit() {
     if (this.registerForm.valid) {
       this.authService.register(this.user).subscribe(
-        (response) => {
+        () => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration successful!' });
           this.isLoginForm = true;
         },

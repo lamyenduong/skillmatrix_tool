@@ -78,7 +78,7 @@ import { TextService } from './services/text-service.service';
     InputTextareaModule,
     PanelModule,
     SplitButtonModule,
-    DropdownModule
+    DropdownModule,
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

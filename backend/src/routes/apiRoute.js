@@ -5,6 +5,7 @@ const {
   createForm,
   getFormOwner,
   getFormManager,
+  getFormParticipants,
 } = require("../controllers/formController");
 const {
   getAllUsers,
@@ -32,6 +33,7 @@ const apiRoute = (app) => {
   apiRouter.get("/forms/owner/:user_id", getFormOwner);
   apiRouter.get("/forms/:form_id", getFormById);
   apiRouter.get("/forms/manager/:user_id", getFormManager);
+  apiRouter.get("/forms/participants/:user_id", getFormParticipants);
   apiRouter.post("/create-form", createForm);
   //user
   apiRouter.get("/users", getAllUsers);

@@ -11,13 +11,13 @@ const loginUser = async (req, res) => {
   try {
     const db = getDb();
     const userCollection = db.collection("user");
-    const user = await userCollection.findOne({ email });
+    const user = await userCollection.findOne({ email: email });
     if (!user) {
       res.status(400).json({ message: "Invalid email" });
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      res.status(400).json({ message: "Invalid password" });
+      res.statusCode = 404;
     }
     const accessToken = jwt.sign({ email: email }, secretkey, {
       expiresIn: "1d",
@@ -33,28 +33,29 @@ const loginUser = async (req, res) => {
 
 const registerUser = async (req, res) => {
   const user = req.body;
-  const checkExistMail = await userCollection.findOne({
-    email: user.email,
-  });
-  if (checkExistMail) {
-    res.status(409).json({ message: "Mail already exists" });
-  }
-  const hashPassword = await bcrypt.hashSync(user.password, salt);
-  const newUser = {
-    full_name: user.full_name,
-    email: user.email,
-    phone_number: user.phone_number,
-    birthday: user.birthday,
-    password: hashPassword,
-    create_date: new Date(Date.now()),
-    role: "Contractor",
-    status: "",
-    gender: user.gender,
-    avatar: "",
-  };
   try {
     const db = getDb();
     const userCollection = db.collection("user");
+    const checkExistMail = await userCollection.findOne({
+      email: user.email,
+    });
+    if (checkExistMail) {
+      res.status(409).json({ message: "Mail already exists" });
+    }
+    const hashPassword = await bcrypt.hashSync(user.password, salt);
+    const newUser = {
+      full_name: user.full_name,
+      email: user.email,
+      phone_number: user.phone_number,
+      birthday: user.birthday,
+      password: hashPassword,
+      create_date: new Date(Date.now()),
+      role: "",
+      status: "Complete",
+      gender: user.gender,
+      avatar: "",
+    };
+
     const users = await userCollection.insertOne(newUser);
     res.status(200).json(users);
   } catch (error) {

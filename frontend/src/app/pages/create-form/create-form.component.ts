@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { Team } from 'src/app/models/team.model';
@@ -24,16 +25,12 @@ export class CreateFormComponent implements OnInit {
   domains!: SkillDomain[]
   selectedValue!: string
   currentStep = 0
-  items: MenuItem[] = [{
-    label: 'Create',
-  },
-  {
-    label: 'In progress',
-  },
-  {
-    label: 'Finished',
-  },
-  ];
+  firstStepForm!: FormGroup
+  secondStepForm!: FormGroup
+  items: MenuItem[] = [
+    { label: 'Create' },
+    { label: 'In progress', },
+    { label: 'Finished' }];
   items3: MenuItem[] = [
     {
       icon: 'pi pi-send',
@@ -47,7 +44,7 @@ export class CreateFormComponent implements OnInit {
 
   constructor(private textService: TextService,
     private teamService: TeamService, private userService: UserService,
-    private domainService: SkillDomainService) { }
+    private domainService: SkillDomainService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
@@ -56,6 +53,27 @@ export class CreateFormComponent implements OnInit {
     this.teamService.getAllTeams().subscribe(teams => this.teams = teams)
     this.userService.getAllUsers().subscribe(users => this.users = users)
     this.domainService.getAllSkillDomains().subscribe(domains => this.domains = domains)
+
+    this.firstStepForm = this.fb.group({
+      formName: ['', Validators.required],
+      formDescription: ['', Validators.required],
+    })
+    this.secondStepForm = this.fb.group({
+      formStartTime: ['', Validators.required],
+      formDeadline: ['', Validators.required],
+      formManager: ['', Validators.required],
+      formTeam: ['', Validators.required],
+      formMember: ['', Validators.required],
+      formDomain: ['', Validators.required]
+    })
+  }
+  markFormControlsAsTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormControlsAsTouched(control);
+      }
+    });
   }
   navigateToFirstStep() {
     this.currentStep = 0
@@ -64,16 +82,30 @@ export class CreateFormComponent implements OnInit {
     this.isThirdStep = false;
   }
   navigateToSecondStep() {
-    this.currentStep = 1
-    this.isFirstStep = false;
-    this.isSecondStep = true;
-    this.isThirdStep = false;
+    if (this.currentStep === 0 && this.firstStepForm.valid) {
+      this.currentStep = 1
+      this.isFirstStep = false;
+      this.isSecondStep = true;
+      this.isThirdStep = false;
+    } else {
+      this.markFormControlsAsTouched(this.firstStepForm);
+    }
+    if (this.currentStep === 2) {
+      this.currentStep = 1
+      this.isFirstStep = false;
+      this.isSecondStep = true;
+      this.isThirdStep = false;
+    }
   }
   navigateToThirdStep() {
-    this.currentStep = 2
-    this.isFirstStep = false;
-    this.isSecondStep = false;
-    this.isThirdStep = true;
+    if (this.currentStep === 1 && this.secondStepForm.valid) {
+      this.currentStep = 2
+      this.isFirstStep = false;
+      this.isSecondStep = false;
+      this.isThirdStep = true;
+    } else {
+      this.markFormControlsAsTouched(this.secondStepForm)
+    }
   }
   createForm() {
 

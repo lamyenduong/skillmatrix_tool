@@ -21,10 +21,10 @@ export class UserService {
   }
 
   getUserByEmail() {
-    return this.http.get<User>(`${this.apiUrl}/users/email`)
+    return this.http.get<User[]>(`${this.apiUrl}/users/email`)
   }
 
   getUserByName() {
-    return this.http.get<User>(`${this.apiUrl}/users/full-name`)
+    return this.http.get<User[]>(`${this.apiUrl}/users/full-name`)
   }
 }

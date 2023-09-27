@@ -4,7 +4,6 @@
             <div class="create__frame-header">{{createFormPageText.createFormFrameHeader}}</div>
         </div>
     </div>
-
     <div class="container-fluid mx-auto" style="border-radius: 30px 30px 0 0; background: white; padding-bottom: 30px;">
         <div class="container">
             <div class="step__frame">
@@ -12,15 +11,25 @@
             </div>
             <ng-container>
                 <!-- Step 1 -->
-                <form class="step__form-first" *ngIf="isFirstStep && !isSecondStep && !isThirdStep">
+                <form [formGroup]="firstStepForm" class="step__form-first"
+                    *ngIf="isFirstStep && !isSecondStep && !isThirdStep">
                     <div class="step__form-row">
                         <label for="formName">Form Name</label>
-                        <input class="form__input" type="text" name="formName" pInputText placeholder="Enter form name">
+                        <input formControlName="formName" class="form__input" type="text" name="formName" pInputText
+                            placeholder="Enter form name">
+                        <small
+                            *ngIf="firstStepForm.get('formName')?.hasError('required') && (firstStepForm.get('formName')?.touched || firstStepForm.get('formName')?.dirty)">
+                            This field is required.
+                        </small>
                     </div>
                     <div class="step__form-row">
                         <label for="formDescription">Description</label>
-                        <textarea class="form__input" name="formDescription" type="text" pInputTextarea
-                            placeholder="Enter form description" rows="10"></textarea>
+                        <textarea formControlName="formDescription" class="form__input" name="formDescription"
+                            type="text" pInputTextarea placeholder="Enter form description" rows="10"></textarea>
+                        <small
+                            *ngIf="firstStepForm.get('formDescription')?.hasError('required') && (firstStepForm.get('formDescription')?.touched || firstStepForm.get('formDescription')?.dirty)">
+                            This field is required.
+                        </small>
                     </div>
                     <div class="step__form-btn text-end">
                         <button pButton pRipple icon="pi pi-arrow-right" label="Next" iconPos="right"
@@ -28,35 +37,67 @@
                     </div>
                 </form>
                 <!-- Step 2 -->
-                <form class="step__form-second" *ngIf="!isFirstStep && isSecondStep && !isThirdStep">
+                <form [formGroup]="secondStepForm" class="step__form-second"
+                    *ngIf="!isFirstStep && isSecondStep && !isThirdStep">
                     <div class=" row">
                         <div class="step__form-row col-6">
                             <label for="formStartTime">Time from</label>
-                            <input class="form__input" type="date" pInputText placeholder="Select date">
+                            <input formControlName="formStartTime" class="form__input" type="date" pInputText
+                                placeholder="Select date">
+                            <small
+                                *ngIf="secondStepForm.get('formStartTime')?.hasError('required') && (secondStepForm.get('formStartTime')?.touched || secondStepForm.get('formStartTime')?.dirty)">
+                                This field is required.
+                            </small>
                         </div>
                         <div class="step__form-row col-6">
                             <label for="formDeadline">Time to</label>
-                            <input class="form__input" type="date" pInputText placeholder="Select date">
+                            <input formControlName="formDeadline" class="form__input" type="date" pInputText
+                                placeholder="Select date">
+                            <small
+                                *ngIf="secondStepForm.get('formDeadline')?.hasError('required') && (secondStepForm.get('formDeadline')?.touched || secondStepForm.get('formDeadline')?.dirty)">
+                                This field is required.
+                            </small>
                         </div>
                     </div>
                     <div class="step__form-row">
-                        <label for="formAddManager">Add manager</label>
-                        <input class="form__input" type="text" pInputText placeholder="Enter manager name">
+                        <label for="formManager">Add manager</label>
+                        <p-dropdown placeholder="Select manager" formControlName="formManager"
+                            styleClass="form__input px-0" [options]="users" [(ngModel)]="users"
+                            optionLabel="full_name"></p-dropdown>
+                        <small
+                            *ngIf="secondStepForm.get('formManager')?.hasError('required') && (secondStepForm.get('formManager')?.touched || secondStepForm.get('formManager')?.dirty)">
+                            This field is required.
+                        </small>
                     </div>
                     <div class="step__form-row">
                         <label for="formTeam">Team survey</label>
-                        <p-multiSelect styleClass="form__input px-0" defaultLabel="Select teams" [options]="teams"
-                            [(ngModel)]="teams" optionLabel="team_name" display="chip"></p-multiSelect>
+                        <p-multiSelect formControlName="formTeam" styleClass="form__input px-0"
+                            defaultLabel="Select teams" [options]="teams" [(ngModel)]="teams" optionLabel="team_name"
+                            display="chip"></p-multiSelect>
+                        <small
+                            *ngIf="secondStepForm.get('formTeam')?.hasError('required') && (secondStepForm.get('formTeam')?.touched || secondStepForm.get('formTeam')?.dirty)">
+                            This field is required.
+                        </small>
                     </div>
                     <div class="step__form-row">
                         <label for="formMember">Member survey</label>
-                        <p-multiSelect styleClass="form__input px-0" defaultLabel="Select members" [options]="users"
-                            [(ngModel)]="users" optionLabel="full_name" display="chip"></p-multiSelect>
+                        <p-multiSelect formControlName="formMember" styleClass="form__input px-0"
+                            defaultLabel="Select members" [options]="users" [(ngModel)]="users" optionLabel="full_name"
+                            display="chip"></p-multiSelect>
+                        <small
+                            *ngIf="secondStepForm.get('formMember')?.hasError('required') && (secondStepForm.get('formMember')?.touched || secondStepForm.get('formMember')?.dirty)">
+                            This field is required.
+                        </small>
                     </div>
                     <div class="step__form-row">
                         <label for="formDomain">Domain</label>
-                        <p-dropdown styleClass="form__input px-0" defaultLabel="Select members" [options]="domains"
-                            [(ngModel)]="domains" optionLabel="domain_name"></p-dropdown>
+                        <p-multiSelect formControlName="formDomain" styleClass="form__input px-0"
+                            placeholder="Select domains" [options]="domains" [(ngModel)]="domains"
+                            optionLabel="domain_name" display="chip"></p-multiSelect>
+                        <small
+                            *ngIf="secondStepForm.get('formDomain')?.hasError('required') && (secondStepForm.get('formDomain')?.touched || secondStepForm.get('formDomain')?.dirty)">
+                            This field is required.
+                        </small>
                     </div>
                     <div class="step__form-btn text-end">
                         <button pButton pRipple icon="pi pi-arrow-left" label="Back"
@@ -66,7 +107,7 @@
                     </div>
                 </form>
                 <!-- Step 3 -->
-                <form class="step__form-third" *ngIf="!isFirstStep && !isSecondStep && isThirdStep">
+                <div class="step__form-third" *ngIf="!isFirstStep && !isSecondStep && isThirdStep">
                     <div class="step__form-result">
                         <h5>Survey about something</h5>
                         <div class="d-flex result__date">
@@ -122,7 +163,7 @@
                         <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [model]="items3"
                             label="Submit" icon="pi pi-send" pRipple (onClick)="createForm()"></p-splitButton>
                     </div>
-                </form>
+                </div>
             </ng-container>
         </div>
     </div>

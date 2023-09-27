@@ -5,6 +5,8 @@ import { FormService } from 'src/app/services/form/form-service.service';
 import { TextService } from 'src/app/services/text-service.service';
 import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
+import { UserService } from 'src/app/services/user/user-service.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -15,16 +17,19 @@ import { ReadFileService } from 'src/app/services/read-file.service';
 export class HomeComponent implements OnInit {
   forms!: Form[]
   homePageText: any
+  users!: User[]
 
   constructor(private formService: FormService,
     private textService: TextService, private router: Router,
-    private readFileService: ReadFileService) { }
+    private readFileService: ReadFileService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
       this.homePageText = data;
     });
     this.formService.getAllForms().subscribe(data => { this.forms = data; });
+    this.userService.getAllUsers().subscribe(users => this.users = users)
   }
 
   getFormId(form_id: string) {
@@ -115,8 +120,8 @@ export class HomeComponent implements OnInit {
   }
 
   //Search
-  onSearchChangeHome(event: any) {
-    console.log(event.target.value);
+  onSearch(event: any) {
+    // if (this.formService.)
   }
   submitSearchForm() {
 
