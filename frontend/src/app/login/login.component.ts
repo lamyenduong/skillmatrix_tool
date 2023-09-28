@@ -4,7 +4,7 @@ import { NavbarService } from '../services/navbar-service.service';
 import { UserService } from '../services/user/user-service.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { AuthenticatorService } from '../services/auth/authenticator-service.service';
+import { AuthService } from '../services/auth/auth-service.service';
 import { User } from '../models/user.model';
 
 @Component({
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   constructor(private formbuilder: FormBuilder,
     public navbarService: NavbarService, private userService: UserService,
     private messageService: MessageService, private router: Router,
-    private authService: AuthenticatorService) {
+    private authService: AuthService) {
     this.navbarService.hide();
 
   }
@@ -75,6 +75,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
   loginSubmit() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(

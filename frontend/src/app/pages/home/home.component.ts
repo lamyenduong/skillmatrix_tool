@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
       this.homePageText = data;
     });
     this.formService.getAllForms().subscribe(data => { this.forms = data; });
-    this.userService.getAllUsers().subscribe(users => this.users = users)
+    this.userService.getAllUsers().subscribe(users => this.users = users);
   }
 
   getFormId(form_id: string) {

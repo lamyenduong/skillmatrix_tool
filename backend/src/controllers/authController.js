@@ -30,6 +30,28 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getUserInfo = (req, res) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const user = users.find((u) => u.id === decoded.userId);
+
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    res.json(user);
+  });
+};
+
 const registerUser = async (req, res) => {
   const user = req.body;
   try {
@@ -78,4 +100,5 @@ module.exports = {
   loginUser,
   registerUser,
   refreshToken,
+  getUserInfo,
 };

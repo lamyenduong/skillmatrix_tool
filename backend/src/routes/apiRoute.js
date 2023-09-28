@@ -22,6 +22,7 @@ const {
   loginUser,
   registerUser,
   refreshToken,
+  getUserInfo,
 } = require("../controllers/authController");
 
 const apiRoute = (app) => {
@@ -29,6 +30,7 @@ const apiRoute = (app) => {
   apiRouter.post("/register", registerUser);
   apiRouter.post("/login", loginUser);
   apiRouter.post("/refresh-token", refreshToken);
+  apiRouter.get("/after-login", getUserInfo);
   //form
   apiRouter.get("/forms/owner/:user_id", getFormOwner);
   apiRouter.get("/forms/:form_id", getFormById);

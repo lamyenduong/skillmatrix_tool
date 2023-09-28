@@ -8,18 +8,20 @@ import { environment } from 'src/environments/environment';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthenticatorService {
+export class AuthService {
     private apiUrl = environment.apiUrl
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
-    currentUser!: User;
-
 
     constructor(private http: HttpClient, private router: Router) {
         this.checkToken();
     }
     register(user: any): Observable<any> {
         return this.http.post(`${this.apiUrl}/register`, user);
+    }
+
+    getCurrentUser() {
+        return this.http.get(`${this.apiUrl}/after-login`)
     }
 
     login(email: string, password: string): Observable<any> {

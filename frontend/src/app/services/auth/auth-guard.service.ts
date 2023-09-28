@@ -3,7 +3,7 @@
 // import { AuthenticatorService } from './authenticator-service.service';
 
 // @Injectable()
-// export class AuthenticationGuard implements CanActivate {
+// export class AuthGuard implements CanActivate {
 //     constructor(private authService: AuthenticatorService, private router: Router) { }
 
 //     canActivate(): boolean {
