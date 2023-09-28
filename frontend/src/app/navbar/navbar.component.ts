@@ -15,12 +15,7 @@ import { User } from '../models/user.model';
 })
 export class NavbarComponent implements OnInit {
   notifications!: Notification[]
-
-  constructor(private notificationService: NotificationService,
-    public navbarService: NavbarService, private authService: AuthService,
-    private router: Router) {
-  }
-  currentUser!: User
+  currentUser: User | null
   profileTagItems: MenuItem[] = [
     {
       label: 'Profile',
@@ -39,6 +34,13 @@ export class NavbarComponent implements OnInit {
       }
     }
   ]
+
+  constructor(private notificationService: NotificationService,
+    public navbarService: NavbarService, private authService: AuthService,
+    private router: Router) {
+    this.currentUser = this.authService.currentUser
+  }
+
 
   ngOnInit(): void {
     this.notificationService.getAllNotifications().then(notifications => this.notifications = notifications);

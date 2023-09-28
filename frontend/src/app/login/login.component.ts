@@ -91,7 +91,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
   registerUserSubmit() {
     if (this.registerForm.valid) {
       this.authService.register(this.user).subscribe(

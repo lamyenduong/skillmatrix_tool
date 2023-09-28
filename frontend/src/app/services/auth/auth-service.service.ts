@@ -17,6 +17,7 @@ export class AuthService {
     constructor(private http: HttpClient, private router: Router) {
         this.checkToken();
     }
+
     register(user: any): Observable<any> {
         return this.http.post(`${this.apiUrl}/register`, user);
     }
@@ -28,14 +29,10 @@ export class AuthService {
                     localStorage.setItem('access_token', response.accessToken);
                     localStorage.setItem('refresh_token', response.refreshToken);
                     this.isAuthenticatedSubject.next(true);
-                    this.currentUser = response.user
+                    return (this.currentUser = response.user)
                 }
             })
         );
-    }
-
-    getUser() {
-        return this.currentUser;
     }
 
     logout() {
