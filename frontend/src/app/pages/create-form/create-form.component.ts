@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
+import { Form } from 'src/app/models/form.model';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
+import { FormService } from 'src/app/services/form/form-service.service';
 import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
 import { TeamService } from 'src/app/services/form/team-service.service';
 import { TextService } from 'src/app/services/text-service.service';
@@ -44,7 +46,8 @@ export class CreateFormComponent implements OnInit {
 
   constructor(private textService: TextService,
     private teamService: TeamService, private userService: UserService,
-    private domainService: SkillDomainService, private fb: FormBuilder) { }
+    private domainService: SkillDomainService, private fb: FormBuilder,
+    private formService: FormService) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
@@ -107,7 +110,14 @@ export class CreateFormComponent implements OnInit {
       this.markFormControlsAsTouched(this.secondStepForm)
     }
   }
+  // form: Form = {
+  //   form_name: '',
+  //   form_description: '',
+  //   form_deadline: this.secondStepForm.get('formDeadline')?.value.toString(),
+  //   create_date: new Date,
+  //   user: '';
+  // }
   createForm() {
-
+    //this.formService.createForm(this.form)
   }
 }

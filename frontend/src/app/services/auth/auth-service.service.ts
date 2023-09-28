@@ -12,6 +12,7 @@ export class AuthService {
     private apiUrl = environment.apiUrl
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
+    currentUser!: User
 
     constructor(private http: HttpClient, private router: Router) {
         this.checkToken();
@@ -20,26 +21,21 @@ export class AuthService {
         return this.http.post(`${this.apiUrl}/register`, user);
     }
 
-    getCurrentUser() {
-        return this.http.get(`${this.apiUrl}/after-login`)
+    login(email: string, password: string): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
+            tap((response) => {
+                if (response.accessToken) {
+                    localStorage.setItem('access_token', response.accessToken);
+                    localStorage.setItem('refresh_token', response.refreshToken);
+                    this.isAuthenticatedSubject.next(true);
+                    this.currentUser = response.user
+                }
+            })
+        );
     }
 
-    login(email: string, password: string): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/login`, { email, password })
-        // .pipe(
-        //     tap
-        //         ((user) => {
-        //             this.currentUser = user;
-        //             console.log(this.currentUser)
-        //         })
-        // tap((response) => {
-        //     if (response.accessToken) {
-        //         localStorage.setItem('access_token', response.accessToken);
-        //         localStorage.setItem('refresh_token', response.refreshToken);
-        //         this.isAuthenticatedSubject.next(true);
-        //     }
-        // })
-        // );
+    getUser() {
+        return this.currentUser;
     }
 
     logout() {

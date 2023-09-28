@@ -19,37 +19,15 @@ const loginUser = async (req, res) => {
     if (!isPasswordValid) {
       res.statusCode = 401;
     }
-    const accessToken = jwt.sign({ email: email }, secretkey, {
+    const accessToken = jwt.sign({ user_id: user._id }, secretkey, {
       expiresIn: "1d",
     });
-    const refreshToken = jwt.sign({ email: email }, secretkey);
-    res.json({ accessToken, refreshToken });
+    const refreshToken = jwt.sign({ user_id: user._id }, secretkey);
+    res.json({ accessToken, refreshToken, user: user });
   } catch (error) {
     console.error("Error fetching forms:", error);
     res.status(400).json({ error: "An error occurred" });
   }
-};
-
-const getUserInfo = (req, res) => {
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  jwt.verify(token, secretKey, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-
-    const user = users.find((u) => u.id === decoded.userId);
-
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-
-    res.json(user);
-  });
 };
 
 const registerUser = async (req, res) => {
@@ -86,11 +64,11 @@ const registerUser = async (req, res) => {
 };
 
 const refreshToken = async (req, res) => {
-  const { refreshToken, email } = req.body;
+  const { refreshToken, user } = req.body;
   if (!refreshToken || !refreshTokens.includes(refreshToken)) {
     return res.status(401).json({ message: "Invalid refresh token" });
   }
-  const accessToken = jwt.sign({ email: email }, secretkey, {
+  const accessToken = jwt.sign({ user_id: user._id }, secretkey, {
     expiresIn: "1d",
   });
   res.json({ accessToken });
@@ -100,5 +78,4 @@ module.exports = {
   loginUser,
   registerUser,
   refreshToken,
-  getUserInfo,
 };

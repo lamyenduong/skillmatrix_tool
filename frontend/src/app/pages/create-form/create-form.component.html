@@ -62,8 +62,7 @@
                     <div class="step__form-row">
                         <label for="formManager">Add manager</label>
                         <p-dropdown placeholder="Select manager" formControlName="formManager"
-                            styleClass="form__input px-0" [options]="users" [(ngModel)]="users"
-                            optionLabel="full_name"></p-dropdown>
+                            styleClass="form__input px-0" [options]="users" optionLabel="full_name"></p-dropdown>
                         <small
                             *ngIf="secondStepForm.get('formManager')?.hasError('required') && (secondStepForm.get('formManager')?.touched || secondStepForm.get('formManager')?.dirty)">
                             This field is required.
@@ -72,7 +71,7 @@
                     <div class="step__form-row">
                         <label for="formTeam">Team survey</label>
                         <p-multiSelect formControlName="formTeam" styleClass="form__input px-0"
-                            defaultLabel="Select teams" [options]="teams" [(ngModel)]="teams" optionLabel="team_name"
+                            defaultLabel="Select teams" [options]="teams" optionLabel="team_name"
                             display="chip"></p-multiSelect>
                         <small
                             *ngIf="secondStepForm.get('formTeam')?.hasError('required') && (secondStepForm.get('formTeam')?.touched || secondStepForm.get('formTeam')?.dirty)">
@@ -82,7 +81,7 @@
                     <div class="step__form-row">
                         <label for="formMember">Member survey</label>
                         <p-multiSelect formControlName="formMember" styleClass="form__input px-0"
-                            defaultLabel="Select members" [options]="users" [(ngModel)]="users" optionLabel="full_name"
+                            defaultLabel="Select members" [options]="users" optionLabel="full_name"
                             display="chip"></p-multiSelect>
                         <small
                             *ngIf="secondStepForm.get('formMember')?.hasError('required') && (secondStepForm.get('formMember')?.touched || secondStepForm.get('formMember')?.dirty)">
@@ -92,8 +91,8 @@
                     <div class="step__form-row">
                         <label for="formDomain">Domain</label>
                         <p-multiSelect formControlName="formDomain" styleClass="form__input px-0"
-                            placeholder="Select domains" [options]="domains" [(ngModel)]="domains"
-                            optionLabel="domain_name" display="chip"></p-multiSelect>
+                            placeholder="Select domains" [options]="domains" optionLabel="domain_name"
+                            display="chip"></p-multiSelect>
                         <small
                             *ngIf="secondStepForm.get('formDomain')?.hasError('required') && (secondStepForm.get('formDomain')?.touched || secondStepForm.get('formDomain')?.dirty)">
                             This field is required.

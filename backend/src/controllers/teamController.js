@@ -30,4 +30,5 @@ const getTeamById = async (req, res) => {
 
 module.exports = {
   getAllTeams,
+  getTeamById,
 };

@@ -6,10 +6,10 @@ import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { CreateFormComponent } from './pages/create-form/create-form.component';
 import { DetailFormComponent } from './pages/detail-form/detail-form.component';
-//import { AuthenticationGuard } from './services/authentication-guard.service';
+import { AuthGuard } from './services/auth/auth-guard.service';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', component: LoginComponent },
   { path: 'search', component: SearchComponent },
   { path: 'detail/:form_id', component: DetailFormComponent },

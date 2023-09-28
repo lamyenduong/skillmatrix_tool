@@ -26,4 +26,7 @@ export class FormService {
   getFormParticipants(user_id: string) {
     return this.http.get<Form>(`${this.apiUrl}/forms/participants/${user_id}`)
   }
+  createForm(form: Form) {
+    return this.http.post<Form>(`${this.apiUrl}/create-form`, form)
+  }
 }

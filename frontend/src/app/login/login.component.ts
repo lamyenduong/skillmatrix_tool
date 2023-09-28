@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService, private router: Router,
     private authService: AuthService) {
     this.navbarService.hide();
-
   }
 
   ngOnInit(): void {

@@ -1,10 +1,6 @@
 const { getDb } = require("../config/database");
 const { ObjectId } = require("mongodb");
-const bcrypt = require("bcryptjs");
-const salt = bcrypt.genSaltSync(10);
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const secretkey = process.env.JWT_SECRET_KEY;
 
 const getAllUsers = async (req, res) => {
   try {

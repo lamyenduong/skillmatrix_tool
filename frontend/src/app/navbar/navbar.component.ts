@@ -5,6 +5,7 @@ import { Notification } from '../models/notification.model';
 import { NavbarService } from '../services/navbar-service.service';
 import { AuthService } from '../services/auth/auth-service.service';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -15,12 +16,11 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   notifications!: Notification[]
 
-
   constructor(private notificationService: NotificationService,
     public navbarService: NavbarService, private authService: AuthService,
     private router: Router) {
   }
-
+  currentUser!: User
   profileTagItems: MenuItem[] = [
     {
       label: 'Profile',
@@ -42,7 +42,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.notificationService.getAllNotifications().then(notifications => this.notifications = notifications);
-    this.authService.getCurrentUser().subscribe(user => { console.log(user); });
   }
 
   //Notification
