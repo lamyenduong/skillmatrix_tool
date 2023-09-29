@@ -45,6 +45,7 @@ export class SearchComponent implements OnInit {
       const selectedDomains = this.reactiveSkillDomainForm.get('selectedDomains') as FormArray;
       selectedDomains.push(new FormControl(selectedDomain));
       this.reactiveSkillDomainForm.disable()
+      console.log(selectedDomain)
     }
   }
   addPoint(selectedPoint: number) {

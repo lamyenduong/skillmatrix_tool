@@ -28,12 +28,13 @@ export class LoginComponent implements OnInit {
     status: '',
     role: '',
     create_date: '',
-    avatar: ''
+    avatar: '',
+    user_id: ''
   }
   selectedValue: any
 
   constructor(private formbuilder: FormBuilder,
-    public navbarService: NavbarService, private userService: UserService,
+    public navbarService: NavbarService,
     private messageService: MessageService, private router: Router,
     private authService: AuthService) {
     this.navbarService.hide();

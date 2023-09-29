@@ -14,14 +14,14 @@ const getAllTeams = async (req, res) => {
 };
 
 const getTeamById = async (req, res) => {
-  const domain_id = req.params.domain_id;
+  const team_id = req.params.team_id;
   try {
     const db = getDb();
-    const domainCollection = db.collection("skill-domain");
-    const domain = await domainCollection.findOne({
-      _id: new ObjectId(domain_id),
+    const teamCollection = db.collection("team");
+    const team = await teamCollection.findOne({
+      _id: new ObjectId(team_id),
     });
-    res.status(200).json(domain);
+    res.status(200).json(team);
   } catch (error) {
     console.error("Error fetching forms:", error);
     res.status(500).json({ error: "An error occurred" });

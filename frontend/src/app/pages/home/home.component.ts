@@ -5,6 +5,8 @@ import { FormService } from 'src/app/services/form/form-service.service';
 import { TextService } from 'src/app/services/text-service.service';
 import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
+import { AuthService } from 'src/app/services/auth/auth-service.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -15,21 +17,38 @@ import { ReadFileService } from 'src/app/services/read-file.service';
 export class HomeComponent implements OnInit {
   forms!: Form[]
   homePageText: any
+  selectedValue!: string
+  user: User = {
+    user_id: '',
+    password: '',
+    full_name: '',
+    gender: '',
+    phone_number: '',
+    birthday: '',
+    email: '',
+    status: '',
+    role: '',
+    create_date: '',
+    avatar: ''
+  }
 
   constructor(private formService: FormService,
     private textService: TextService, private router: Router,
-    private readFileService: ReadFileService) {
+    private readFileService: ReadFileService, private authService: AuthService) {
   }
-
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
       this.homePageText = data;
     });
-    this.formService.getAllForms().subscribe(data => { this.forms = data; });
+    this.user = this.authService['this'].formService.getFormOwner(this.user.user_id).subscribe((data: Form[]) => this.forms = data);
   }
 
-  getFormId(form_id: string) {
+  getFormOwnerByMe() {
+    this.router.navigate(['/search']);
+  }
+
+  getFormAsignMe(form_id: string) {
     this.router.navigate(['/detail', form_id]);
   }
 

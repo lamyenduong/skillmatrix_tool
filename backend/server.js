@@ -1,6 +1,7 @@
 const express = require("express");
 const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
+const session = require("express-session");
 const multer = require("multer");
 require("dotenv").config();
 const apiRoute = require("./src/routes/apiRoute");
@@ -13,6 +14,13 @@ const host = process.env.HOST;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: "yenduong",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 apiRoute(app);
 connectToMongoDB();
 

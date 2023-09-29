@@ -23,7 +23,21 @@ const loginUser = async (req, res) => {
       expiresIn: "1d",
     });
     const refreshToken = jwt.sign({ user_id: user._id }, secretkey);
-    res.json({ accessToken, refreshToken, user: user });
+    const currentUser = {
+      user_id: user._id,
+      password: user.password,
+      full_name: user.full_name,
+      gender: user.gender,
+      phone_number: user.phone_number,
+      birthday: user.birthday,
+      email: user.email,
+      status: user.status,
+      role: user.role,
+      create_date: user.create_date,
+      avatar: user.avatar,
+    };
+    req.session.user = currentUser;
+    res.json({ accessToken, refreshToken, user: currentUser });
   } catch (error) {
     console.error("Error fetching forms:", error);
     res.status(400).json({ error: "An error occurred" });
@@ -40,6 +54,7 @@ const registerUser = async (req, res) => {
     });
     if (checkExistMail) {
       res.status(409).json({ message: "Mail already exists" });
+      return;
     }
     const hashPassword = await bcrypt.hashSync(user.password, salt);
     const newUser = {
@@ -54,7 +69,6 @@ const registerUser = async (req, res) => {
       gender: user.gender,
       avatar: "",
     };
-
     const users = await userCollection.insertOne(newUser);
     res.status(200).json(users);
   } catch (error) {

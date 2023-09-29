@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap, throwError } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment';
 
@@ -9,27 +9,39 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root'
 })
 export class AuthService {
+    [x: string]: any;
     private apiUrl = environment.apiUrl
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
-    currentUser!: User
-
-    constructor(private http: HttpClient, private router: Router) {
+    public currentUserSubject = new BehaviorSubject<User | null>(null);
+    constructor(private http: HttpClient) {
         this.checkToken();
-    }
-
-    register(user: any): Observable<any> {
-        return this.http.post(`${this.apiUrl}/register`, user);
     }
 
     login(email: string, password: string): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
             tap((response) => {
-                if (response.accessToken) {
+                if (response.accessToken && response.user) {
                     localStorage.setItem('access_token', response.accessToken);
                     localStorage.setItem('refresh_token', response.refreshToken);
+                    sessionStorage.setItem('access_token', response.accessToken);
+                    sessionStorage.setItem('refresh_token', response.refreshToken);
                     this.isAuthenticatedSubject.next(true);
-                    return (this.currentUser = response.user)
+                    const currentUser: User = {
+                        user_id: response.user.user_id,
+                        password: response.user.password,
+                        full_name: response.user.full_name,
+                        gender: response.user.gender,
+                        phone_number: response.user.phone_number,
+                        birthday: response.user.birthday,
+                        email: response.user.email,
+                        status: response.user.status,
+                        role: response.user.role,
+                        create_date: response.user.create_date,
+                        avatar: response.user.avatar
+                    }
+                    this.currentUserSubject.next(currentUser)
+                    console.log(response.user)
                 }
             })
         );
@@ -38,7 +50,13 @@ export class AuthService {
     logout() {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('refresh_token');
         this.isAuthenticatedSubject.next(false);
+    }
+
+    register(user: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/register`, user);
     }
 
     refreshToken(): Observable<any> {

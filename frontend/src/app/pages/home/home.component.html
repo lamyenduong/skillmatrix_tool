@@ -45,9 +45,9 @@
                                                 style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
                                             <div class="card__info">
                                                 <a class="card__title" role="button"
-                                                    (click)="getFormId(form._id)">{{form.form_name}}</a>
+                                                    (click)="getFormAsignMe(form._id)">{{form.form_name}}</a>
                                                 <p class="card__subtitle">{{form.user.full_name}}</p>
-                                                <p class="card__subtitle">{{form.create_date}}</p>
+                                                <p class="card__subtitle">{{form.create_date | date}}</p>
                                             </div>
                                         </div>
                                         <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>
@@ -73,7 +73,8 @@
                                             <span class="material-icons"
                                                 style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
                                             <div class="card__info">
-                                                <p class="card__title">{{form.form_name}}</p>
+                                                <a class="card__title" role="button"
+                                                    (click)="getFormOwnerByMe()">{{form.form_name}}</a>
                                                 <p class="card__subtitle">{{form.user.full_name}}</p>
                                                 <p class="card__subtitle">{{form.create_date | date}}</p>
                                             </div>
@@ -93,6 +94,52 @@
                 <p-tabPanel header="Draft" headerStyleClass="tabpanel__header">
                 </p-tabPanel>
                 <p-tabPanel header="Domain" headerStyleClass="tabpanel__header">
+                    <p-panel [toggleable]="true">
+                        <ng-template pTemplate="header">
+                            Domain name
+                            <span style="margin-left: 8px; color: rgb(255, 144, 103);">4.5</span>
+                        </ng-template>
+                        <ng-template pTemplate="icons">
+                            <button pButton class="p-panel-header-icon p-link">
+                                <span class="pi pi-file-edit"></span>
+                            </button>
+                            <button pButton class="p-panel-header-icon p-link">
+                                <span class="pi pi-trash"></span>
+                            </button>
+                            <p-menu #menu [popup]="true">
+                            </p-menu>
+                        </ng-template>
+                        <div class="radio__header d-flex mb-2">
+                            <div class="col-2"></div>
+                            <div class="radio__labels col-10">
+                                <label for="0">0</label>
+                                <label for="1">1</label>
+                                <label for="2">2</label>
+                                <label for="3">3</label>
+                                <label for="4">4</label>
+                                <label for="5">5</label>
+                            </div>
+                        </div>
+                        <div class="radio__form d-flex align-items-center">
+                            <div class="col-2">
+                                <span>Skill name</span>
+                            </div>
+                            <div class="radio__options col-10">
+                                <p-radioButton id="0" name="number" [(ngModel)]="selectedValue"
+                                    value="0">0</p-radioButton>
+                                <p-radioButton id="1" name="number" [(ngModel)]="selectedValue"
+                                    value="1">0</p-radioButton>
+                                <p-radioButton id="2" name="number" [(ngModel)]="selectedValue"
+                                    value="2"></p-radioButton>
+                                <p-radioButton id="3" name="number" [(ngModel)]="selectedValue"
+                                    value="3"></p-radioButton>
+                                <p-radioButton id="4" name="number" [(ngModel)]="selectedValue"
+                                    value="4"></p-radioButton>
+                                <p-radioButton id="5" name="number" [(ngModel)]="selectedValue"
+                                    value="5"></p-radioButton>
+                            </div>
+                        </div>
+                    </p-panel>
                 </p-tabPanel>
             </p-tabView>
         </div>

@@ -22,7 +22,6 @@ const {
   loginUser,
   registerUser,
   refreshToken,
-  getUserInfo,
 } = require("../controllers/authController");
 const { getAllTeams } = require("../controllers/teamController");
 const {

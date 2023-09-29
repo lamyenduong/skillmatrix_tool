@@ -21,6 +21,13 @@ const createFormParticipant = async (req, res) => {
   }
 };
 
+const addMemberInTeamToForm = async (req, res) => {
+  const { form_id, user_id, team_id } = req.params;
+  const db = getDb();
+  const teamCollection = db.collection("team");
+  const checkMemberTeam = await teamCollection.find().toA;
+};
+
 module.exports = {
   createFormParticipant,
 };
