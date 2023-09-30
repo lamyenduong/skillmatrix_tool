@@ -1,7 +1,7 @@
 const express = require("express");
 const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
-const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const multer = require("multer");
 require("dotenv").config();
 const apiRoute = require("./src/routes/apiRoute");
@@ -11,16 +11,17 @@ const app = express();
 const port = process.env.PORT || 8081;
 const host = process.env.HOST;
 
+// app.use(cors( {
+//   origin: 'http://localhost:4200',
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true
+// } ));
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(
-  session({
-    secret: "yenduong",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+app.use(cookieParser());
+
 apiRoute(app);
 connectToMongoDB();
 

@@ -80,8 +80,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
         () => {
-          this.navbarService.display();
-          this.router.navigate(['/home']);
+          this.navbarService.display()
+          this.router.navigate(['/']);
         },
         (error) => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed!' });

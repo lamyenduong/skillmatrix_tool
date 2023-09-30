@@ -9,8 +9,8 @@ import { DetailFormComponent } from './pages/detail-form/detail-form.component';
 import { AuthGuard } from './services/auth/auth-guard.service';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: '', component: LoginComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   { path: 'search', component: SearchComponent },
   { path: 'detail/:form_id', component: DetailFormComponent },
   { path: 'create', component: CreateFormComponent },

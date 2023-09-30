@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
 import { AuthService } from 'src/app/services/auth/auth-service.service';
 import { User } from 'src/app/models/user.model';
+import { CookieService } from 'src/app/services/cookie-service.service';
 
 @Component({
   selector: 'app-home',
@@ -18,30 +19,20 @@ export class HomeComponent implements OnInit {
   forms!: Form[]
   homePageText: any
   selectedValue!: string
-  user: User = {
-    user_id: '',
-    password: '',
-    full_name: '',
-    gender: '',
-    phone_number: '',
-    birthday: '',
-    email: '',
-    status: '',
-    role: '',
-    create_date: '',
-    avatar: ''
-  }
+  user!: User | null
 
   constructor(private formService: FormService,
     private textService: TextService, private router: Router,
-    private readFileService: ReadFileService, private authService: AuthService) {
+    private readFileService: ReadFileService, private authService: AuthService,
+    private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
       this.homePageText = data;
     });
-    this.user = this.authService['this'].formService.getFormOwner(this.user.user_id).subscribe((data: Form[]) => this.forms = data);
+    const user_id = this.cookieService.getCookie("user_id");
+    this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.forms = data);
   }
 
   getFormOwnerByMe() {

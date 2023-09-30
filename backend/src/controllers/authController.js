@@ -4,7 +4,8 @@ const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const secretkey = process.env.JWT_SECRET_KEY;
+const accessKey = process.env.ACCESS_TOKEN;
+const refreshKey = process.env.REFRESH_TOKEN;
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -19,10 +20,12 @@ const loginUser = async (req, res) => {
     if (!isPasswordValid) {
       res.statusCode = 401;
     }
-    const accessToken = jwt.sign({ user_id: user._id }, secretkey, {
+    const accessToken = jwt.sign({ user_id: user._id }, accessKey, {
       expiresIn: "1d",
     });
-    const refreshToken = jwt.sign({ user_id: user._id }, secretkey);
+    const refreshToken = jwt.sign({ user_id: user._id }, refreshKey, {
+      expiresIn: "30d",
+    });
     const currentUser = {
       user_id: user._id,
       password: user.password,
@@ -36,8 +39,13 @@ const loginUser = async (req, res) => {
       create_date: user.create_date,
       avatar: user.avatar,
     };
-    req.session.user = currentUser;
     res.json({ accessToken, refreshToken, user: currentUser });
+    // res.json("sessionCookieName", "sessionCookieValue", {
+    //   httpOnly: true,+
+    //   secure: true,
+    //   sameSite: "strict",
+    //   maxAge: 86400000,
+    // });
   } catch (error) {
     console.error("Error fetching forms:", error);
     res.status(400).json({ error: "An error occurred" });
@@ -82,7 +90,7 @@ const refreshToken = async (req, res) => {
   if (!refreshToken || !refreshTokens.includes(refreshToken)) {
     return res.status(401).json({ message: "Invalid refresh token" });
   }
-  const accessToken = jwt.sign({ user_id: user._id }, secretkey, {
+  const accessToken = jwt.sign({ user_id: user._id }, accessKey, {
     expiresIn: "1d",
   });
   res.json({ accessToken });
