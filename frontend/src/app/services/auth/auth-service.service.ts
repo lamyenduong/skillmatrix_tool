@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CookieService } from '../cookie-service.service';
 import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,8 @@ export class AuthService {
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
     public currentUserSubject = new BehaviorSubject<User | null>(null);
-    constructor(private http: HttpClient, private cookieService: CookieService) {
+    constructor(private http: HttpClient, private cookieService: CookieService,
+        private router: Router) {
         this.checkToken();
     }
 
@@ -26,10 +28,11 @@ export class AuthService {
                     localStorage.setItem('user_id', response.user.user_id);
                     sessionStorage.setItem('access_token', response.accessToken);
                     sessionStorage.setItem('refresh_token', response.refreshToken);
-                    sessionStorage.setItem('user_id', response.user.user_id)
+                    sessionStorage.setItem('user_id', response.user.user_id);
                     this.cookieService.setCookie('access_token', response.accessToken, 1)
                     this.cookieService.setCookie('refresh_token', response.refreshToken, 1)
                     this.cookieService.setCookie('user_id', response.user.user_id, 1);
+                    this.isAuthenticatedSubject.next(true);
                     const currentUser: User = {
                         user_id: response.user.user_id,
                         password: response.user.password,
@@ -44,7 +47,6 @@ export class AuthService {
                         avatar: response.user.avatar
                     }
                     this.currentUserSubject.next(currentUser)
-                    this.isAuthenticatedSubject.next(true);
                 }
             })
         );
@@ -56,11 +58,12 @@ export class AuthService {
         localStorage.removeItem('user_id');
         sessionStorage.removeItem('access_token');
         sessionStorage.removeItem('refresh_token');
-        sessionStorage.removeItem('user_id')
+        sessionStorage.removeItem('user_id');
         this.cookieService.removeCookie('access_token')
         this.cookieService.removeCookie('refresh_token')
         this.cookieService.removeCookie('user_id');
         this.isAuthenticatedSubject.next(false);
+        this.router.navigate(['/login']);
     }
 
     register(user: any): Observable<any> {

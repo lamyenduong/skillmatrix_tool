@@ -30,6 +30,12 @@ export class CookieService {
     }
 
     removeCookie(cname: string) {
-        this.setCookie(cname, "", -9999)
+        const pastDate = new Date();
+        pastDate.setTime(pastDate.getTime() - 1);
+        document.cookie = `${cname}=;expires=${pastDate.toUTCString()};path=/`;
+    }
+
+    checkCookie(cname: string): boolean {
+        return this.getCookie(cname) !== null;
     }
 }

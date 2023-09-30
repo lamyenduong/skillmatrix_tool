@@ -5,7 +5,6 @@ import { FormService } from 'src/app/services/form/form-service.service';
 import { TextService } from 'src/app/services/text-service.service';
 import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
-import { AuthService } from 'src/app/services/auth/auth-service.service';
 import { User } from 'src/app/models/user.model';
 import { CookieService } from 'src/app/services/cookie-service.service';
 
@@ -23,7 +22,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private formService: FormService,
     private textService: TextService, private router: Router,
-    private readFileService: ReadFileService, private authService: AuthService,
+    private readFileService: ReadFileService,
     private cookieService: CookieService) {
   }
 

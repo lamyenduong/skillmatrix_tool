@@ -17,8 +17,7 @@ import { UserService } from '../services/user/user-service.service';
 })
 export class NavbarComponent implements OnInit {
   notifications!: Notification[]
-  currentUser!: User
-  user_id!: string
+  currentUser!: User | null
 
   profileTagItems: MenuItem[] = [
     {
@@ -34,21 +33,21 @@ export class NavbarComponent implements OnInit {
       icon: 'pi pi-sign-out',
       command: () => {
         this.authService.logout();
-        this.router.navigate(['/login']);
       }
     }
   ]
 
   constructor(private notificationService: NotificationService,
     public navbarService: NavbarService, public authService: AuthService,
-    private router: Router, private cookieService: CookieService,
-    private userService: UserService) {
+    private cookieService: CookieService, private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.notificationService.getAllNotifications().then(notifications => this.notifications = notifications);
-    this.user_id = this.cookieService.getCookie("user_id")
-    this.userService.getUserById(this.user_id).subscribe(user => this.currentUser = user);
+    this.authService.currentUserSubject.asObservable().subscribe(user => {
+      const user_id = this.cookieService.getCookie("user_id")
+      this.userService.getUserById(user_id).subscribe(user => this.currentUser = user)
+    })
   }
 
   //Notification
