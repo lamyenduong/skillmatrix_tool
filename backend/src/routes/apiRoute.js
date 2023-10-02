@@ -27,6 +27,7 @@ const { getAllTeams } = require("../controllers/teamController");
 const {
   createFormParticipant,
 } = require("../controllers/formPaticipantController");
+const { getFormSkill } = require("../controllers/formSkillController");
 
 const apiRoute = (app) => {
   //auth
@@ -53,6 +54,8 @@ const apiRoute = (app) => {
   apiRouter.get("/teams", getAllTeams);
   //form participant
   apiRouter.post("/participants", createFormParticipant);
+  //form-skill
+  apiRouter.get("/form-skill/:form_id", getFormSkill);
   //skill
   app.use("/", apiRouter);
 };

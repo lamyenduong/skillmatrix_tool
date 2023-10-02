@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
 import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
@@ -19,11 +20,12 @@ export class SearchComponent implements OnInit {
   skillDomains!: SkillDomain[]
   reactiveSkillDomainForm!: FormGroup
   points: any[] = ["any", 1, 2, 3, 4, 5]
-  selectedPoint: number | null = null;
+
+  selectedDomainsWithPoints: { domain: any, point: any }[] = [];
 
   constructor(private textService: TextService,
     private userService: UserService, private skillDomainService: SkillDomainService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
@@ -32,30 +34,25 @@ export class SearchComponent implements OnInit {
     this.userService.getAllUsers().subscribe(users => this.users = users)
     this.skillDomainService.getAllSkillDomains().subscribe(skillDomains => this.skillDomains = skillDomains)
     this.reactiveSkillDomainForm = this.fb.group({
-      skillDomainsControl: new FormControl({}),
-      selectedDomains: this.fb.array([])
-    })
+      skillDomainsControl: new FormControl()
+    });
+  }
+  //Back button
+  backToHomePage() {
+    this.router.navigate(['/']);
   }
   //Filter button
   showFilterDialog() {
     this.displayFilterButton = true
   }
-  addToChip(selectedDomain: string) {
-    if (selectedDomain) {
-      const selectedDomains = this.reactiveSkillDomainForm.get('selectedDomains') as FormArray;
-      selectedDomains.push(new FormControl(selectedDomain));
-      this.reactiveSkillDomainForm.disable()
-      console.log(selectedDomain)
+  addToChip(domain: string) {
+    this.selectedDomainsWithPoints.push({ domain: domain, point: 'any' });
+  }
+  addPoint(point: any) {
+    if (this.selectedDomainsWithPoints.length > 0) {
+      this.selectedDomainsWithPoints[this.selectedDomainsWithPoints.length - 1].point = point;
     }
   }
-  addPoint(selectedPoint: number) {
-    if (selectedPoint) {
-      this.selectedPoint = selectedPoint;
-      this.reactiveSkillDomainForm.enable()
-      //document.getElementById("pointValue")?.
-    }
-  }
-
   //Search
   searchEvent(e: any) {
     console.log(e.target.value)

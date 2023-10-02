@@ -9,7 +9,8 @@
         <div class="container">
             <div class="search__frame">
                 <div class="search__frame-bar">
-                    <button pRipple pButton class="p-button-outlined" label="Back" icon="pi pi-arrow-left"></button>
+                    <button pRipple pButton class="p-button-outlined" label="Back" icon="pi pi-arrow-left"
+                        (click)="backToHomePage()"></button>
                     <span class="p-input-icon-left search__bar">
                         <i class="pi pi-search"></i>
                         <input type="text" pInputText placeholder="Search" (input)="searchEvent($event)" />
@@ -59,18 +60,18 @@
 
     <p-dialog header="Filter" [(visible)]="displayFilterButton" [modal]="true" [style]="{width: '40vw'}"
         [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
-        <form action="" [formGroup]="reactiveSkillDomainForm">
+        <form [formGroup]="reactiveSkillDomainForm">
             <p-dropdown styleClass="filter__form" formControlName="skillDomainsControl" [options]="skillDomains"
                 optionLabel="domain_name" placeholder="Domain name" (onChange)="addToChip($event.value)"></p-dropdown>
-            <p-chip [removable]="true" *ngFor="let domain of reactiveSkillDomainForm.get('selectedDomains')?.value;">
-                <span class="domain__value-name">{{domain.domain_name}}</span>
-                <span class="domain__value-point" id="pointValue">{{selectedPoint}}</span>
-            </p-chip>
         </form>
+        <p-chip [removable]="true" *ngFor="let item of selectedDomainsWithPoints">
+            <span class="domain__value-name">{{item.domain.domain_name}}</span>
+            <span class="domain__value-point" id="pointValue">{{item.point}}</span>
+        </p-chip>
         <div class="filter__btn-point">
             <h6>Domain name</h6>
             <ng-container *ngFor="let point of points">
-                <button value="{{point}}" pButton type="button" label="{{point}}" (click)="addPoint(point)"
+                <button value="{{point}}" pButton label="{{point}}" (click)="addPoint(point)"
                     class="p-button-outlined p-button-rounded btn__point-number"></button>
             </ng-container>
         </div>
