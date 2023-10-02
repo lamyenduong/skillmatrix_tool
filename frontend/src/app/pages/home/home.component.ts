@@ -34,8 +34,8 @@ export class HomeComponent implements OnInit {
     this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.forms = data);
   }
 
-  getFormOwnerByMe() {
-    this.router.navigate(['/search']);
+  getFormOwnerByMe(form_id: string) {
+    this.router.navigate(['/search', form_id]);
   }
 
   getFormAsignMe(form_id: string) {

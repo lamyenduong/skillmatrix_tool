@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
+import { FormService } from 'src/app/services/form/form-service.service';
 import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
 import { TextService } from 'src/app/services/text-service.service';
 import { UserService } from 'src/app/services/user/user-service.service';
@@ -25,17 +26,28 @@ export class SearchComponent implements OnInit {
 
   constructor(private textService: TextService,
     private userService: UserService, private skillDomainService: SkillDomainService,
-    private fb: FormBuilder, private router: Router) { }
+    private fb: FormBuilder, private router: Router,
+    private route: ActivatedRoute, private formService: FormService) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
       this.searchPageText = data;
     });
-    this.userService.getAllUsers().subscribe(users => this.users = users)
     this.skillDomainService.getAllSkillDomains().subscribe(skillDomains => this.skillDomains = skillDomains)
     this.reactiveSkillDomainForm = this.fb.group({
       skillDomainsControl: new FormControl()
     });
+    this.route.paramMap.subscribe(params => {
+      const formId = params.get('form_id');
+      if (formId !== null) {
+        this.formService.getFormParticipants(formId).subscribe(data => {
+          if (data) {
+            this.users = data;
+            console.log(this.users);
+          }
+        })
+      }
+    })
   }
   //Back button
   backToHomePage() {

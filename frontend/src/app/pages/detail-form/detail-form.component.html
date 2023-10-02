@@ -7,7 +7,7 @@
         <div class="d-flex edit__frame-btn">
             <button class="frame__btn-back" pButton icon="pi pi-arrow-left" (click)="backToHomePage()"
                 label="Back"></button>
-            <button pRipple pButton icon="pi pi-file-edit" label="Edit"></button>
+            <button pRipple pButton icon="pi pi-file-edit" label="Edit" (click)="editDomainForm($event)"></button>
         </div>
     </div>
 </div>
@@ -15,15 +15,17 @@
     <div class="frame__profile">
         <div class="frame__profile-card text-center">
             <p-avatar image=""></p-avatar>
-            <p class="card__title">{{form.user.full_name}}</p>
-            <p class="card__subtitle">{{form.user.role}}</p>
+            <p class="card__title"></p>
+            <p class="card__subtitle"></p>
             <button pButton pRipple label="View profile"></button>
         </div>
     </div>
     <div class="frame__form">
-        <p-panel [toggleable]="true">
+        <p-blockUI [target]="panel">
+        </p-blockUI>
+        <p-panel #panel [toggleable]="true">
             <ng-template pTemplate="header">
-                {{formSkill.skill.skill_domain.domain_name}}
+                {{domain.domain_name}}
                 <span style="margin-left: 8px; color: rgb(255, 144, 103);">4.5</span>
             </ng-template>
             <ng-template pTemplate="icons">
@@ -43,7 +45,7 @@
             </div>
             <div class="radio__form d-flex align-items-center">
                 <div class="col-2">
-                    <span> {{formSkill.skill.skill_name}}</span>
+                    <!-- <span> {{formSkill.skill.skill_name}}</span> -->
                 </div>
                 <div class="radio__options col-10">
                     <p-radioButton id="0" name="number" [(ngModel)]="selectedValue" value="0">0</p-radioButton>

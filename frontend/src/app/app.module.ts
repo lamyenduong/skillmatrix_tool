@@ -37,6 +37,7 @@ import { ChipModule } from 'primeng/chip';
 import { PanelModule } from 'primeng/panel';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { DropdownModule } from 'primeng/dropdown';
+import { BlockUIModule } from 'primeng/blockui';
 //Service
 import { TextService } from './services/text-service.service';
 
@@ -79,6 +80,7 @@ import { TextService } from './services/text-service.service';
     PanelModule,
     SplitButtonModule,
     DropdownModule,
+    BlockUIModule
   ],
   providers: [MessageService, TextService],
   bootstrap: [AppComponent]

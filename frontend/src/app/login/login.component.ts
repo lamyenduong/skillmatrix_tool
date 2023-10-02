@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     status: '',
     role: '',
     create_date: '',
-    avatar: '',
+    avatar: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
     user_id: ''
   }
   selectedValue: any

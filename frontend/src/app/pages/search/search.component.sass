@@ -49,16 +49,18 @@
                 align-items: center
     .p-paginator
         justify-content: end
-        border: none
+        .p-paginator-element
+            border: none
         .p-paginator-icon
             color: $primary-01
-        .p-link
+        .p-paginator-pages .p-link
             border: none
             border-radius: 100%
         .p-paginator-pages .p-paginator-page.p-highlight
             background: $primary-01
             &:focus
                 box-shadow: none
+
 .search__dialog-filter
     .filter__form
         width: 100%

@@ -53,6 +53,8 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
+const getManagerByFormId = async (req, res) => {};
+
 module.exports = {
   getAllUsers,
   getUserById,

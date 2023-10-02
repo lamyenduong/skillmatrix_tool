@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TextService } from 'src/app/services/text-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormService } from 'src/app/services/form/form-service.service';
 import { Form } from 'src/app/models/form.model';
-import { FormSkillService } from 'src/app/services/form/form-skill-service.service';
-import { FormSkill } from 'src/app/models/form-skill.model';
-import { forkJoin } from 'rxjs';
+import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
+import { SkillDomain } from 'src/app/models/skill-domain.model';
+import { FormService } from 'src/app/services/form/form-service.service';
 
 @Component({
   selector: 'app-detail-form',
@@ -16,35 +15,56 @@ import { forkJoin } from 'rxjs';
 export class DetailFormComponent implements OnInit {
   selectedValue!: string
   detailFormPageText: any
-  formId!: string | null;
-  form!: Form;
-  formSkill!: FormSkill
-
+  form: Form = {
+    form_id: '',
+    form_name: '',
+    create_date: undefined,
+    form_deadline: '',
+    form_description: ''
+  }
+  domain: SkillDomain = {
+    domain_id: '',
+    domain_name: '',
+    project: undefined,
+    status: ''
+  }
   constructor(public textService: TextService, private router: ActivatedRoute,
-    private routerNav: Router, private formService: FormService, private formSkillService: FormSkillService) { }
+    private routerNav: Router, private domainService: SkillDomainService,
+    private formService: FormService) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
       this.detailFormPageText = data;
     });
     this.router.paramMap.subscribe(params => {
-      this.formId = params.get('form_id');
-      if (this.formId !== null) {
-        forkJoin([
-          this.formService.getFormById(this.formId),
-          this.formSkillService.getFormSkillByFormId(this.formId)
-        ]).subscribe(data => {
-          this.form = data[0];
-          this.formSkill = data[1];
-          if (this.form && this.formSkill) {
-            console.log(this.formSkill?.skill?.skill_domain?.domain_name);
+      const formId = params.get('form_id');
+      if (formId !== null) {
+        this.formService.getFormById(formId).subscribe(data => {
+          if (data && data.form_name) {
+            this.form = data;
+            this.form.form_name = data.form_name
+            console.log(this.form.form_name)
           }
-        });
+        })
+        this.domainService.getDomainByFormId(formId).subscribe(data => {
+          if (data && data.domain_name) {
+            this.domain = data;
+            this.domain.domain_name = data.domain_name;
+            console.log(this.domain)
+          } else { console.log("error"); }
+        })
       }
-    });
+    })
   }
   //Back button
   backToHomePage() {
     this.routerNav.navigate(['/']);
+  }
+  //Edit button
+  editDomainForm(event: any) {
+    const panel = document.querySelector("p-panel") as HTMLDivElement;
+    if (panel.classList.contains("p-panel-expanded")) {
+
+    }
   }
 }

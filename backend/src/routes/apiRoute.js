@@ -17,6 +17,7 @@ const {
   getAllDomains,
   getDomainById,
   createDomain,
+  getDomainByFormId,
 } = require("../controllers/domainController");
 const {
   loginUser,
@@ -24,22 +25,17 @@ const {
   refreshToken,
 } = require("../controllers/authController");
 const { getAllTeams } = require("../controllers/teamController");
-const {
-  createFormParticipant,
-} = require("../controllers/formPaticipantController");
-const { getFormSkill } = require("../controllers/formSkillController");
 
 const apiRoute = (app) => {
   //auth
   apiRouter.post("/register", registerUser);
   apiRouter.post("/login", loginUser);
   apiRouter.post("/refresh-token", refreshToken);
-  // apiRouter.get("/after-login", getUserInfo);
   //form
   apiRouter.get("/forms/owner/:user_id", getFormOwner);
   apiRouter.get("/forms/:form_id", getFormById);
   apiRouter.get("/forms/manager/:user_id", getFormManager);
-  apiRouter.get("/forms/participants/:user_id", getFormParticipants);
+  apiRouter.get("/forms/participants/:form_id", getFormParticipants);
   apiRouter.post("/create-form", createForm);
   //user
   apiRouter.get("/users", getAllUsers);
@@ -49,13 +45,10 @@ const apiRoute = (app) => {
   //domain
   apiRouter.get("/domains", getAllDomains);
   apiRouter.get("/domains/:domain_id", getDomainById);
+  apiRouter.get("/domains/:form_id", getDomainByFormId);
   apiRouter.post("/create-domain", createDomain);
   //team
   apiRouter.get("/teams", getAllTeams);
-  //form participant
-  apiRouter.post("/participants", createFormParticipant);
-  //form-skill
-  apiRouter.get("/form-skill/:form_id", getFormSkill);
   //skill
   app.use("/", apiRouter);
 };

@@ -40,12 +40,6 @@ const loginUser = async (req, res) => {
       avatar: user.avatar,
     };
     res.json({ accessToken, refreshToken, user: currentUser });
-    // res.json("sessionCookieName", "sessionCookieValue", {
-    //   httpOnly: true,+
-    //   secure: true,
-    //   sameSite: "strict",
-    //   maxAge: 86400000,
-    // });
   } catch (error) {
     console.error("Error fetching forms:", error);
     res.status(400).json({ error: "An error occurred" });
@@ -75,7 +69,8 @@ const registerUser = async (req, res) => {
       role: "",
       status: "Complete",
       gender: user.gender,
-      avatar: "",
+      avatar:
+        "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
     };
     const users = await userCollection.insertOne(newUser);
     res.status(200).json(users);

@@ -67,6 +67,7 @@ export class AuthService {
     }
 
     register(user: any): Observable<any> {
+        user.avatar = '../../../assets/images/avatar.jpg';
         return this.http.post(`${this.apiUrl}/register`, user);
     }
 
