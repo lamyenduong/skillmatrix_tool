@@ -9,7 +9,7 @@ import {
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class Jwt implements HttpInterceptor {
+export class JwtInterceptor implements HttpInterceptor {
     intercept(
         request: HttpRequest<any>,
         next: HttpHandler

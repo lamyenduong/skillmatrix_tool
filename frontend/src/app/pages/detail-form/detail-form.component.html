@@ -21,47 +21,45 @@
         </div>
     </div>
     <div class="frame__form">
-        <ng-container *ngFor="let domain of domains">
-            <p-panel [collapsed]="!isPanelEnabled" [toggleable]="true">
-                <ng-template pTemplate="header">
-                    <!-- {{domain.domain_name}} -->
-                    <span style="margin-left: 8px; color: rgb(255, 144, 103);">4.5</span>
-                </ng-template>
-                <ng-template pTemplate="icons">
-                    <p-menu #menu [popup]="true">
-                    </p-menu>
-                </ng-template>
-                <div class="radio__header d-flex mb-2">
-                    <div class="col-2"></div>
-                    <div class="radio__labels col-10">
-                        <label for="0">0</label>
-                        <label for="1">1</label>
-                        <label for="2">2</label>
-                        <label for="3">3</label>
-                        <label for="4">4</label>
-                        <label for="5">5</label>
-                    </div>
+        <p-panel [collapsed]="!isPanelEnabled" [toggleable]="true">
+            <ng-template pTemplate="header">
+                <!-- {{domains.domain_name}} -->
+                <span style="margin-left: 8px; color: rgb(255, 144, 103);">4.5</span>
+            </ng-template>
+            <ng-template pTemplate="icons">
+                <p-menu #menu [popup]="true">
+                </p-menu>
+            </ng-template>
+            <div class="radio__header d-flex mb-2">
+                <div class="col-2"></div>
+                <div class="radio__labels col-10">
+                    <label for="0">0</label>
+                    <label for="1">1</label>
+                    <label for="2">2</label>
+                    <label for="3">3</label>
+                    <label for="4">4</label>
+                    <label for="5">5</label>
                 </div>
-                <div class="radio__form d-flex align-items-center">
-                    <div class="col-2">
-                        <!-- <span> {{formSkill.skill.skill_name}}</span> -->
-                    </div>
-                    <div class="radio__options col-10">
-                        <p-radioButton id="0" name="number" value="0" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing">0</p-radioButton>
-                        <p-radioButton id="1" name="number" value="1" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing">0</p-radioButton>
-                        <p-radioButton id="2" name="number" value="2" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                        <p-radioButton id="3" name="number" value="3" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                        <p-radioButton id="4" name="number" value="4" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                        <p-radioButton id="5" name="number" value="5" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                    </div>
+            </div>
+            <div class="radio__form d-flex align-items-center">
+                <div class="col-2">
+                    <!-- <span> {{formSkill.skill.skill_name}}</span> -->
                 </div>
-            </p-panel>
-        </ng-container>
+                <div class="radio__options col-10">
+                    <p-radioButton id="0" name="number" value="0" [(ngModel)]="selectedValue"
+                        [disabled]="!isEditing"></p-radioButton>
+                    <p-radioButton id="1" name="number" value="1" [(ngModel)]="selectedValue"
+                        [disabled]="!isEditing"></p-radioButton>
+                    <p-radioButton id="2" name="number" value="2" [(ngModel)]="selectedValue"
+                        [disabled]="!isEditing"></p-radioButton>
+                    <p-radioButton id="3" name="number" value="3" [(ngModel)]="selectedValue"
+                        [disabled]="!isEditing"></p-radioButton>
+                    <p-radioButton id="4" name="number" value="4" [(ngModel)]="selectedValue"
+                        [disabled]="!isEditing"></p-radioButton>
+                    <p-radioButton id="5" name="number" value="5" [(ngModel)]="selectedValue"
+                        [disabled]="!isEditing"></p-radioButton>
+                </div>
+            </div>
+        </p-panel>
     </div>
 </div>

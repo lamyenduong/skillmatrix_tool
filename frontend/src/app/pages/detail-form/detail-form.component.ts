@@ -18,9 +18,10 @@ export class DetailFormComponent implements OnInit {
   form: Form = {
     form_id: '',
     form_name: '',
-    create_date: undefined,
+    create_date: '',
     form_deadline: '',
-    form_description: ''
+    form_description: '',
+    user: undefined
   }
   domains!: SkillDomain[]
   isEditing: boolean = false;

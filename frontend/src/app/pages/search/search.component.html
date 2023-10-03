@@ -35,19 +35,19 @@
                 <ng-template pTemplate="body" let-user>
                     <tr>
                         <td class="table__col-avatar">
-                            <p-avatar image="{{user.avatar}}" shape="circle"></p-avatar>
+                            <p-avatar image="{{user.f.avatar}}" shape="circle"></p-avatar>
                             <div class="col__content">
-                                <span>{{user.full_name}}</span>
-                                <p>{{user.role}}</p>
+                                <span>{{user.f.full_name}}</span>
+                                <p>{{user.f.role}}</p>
                             </div>
                         </td>
-                        <td>{{user.gender}}</td>
-                        <td>{{user.birthday}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.phone_number}}</td>
+                        <td>{{user.f.gender}}</td>
+                        <td>{{user.f.birthday}}</td>
+                        <td>{{user.f.email}}</td>
+                        <td>{{user.f.phone_number}}</td>
                         <td class="table__col-status">
                             <i class="pi pi-circle-fill" style="font-size: 10px; margin-right: 4px;"></i>
-                            <span>{{user.status}}</span>
+                            <span>{{user.f.status}}</span>
                         </td>
                         <td class="text-center"><button><i class="pi pi-ellipsis-h"
                                     style="color: #7a7a7a;"></i></button>

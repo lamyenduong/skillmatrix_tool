@@ -5,6 +5,7 @@ import { Form } from 'src/app/models/form.model';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
+import { CookieService } from 'src/app/services/cookie-service.service';
 import { FormService } from 'src/app/services/form/form-service.service';
 import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
 import { TeamService } from 'src/app/services/form/team-service.service';
@@ -24,6 +25,14 @@ export class CreateFormComponent implements OnInit {
   isThirdStep!: boolean
   teams!: Team[]
   users!: User[]
+  currentUser!: User
+  form: Form = {
+    form_id: '',
+    form_name: '',
+    create_date: '',
+    form_deadline: '',
+    form_description: '',
+  }
   domains!: SkillDomain[]
   selectedValue!: string
   currentStep = 0
@@ -43,11 +52,19 @@ export class CreateFormComponent implements OnInit {
       label: 'Save'
     }
   ]
+  //Default date 
+  date = new Date();
+  currentDay = this.date.getUTCDay();
+  currentMonth = this.date.getUTCMonth() + 1;
+  currentYear = this.date.getUTCFullYear();
+  day: any
+  month: any
+  formStartTime!: string
 
   constructor(private textService: TextService,
     private teamService: TeamService, private userService: UserService,
     private domainService: SkillDomainService, private fb: FormBuilder,
-    private formService: FormService) { }
+    private formService: FormService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.textService.getAllTexts().subscribe(data => {
@@ -64,11 +81,16 @@ export class CreateFormComponent implements OnInit {
     this.secondStepForm = this.fb.group({
       formStartTime: ['', Validators.required],
       formDeadline: ['', Validators.required],
-      formManager: ['', Validators.required],
+      formManager: [''],
       formTeam: ['', Validators.required],
-      formMember: ['', Validators.required],
-      formDomain: ['', Validators.required]
+      formMember: [''],
+      formDomain: ['', Validators.required],
     })
+
+    this.day = this.currentDay < 10 ? "0" + this.currentDay : this.currentDay;
+    this.month = this.currentMonth < 10 ? "0" + this.currentMonth : this.currentMonth;
+    this.formStartTime = `${this.currentYear}-${this.month}-${this.day}`;
+    this.secondStepForm.get('formStartTime')?.setValue(this.formStartTime);
   }
   markFormControlsAsTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
@@ -109,15 +131,51 @@ export class CreateFormComponent implements OnInit {
     } else {
       this.markFormControlsAsTouched(this.secondStepForm)
     }
+    //this.formVariable()
+    const user_id = this.cookieService.getCookie("user_id");
+    this.userService.getUserById(user_id).subscribe((user: User) => { this.currentUser = user })
+    const form = {
+      form_id: '',
+      form_name: this.firstStepForm.get('formName')?.value,
+      form_description: this.firstStepForm.get('formDescription')?.value,
+      form_deadline: this.secondStepForm.get('formDeadline')?.value,
+      create_date: this.secondStepForm.get('formStartTime')?.value,
+      user: this.currentUser
+    }
+    this.form = form
+    console.log(this.form)
   }
-  // form: Form = {
-  //   form_name: '',
-  //   form_description: '',
-  //   form_deadline: this.secondStepForm.get('formDeadline')?.value.toString(),
-  //   create_date: new Date,
-  //   user: '';
-  // }
+  formVariable() {
+    const user_id = this.cookieService.getCookie("user_id");
+    this.userService.getUserById(user_id).subscribe((user: User) => { this.currentUser = user })
+    const form = {
+      form_id: '',
+      form_name: this.firstStepForm.get('formName')?.value,
+      form_description: this.firstStepForm.get('formDescription')?.value,
+      form_deadline: this.secondStepForm.get('formDeadline')?.value,
+      create_date: this.secondStepForm.get('formStartTime')?.value,
+      user: this.currentUser
+    }
+    this.form = form
+    console.log(this.form)
+    return this.form
+  }
   createForm() {
-    //this.formService.createForm(this.form)
+    // this.formService.createForm(this.formVariable())
+    this.userService.getUserById(this.cookieService.getCookie("user_id"))
+      .subscribe((user: User) => {
+        this.currentUser = user;
+        const form: Form = {
+          form_id: '',
+          form_name: this.firstStepForm.get('formName')?.value,
+          form_description: this.firstStepForm.get('formDescription')?.value,
+          form_deadline: this.secondStepForm.get('formDeadline')?.value,
+          create_date: this.secondStepForm.get('formStartTime')?.value,
+          user: this.currentUser
+        };
+        this.formService.createForm(form);
+        console.log(form);
+      });
   }
+
 }

@@ -16,7 +16,7 @@ export class FormService {
     return this.http.get<Form>(`${this.apiUrl}/forms/${form_id}`)
   }
   createFormByUpload(dataArray: any[][]): Observable<any> {
-    return this.http.post(`${this.apiUrl}/create-form`, { data: dataArray });
+    return this.http.post(`${this.apiUrl}/create-form-upload`, { data: dataArray });
   }
   getFormOwner(user_id: string): Observable<Form[]> {
     return this.http.get<Form[]>(`${this.apiUrl}/forms/owner/${user_id}`)
@@ -24,7 +24,7 @@ export class FormService {
   getFormParticipants(form_id: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/forms/participants/${form_id}`)
   }
-  createForm(form: Form): Observable<Form> {
-    return this.http.post<Form>(`${this.apiUrl}/create-form`, form)
+  createForm(form: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create-form`, form)
   }
 }
