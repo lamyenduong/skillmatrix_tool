@@ -22,12 +22,10 @@ export class DetailFormComponent implements OnInit {
     form_deadline: '',
     form_description: ''
   }
-  domain: SkillDomain = {
-    domain_id: '',
-    domain_name: '',
-    project: undefined,
-    status: ''
-  }
+  domains!: SkillDomain[]
+  isEditing: boolean = false;
+  isPanelEnabled: boolean = false;
+
   constructor(public textService: TextService, private router: ActivatedRoute,
     private routerNav: Router, private domainService: SkillDomainService,
     private formService: FormService) { }
@@ -47,10 +45,9 @@ export class DetailFormComponent implements OnInit {
           }
         })
         this.domainService.getDomainByFormId(formId).subscribe(data => {
-          if (data && data.domain_name) {
-            this.domain = data;
-            this.domain.domain_name = data.domain_name;
-            console.log(this.domain)
+          if (data) {
+            this.domains = data;
+            console.log(this.domains)
           } else { console.log("error"); }
         })
       }
@@ -62,9 +59,9 @@ export class DetailFormComponent implements OnInit {
   }
   //Edit button
   editDomainForm(event: any) {
-    const panel = document.querySelector("p-panel") as HTMLDivElement;
-    if (panel.classList.contains("p-panel-expanded")) {
-
-    }
+    // const panel = document.querySelector("p-panel") as HTMLDivElement;
+    // if (panel.classList.contains("p-panel-expanded")) {
+    this.isEditing = true
+    // }
   }
 }

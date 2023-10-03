@@ -46,41 +46,49 @@ const getDomainByFormId = async (req, res) => {
   try {
     const db = getDb();
     const formSkillCollection = db.collection("form-skill");
-    const domains = await formSkillCollection.aggregate([
-      {
-        $match: {
-          "form.form_id": new ObjectId(form_id),
+    const domains = await formSkillCollection
+      .aggregate([
+        {
+          $match: {
+            "form.form_id": ObjectId(form_id),
+          },
         },
-      },
-      {
-        $lookup: {
-          from: "skill",
-          localField: "skill.skill_id",
-          foreignField: "_id",
-          as: "skill",
+        {
+          $lookup: {
+            from: "skill",
+            localField: "skill.skill_id",
+            foreignField: "_id",
+            as: "skill",
+          },
         },
-      },
-      {
-        $unwind: "$skill",
-      },
-      {
-        $lookup: {
-          from: "skill-domain",
-          localField: "skill.skill_domain.skill_domain_id",
-          foreignField: "_id",
-          as: "domain",
+        {
+          $unwind: "$skill",
         },
-      },
-      {
-        $unwind: "$domain",
-      },
-      {
-        $project: {
-          _id: 0,
-          domain: 1,
+        {
+          $lookup: {
+            from: "skill-domain",
+            localField: "skill.skill_domain.skill_domain_id",
+            foreignField: "_id",
+            as: "domain",
+          },
         },
-      },
-    ]);
+        {
+          $unwind: "$domain",
+        },
+        {
+          $project: {
+            _id: 0,
+            domain: 1,
+          },
+        },
+        {
+          $group: {
+            _id: 0,
+            domain: { $first: "$domain" },
+          },
+        },
+      ])
+      .toArray();
     res.status(200).json(domains);
   } catch (error) {
     console.error("Error fetching forms:", error);
