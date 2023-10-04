@@ -145,10 +145,48 @@ const getFormParticipants = async (req, res) => {
   }
 };
 
+const getFormJoinInByUser = async (req, res) => {
+  const user_id = req.params.user_id;
+  try {
+    const db = getDb();
+    const formParticipant = db.collection("form-participant");
+    const forms = await formParticipant
+      .aggregate([
+        {
+          $match: {
+            "user.user_id": new ObjectId(user_id),
+          },
+        },
+        {
+          $lookup: {
+            from: "form",
+            localField: "form.form_id",
+            foreignField: "_id",
+            as: "participating_forms",
+          },
+        },
+        {
+          $unwind: "$participating_forms",
+        },
+        {
+          $replaceRoot: {
+            newRoot: "$participating_forms",
+          },
+        },
+      ])
+      .toArray();
+    res.status(200).json(forms);
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 module.exports = {
   getFormById,
   createForm,
   getFormOwner,
   getFormManager,
   getFormParticipants,
+  getFormJoinInByUser,
 };

@@ -24,6 +24,9 @@ export class FormService {
   getFormParticipants(form_id: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/forms/participants/${form_id}`)
   }
+  getFormJoinInByUser(user_id: string): Observable<Form[]> {
+    return this.http.get<Form[]>(`${this.apiUrl}/forms/participants/${user_id}`)
+  }
   createForm(form: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/create-form`, form)
   }

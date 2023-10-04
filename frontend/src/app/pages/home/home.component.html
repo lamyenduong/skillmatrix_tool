@@ -34,7 +34,7 @@
         <div class="container">
             <p-tabView class="main__tabview">
                 <p-tabPanel header="Assign me" headerStyleClass="tabpanel__header">
-                    <p-table [value]="forms" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
+                    <p-table [value]="formsAssign" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
                         [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
                         <ng-template pTemplate="body" let-form>
                             <tr>
@@ -63,7 +63,7 @@
                     </p-table>
                 </p-tabPanel>
                 <p-tabPanel header="Owner by me" headerStyleClass="tabpanel__header">
-                    <p-table [value]="forms" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
+                    <p-table [value]="formsOwner" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
                         [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
                         <ng-template pTemplate="body" let-form>
                             <tr>

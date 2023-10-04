@@ -23,7 +23,7 @@ export class DetailFormComponent implements OnInit {
     form_description: '',
     user: undefined
   }
-  domains!: SkillDomain[]
+  domains!: SkillDomain
   isEditing: boolean = false;
   isPanelEnabled: boolean = false;
 
@@ -36,21 +36,33 @@ export class DetailFormComponent implements OnInit {
       this.detailFormPageText = data;
     });
     this.router.paramMap.subscribe(params => {
-      const formId = params.get('form_id');
-      if (formId !== null) {
-        this.formService.getFormById(formId).subscribe(data => {
+      const form_id = params.get('form_id');
+      if (form_id !== null) {
+        console.log(form_id);
+        this.formService.getFormById(form_id).subscribe(data => {
           if (data && data.form_name) {
             this.form = data;
             this.form.form_name = data.form_name
-            console.log(this.form.form_name)
+          } else {
+            console.log("No data received.");
           }
-        })
-        this.domainService.getDomainByFormId(formId).subscribe(data => {
-          if (data) {
-            this.domains = data;
-            console.log(this.domains)
-          } else { console.log("error"); }
-        })
+        },
+          (error) => {
+            console.error("Error:", error);
+          }
+        );
+        this.domainService.getDomainByFormId(form_id).subscribe((data2) => {
+          if (data2 && data2.domain_name) {
+            this.domains = data2;
+            console.log(this.domains);
+          } else {
+            console.log("No data received.");
+          }
+        },
+          (error) => {
+            console.error("Error:", error);
+          }
+        );
       }
     })
   }

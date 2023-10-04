@@ -11,11 +11,13 @@ const app = express();
 const port = process.env.PORT || 8081;
 const host = process.env.HOST;
 
-// app.use(cors( {
-//   origin: 'http://localhost:4200',
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-//   credentials: true
-// } ));
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
 app.use(cors());
 app.use(express.json());

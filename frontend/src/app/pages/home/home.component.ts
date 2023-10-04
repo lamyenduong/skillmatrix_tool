@@ -15,7 +15,8 @@ import { CookieService } from 'src/app/services/cookie-service.service';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  forms!: Form[]
+  formsOwner!: Form[]
+  formsAssign!: Form[]
   homePageText: any
   selectedValue!: string
   user!: User | null
@@ -31,7 +32,11 @@ export class HomeComponent implements OnInit {
       this.homePageText = data;
     });
     const user_id = this.cookieService.getCookie("user_id");
-    this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.forms = data);
+    this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.formsOwner = data);
+    this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
+      this.formsAssign = data;
+      console.log(this.formsAssign)
+    });
   }
 
   getFormOwnerByMe(form_id: string) {

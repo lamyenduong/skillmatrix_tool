@@ -45,46 +45,47 @@ const getDomainByFormId = async (req, res) => {
   const form_id = req.params.form_id;
   try {
     const db = getDb();
-    const formSkillCollection = db.collection("form-skill");
-    const domains = await formSkillCollection
+    const domainCollection = db.collection("skill-domain");
+    const domains = await domainCollection
       .aggregate([
-        {
-          $match: {
-            "form.form_id": ObjectId(form_id),
-          },
-        },
         {
           $lookup: {
             from: "skill",
-            localField: "skill.skill_id",
-            foreignField: "_id",
-            as: "skill",
+            localField: "_id",
+            foreignField: "skill_domain.skill_domain_id",
+            as: "skills",
           },
         },
         {
-          $unwind: "$skill",
+          $unwind: "$skills",
         },
         {
           $lookup: {
-            from: "skill-domain",
-            localField: "skill.skill_domain.skill_domain_id",
-            foreignField: "_id",
-            as: "domain",
+            from: "form-skill",
+            localField: "skills._id",
+            foreignField: "skill.skill_id",
+            as: "formSkills",
           },
         },
         {
-          $unwind: "$domain",
+          $unwind: "$formSkills",
         },
         {
-          $project: {
-            _id: 0,
-            domain: 1,
+          $match: {
+            "formSkills.form.form_id": ObjectId(form_id),
           },
         },
         {
           $group: {
+            _id: "$_id",
+            domain_name: { $first: "$domain_name" },
+          },
+        },
+        {
+          $project: {
             _id: 0,
-            domain: { $first: "$domain" },
+            domain_id: "$_id",
+            domain_name: 1,
           },
         },
       ])

@@ -13,7 +13,4 @@ export class FormSkillService {
     getAllFormSkill() {
         return this.http.get<FormSkill>(`${this.apiUrl}/form-skill`)
     }
-    getFormSkillByFormId(form_id: string) {
-        return this.http.get<FormSkill>(`${this.apiUrl}/form-skill/${form_id}`)
-    }
 }
