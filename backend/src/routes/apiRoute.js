@@ -37,7 +37,7 @@ const apiRoute = (app) => {
   apiRouter.get("/forms/:form_id", getFormById);
   apiRouter.get("/forms/manager/:user_id", getFormManager);
   apiRouter.get("/forms/participants/:form_id", getFormParticipants);
-  apiRouter.get("/forms/participants/:user_id", getFormJoinInByUser);
+  apiRouter.get("/forms/participant/:user_id", getFormJoinInByUser);
   apiRouter.post("/create-form", createForm);
   //user
   apiRouter.get("/users", getAllUsers);

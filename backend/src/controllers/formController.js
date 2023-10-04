@@ -69,39 +69,41 @@ const getFormManager = async (req, res) => {
   try {
     const db = getDb();
     const formCollection = db.collection("form");
-    const forms = await formCollection.aggregate([
-      {
-        $lookup: {
-          from: "form-participant",
-          localField: "_id",
-          foreignField: "form.form_id",
-          as: "participants",
+    const forms = await formCollection
+      .aggregate([
+        {
+          $lookup: {
+            from: "form-participant",
+            localField: "_id",
+            foreignField: "form.form_id",
+            as: "participants",
+          },
         },
-      },
-      { $unwind: "$participants" },
-      {
-        $lookup: {
-          from: "user",
-          localField: "participants.user.user_id",
-          foreignField: "_id",
-          as: "users",
+        { $unwind: "$participants" },
+        {
+          $lookup: {
+            from: "user",
+            localField: "participants.user.user_id",
+            foreignField: "_id",
+            as: "users",
+          },
         },
-      },
-      {
-        $unwind: "$users",
-      },
-      {
-        $match: {
-          "user.user_id": ObjectId(user_id),
+        {
+          $unwind: "$users",
         },
-      },
-      {
-        $project: {
-          _id: 0,
-          form: "$$ROOT",
+        {
+          $match: {
+            "user.user_id": new ObjectId(user_id),
+          },
         },
-      },
-    ]);
+        {
+          $project: {
+            _id: 0,
+            form: "$$ROOT",
+          },
+        },
+      ])
+      .toArray();
     res.status(200).json(forms);
   } catch (error) {
     console.error("Error fetching forms:", error);
@@ -149,28 +151,36 @@ const getFormJoinInByUser = async (req, res) => {
   const user_id = req.params.user_id;
   try {
     const db = getDb();
-    const formParticipant = db.collection("form-participant");
-    const forms = await formParticipant
+    const userCollection = db.collection("user");
+    const forms = await userCollection
       .aggregate([
         {
+          $lookup: {
+            from: "form-participant",
+            localField: "_id",
+            foreignField: "user.user_id",
+            as: "userForm",
+          },
+        },
+        { $unwind: "$userForm" },
+        {
           $match: {
-            "user.user_id": new ObjectId(user_id),
+            _id: new ObjectId(user_id),
           },
         },
         {
           $lookup: {
             from: "form",
-            localField: "form.form_id",
+            localField: "userForm.form.form_id",
             foreignField: "_id",
-            as: "participating_forms",
+            as: "forms",
           },
         },
+        { $unwind: "$forms" },
         {
-          $unwind: "$participating_forms",
-        },
-        {
-          $replaceRoot: {
-            newRoot: "$participating_forms",
+          $project: {
+            _id: 0,
+            forms: "$forms",
           },
         },
       ])

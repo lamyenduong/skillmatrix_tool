@@ -28,15 +28,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.textService.getAllTexts().subscribe(data => {
-      this.homePageText = data;
-    });
+    this.textService.getAllTexts().subscribe(data => this.homePageText = data);
     const user_id = this.cookieService.getCookie("user_id");
     this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.formsOwner = data);
-    this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
-      this.formsAssign = data;
-      console.log(this.formsAssign)
-    });
+    this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => this.formsAssign = data);
   }
 
   getFormOwnerByMe(form_id: string) {

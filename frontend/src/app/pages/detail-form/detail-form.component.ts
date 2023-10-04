@@ -23,7 +23,7 @@ export class DetailFormComponent implements OnInit {
     form_description: '',
     user: undefined
   }
-  domains!: SkillDomain
+  domains!: SkillDomain[]
   isEditing: boolean = false;
   isPanelEnabled: boolean = false;
 
@@ -43,6 +43,7 @@ export class DetailFormComponent implements OnInit {
           if (data && data.form_name) {
             this.form = data;
             this.form.form_name = data.form_name
+            console.log(this.form);
           } else {
             console.log("No data received.");
           }
@@ -51,9 +52,9 @@ export class DetailFormComponent implements OnInit {
             console.error("Error:", error);
           }
         );
-        this.domainService.getDomainByFormId(form_id).subscribe((data2) => {
-          if (data2 && data2.domain_name) {
-            this.domains = data2;
+        this.domainService.getDomainByFormId(form_id).subscribe((dataDomain) => {
+          if (dataDomain) {
+            this.domains = dataDomain;
             console.log(this.domains);
           } else {
             console.log("No data received.");

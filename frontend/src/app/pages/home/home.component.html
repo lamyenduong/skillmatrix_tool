@@ -45,9 +45,9 @@
                                                 style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
                                             <div class="card__info">
                                                 <a class="card__title" role="button"
-                                                    (click)="getFormAsignMe(form._id)">{{form.form_name}}</a>
-                                                <p class="card__subtitle">{{form.user.full_name}}</p>
-                                                <p class="card__subtitle">{{form.create_date | date}}</p>
+                                                    (click)="getFormAsignMe(form.forms._id)">{{form.forms.form_name}}</a>
+                                                <p class="card__subtitle">{{form.forms.user.full_name}}</p>
+                                                <p class="card__subtitle">{{form.forms.create_date | date}}</p>
                                             </div>
                                         </div>
                                         <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>

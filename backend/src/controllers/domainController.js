@@ -45,51 +45,42 @@ const getDomainByFormId = async (req, res) => {
   const form_id = req.params.form_id;
   try {
     const db = getDb();
-    const domainCollection = db.collection("skill-domain");
-    const domains = await domainCollection
-      .aggregate([
-        {
-          $lookup: {
-            from: "skill",
-            localField: "_id",
-            foreignField: "skill_domain.skill_domain_id",
-            as: "skills",
-          },
+    const formSkillCollection = db.collection("form-skill");
+    const domains = await formSkillCollection.aggregate([
+      {
+        $match: {
+          "form.form_id": new ObjectId(form_id),
         },
-        {
-          $unwind: "$skills",
+      },
+      {
+        $lookup: {
+          from: "skill",
+          localField: "skill.skill_id",
+          foreignField: "_id",
+          as: "formSkill",
         },
-        {
-          $lookup: {
-            from: "form-skill",
-            localField: "skills._id",
-            foreignField: "skill.skill_id",
-            as: "formSkills",
-          },
+      },
+      { $unwind: "$formSkill" },
+      {
+        $lookup: {
+          from: "skill-domain",
+          localField: "skill.skill_domain.skill_domain_id",
+          foreignField: "_id",
+          as: "domains",
         },
-        {
-          $unwind: "$formSkills",
+      },
+      {
+        $group: {
+          _id: "$domains",
         },
-        {
-          $match: {
-            "formSkills.form.form_id": ObjectId(form_id),
-          },
+      },
+      {
+        $project: {
+          _id: 0,
+          domains: "$_id",
         },
-        {
-          $group: {
-            _id: "$_id",
-            domain_name: { $first: "$domain_name" },
-          },
-        },
-        {
-          $project: {
-            _id: 0,
-            domain_id: "$_id",
-            domain_name: 1,
-          },
-        },
-      ])
-      .toArray();
+      },
+    ]);
     res.status(200).json(domains);
   } catch (error) {
     console.error("Error fetching forms:", error);
