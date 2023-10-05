@@ -18,5 +18,8 @@
   "main": "server.js",
   "author": "lamyenduong",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/jquery": "^3.5.20"
+  }
 }

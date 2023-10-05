@@ -49,7 +49,7 @@ import { TextService } from './services/text-service.service';
     LoginComponent,
     ErrorComponent,
     CreateFormComponent,
-    DetailFormComponent
+    DetailFormComponent,
   ],
   imports: [
     BrowserModule,

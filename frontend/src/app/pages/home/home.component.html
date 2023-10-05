@@ -29,10 +29,10 @@
             </div>
         </div>
     </div>
-
     <div class="main__second-frame">
         <div class="container">
             <p-tabView class="main__tabview">
+                <!-- Assign me -->
                 <p-tabPanel header="Assign me" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsAssign" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
                         [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
@@ -62,6 +62,7 @@
                         </ng-template>
                     </p-table>
                 </p-tabPanel>
+                <!-- Owner by me -->
                 <p-tabPanel header="Owner by me" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsOwner" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
                         [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
@@ -91,16 +92,29 @@
                         </ng-template>
                     </p-table>
                 </p-tabPanel>
+                <!-- Draft -->
                 <p-tabPanel header="Draft" headerStyleClass="tabpanel__header">
                 </p-tabPanel>
+                <!-- Domain -->
                 <p-tabPanel header="Domain" headerStyleClass="tabpanel__header">
+                    <div class="tabpanel__search-bar w-100 d-flex">
+                        <span class="p-input-icon-left w-100">
+                            <i class="pi pi-search"></i>
+                            <input type="text" class="w-100" pInputText placeholder="Search" [(ngModel)]="value3" />
+                        </span>
+                        <button pButton icon="pi pi-plus" label="ADD"></button>
+                    </div>
                     <p-panel [toggleable]="true">
                         <ng-template pTemplate="header">
                             Domain name
                             <span style="margin-left: 8px; color: rgb(255, 144, 103);">4.5</span>
                         </ng-template>
                         <ng-template pTemplate="icons">
-                            <button pButton class="p-panel-header-icon p-link">
+                            <button pButton class="p-panel-header-icon p-link" id="addTemplateButton"
+                                (click)="addTemplate()">
+                                <span class="pi pi-plus"></span>
+                            </button>
+                            <button pButton class="p-panel-header-icon p-link" (click)="editSkillName()">
                                 <span class="pi pi-file-edit"></span>
                             </button>
                             <button pButton class="p-panel-header-icon p-link">
@@ -120,23 +134,30 @@
                                 <label for="5">5</label>
                             </div>
                         </div>
-                        <div class="radio__form d-flex align-items-center">
-                            <div class="col-2">
-                                <span>Skill name</span>
-                            </div>
-                            <div class="radio__options col-10">
-                                <p-radioButton id="0" name="number" [(ngModel)]="selectedValue"
-                                    value="0">0</p-radioButton>
-                                <p-radioButton id="1" name="number" [(ngModel)]="selectedValue"
-                                    value="1">0</p-radioButton>
-                                <p-radioButton id="2" name="number" [(ngModel)]="selectedValue"
-                                    value="2"></p-radioButton>
-                                <p-radioButton id="3" name="number" [(ngModel)]="selectedValue"
-                                    value="3"></p-radioButton>
-                                <p-radioButton id="4" name="number" [(ngModel)]="selectedValue"
-                                    value="4"></p-radioButton>
-                                <p-radioButton id="5" name="number" [(ngModel)]="selectedValue"
-                                    value="5"></p-radioButton>
+
+                        <div id="formContainer">
+                            <div *ngFor="let skill of templates; let i = index">
+                                <div class="radio__form d-flex align-items-center mb-4" id="panelDomain">
+                                    <div class="col-2">
+                                        <ng-container *ngIf="!editingAll">
+                                            <span class="skillname">Skill name</span>
+                                        </ng-container>
+                                    </div>
+                                    <div class="radio__options col-10">
+                                        <p-radioButton id="0" name="number" [(ngModel)]="skill.selectedValue" value="0"
+                                            [disabled]="true"></p-radioButton>
+                                        <p-radioButton id="1" name="number" [(ngModel)]="skill.selectedValue" value="1"
+                                            [disabled]="true"></p-radioButton>
+                                        <p-radioButton id="2" name="number" [(ngModel)]="skill.selectedValue" value="2"
+                                            [disabled]="true"></p-radioButton>
+                                        <p-radioButton id="3" name="number" [(ngModel)]="skill.selectedValue" value="3"
+                                            [disabled]="true"></p-radioButton>
+                                        <p-radioButton id="4" name="number" [(ngModel)]="skill.selectedValue" value="4"
+                                            [disabled]="true"></p-radioButton>
+                                        <p-radioButton id="5" name="number" [(ngModel)]="skill.selectedValue" value="5"
+                                            [disabled]="true"></p-radioButton>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </p-panel>
@@ -144,7 +165,7 @@
             </p-tabView>
         </div>
     </div>
-
+    <!-- dialog for upload survey -->
     <p-dialog header="Upload Excel" [(visible)]="displayUploadButton" [modal]="true" [style]="{width: '50vw'}"
         [draggable]="false" [resizable]="false" styleClass="main__dialog-upload">
         <p class="dialog__content">{{homePageText.uploadFileHeader}}</p>

@@ -18,8 +18,9 @@ export class HomeComponent implements OnInit {
   formsOwner!: Form[]
   formsAssign!: Form[]
   homePageText: any
-  selectedValue!: string
+  selectedValue!: number
   user!: User | null
+  value3!: string;
 
   constructor(private formService: FormService,
     private textService: TextService, private router: Router,
@@ -113,7 +114,6 @@ export class HomeComponent implements OnInit {
     }
   }
   sendData(dataArray: any[][]): void {
-    // Call a method on your API service to send the data to your API
     this.formService.createFormByUpload(dataArray)
       .subscribe(
         (response) => {
@@ -125,11 +125,57 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  //Search
+  //Search form
   onSearch(event: any) {
     // if (this.formService.)
   }
   submitSearchForm() {
 
+  }
+
+  //Search domain
+  //Domain tabpanel
+  editingAll = false;
+  editSkillName() {
+    // Lấy tất cả các phần tử có class "skillname" (nếu là class)
+    const skillNameElements = document.querySelectorAll(".skillname");
+
+    skillNameElements.forEach((element: Element) => {
+      const skillNameElement = element as HTMLElement;
+      const skillNameText = skillNameElement.innerText;
+      const inputElement = document.createElement("input");
+      inputElement.setAttribute("type", "text");
+      inputElement.value = skillNameText;
+      skillNameElement.innerHTML = '';
+      skillNameElement.appendChild(inputElement);
+      inputElement.focus();
+      inputElement.addEventListener('blur', function () {
+        if (inputElement.value.trim() === '') {
+          // Nếu giá trị trống, bạn có thể xóa phần tử hoặc xử lý nó tùy ý
+          document.querySelector(".radio__form")?.remove();
+        } else {
+          // Gán giá trị input vào phần tử hiện tại
+          skillNameElement.innerHTML = inputElement.value;
+        }
+      });
+    });
+  }
+
+  templates: any[] = [];
+  addTemplate() {
+    this.templates.push({ selectedValue: "" });
+    // const formContainer = document.getElementById('formContainer') as HTMLDivElement;
+    // const newFormDiv = document.createElement('div');
+    // newFormDiv.innerHTML = formContainer.innerHTML;
+    // const inputElements = newFormDiv.querySelectorAll('input');
+    // inputElements.forEach((input: HTMLInputElement) => {
+    //   input.value = '';
+    // });
+    // formContainer.appendChild(newFormDiv);
+  }
+
+  removeTemplate(index: number) {
+    // Xóa câu hỏi khỏi mảng dựa trên chỉ mục
+    this.templates.splice(index, 1);
   }
 }
