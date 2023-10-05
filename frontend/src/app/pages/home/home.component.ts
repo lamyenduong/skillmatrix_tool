@@ -45,6 +45,8 @@ export class HomeComponent implements OnInit {
 
   //Upload File  
   displayUploadButton!: boolean
+  displayAddDomainButton!: boolean
+  displayEditDomainButton!: boolean
   isDragOver = false;
   fileSelected = false;
   droppedFile: File | null = null;
@@ -135,47 +137,22 @@ export class HomeComponent implements OnInit {
 
   //Search domain
   //Domain tabpanel
-  editingAll = false;
-  editSkillName() {
-    // Lấy tất cả các phần tử có class "skillname" (nếu là class)
-    const skillNameElements = document.querySelectorAll(".skillname");
-
-    skillNameElements.forEach((element: Element) => {
-      const skillNameElement = element as HTMLElement;
-      const skillNameText = skillNameElement.innerText;
-      const inputElement = document.createElement("input");
-      inputElement.setAttribute("type", "text");
-      inputElement.value = skillNameText;
-      skillNameElement.innerHTML = '';
-      skillNameElement.appendChild(inputElement);
-      inputElement.focus();
-      inputElement.addEventListener('blur', function () {
-        if (inputElement.value.trim() === '') {
-          // Nếu giá trị trống, bạn có thể xóa phần tử hoặc xử lý nó tùy ý
-          document.querySelector(".radio__form")?.remove();
-        } else {
-          // Gán giá trị input vào phần tử hiện tại
-          skillNameElement.innerHTML = inputElement.value;
-        }
-      });
-    });
-  }
-
   templates: any[] = [];
   addTemplate() {
     this.templates.push({ selectedValue: "" });
-    // const formContainer = document.getElementById('formContainer') as HTMLDivElement;
-    // const newFormDiv = document.createElement('div');
-    // newFormDiv.innerHTML = formContainer.innerHTML;
-    // const inputElements = newFormDiv.querySelectorAll('input');
-    // inputElements.forEach((input: HTMLInputElement) => {
-    //   input.value = '';
-    // });
-    // formContainer.appendChild(newFormDiv);
+  }
+  removeTemplate(index: number) {
+    return this.templates.splice(index, 1);
+  }
+  removePanel() {
+
   }
 
-  removeTemplate(index: number) {
-    // Xóa câu hỏi khỏi mảng dựa trên chỉ mục
-    this.templates.splice(index, 1);
+  //Add domain button 
+  showAddDomainDialog() {
+    this.displayAddDomainButton = true
+  }
+  showEditDomainDialog() {
+    this.displayEditDomainButton = true
   }
 }
