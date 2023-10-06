@@ -5,7 +5,6 @@ import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
 import { FormService } from 'src/app/services/form/form-service.service';
 import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
-import { TextService } from 'src/app/services/text-service.service';
 import { UserService } from 'src/app/services/user/user-service.service';
 
 @Component({
@@ -24,15 +23,12 @@ export class SearchComponent implements OnInit {
 
   selectedDomainsWithPoints: { domain: any, point: any }[] = [];
 
-  constructor(private textService: TextService,
+  constructor(
     private userService: UserService, private skillDomainService: SkillDomainService,
     private fb: FormBuilder, private router: Router,
     private route: ActivatedRoute, private formService: FormService) { }
 
   ngOnInit(): void {
-    this.textService.getAllTexts().subscribe(data => {
-      this.searchPageText = data;
-    });
     this.skillDomainService.getAllSkillDomains().subscribe(skillDomains => this.skillDomains = skillDomains)
     this.reactiveSkillDomainForm = this.fb.group({
       skillDomainsControl: new FormControl()

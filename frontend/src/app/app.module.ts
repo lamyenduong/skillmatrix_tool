@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Component
 import { AppRoutingModule } from './app-routing.module';
@@ -39,7 +39,12 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChipsModule } from 'primeng/chips';
 //Service
-import { TextService } from './services/text-service.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -80,9 +85,16 @@ import { TextService } from './services/text-service.service';
     PanelModule,
     SplitButtonModule,
     DropdownModule,
-    ChipsModule
+    ChipsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
-  providers: [MessageService, TextService],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

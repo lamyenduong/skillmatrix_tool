@@ -9,7 +9,6 @@ import { CookieService } from 'src/app/services/cookie-service.service';
 import { FormService } from 'src/app/services/form/form-service.service';
 import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
 import { TeamService } from 'src/app/services/form/team-service.service';
-import { TextService } from 'src/app/services/text-service.service';
 import { UserService } from 'src/app/services/user/user-service.service';
 
 @Component({
@@ -61,15 +60,12 @@ export class CreateFormComponent implements OnInit {
   month: any
   formStartTime!: string
 
-  constructor(private textService: TextService,
+  constructor(
     private teamService: TeamService, private userService: UserService,
     private domainService: SkillDomainService, private fb: FormBuilder,
     private formService: FormService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
-    this.textService.getAllTexts().subscribe(data => {
-      this.createFormPageText = data;
-    });
     this.teamService.getAllTeams().subscribe(teams => this.teams = teams)
     this.userService.getAllUsers().subscribe(users => this.users = users)
     this.domainService.getAllSkillDomains().subscribe(domains => this.domains = domains)

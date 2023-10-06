@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Form } from '../../models/form.model';
 import { MessageService } from 'primeng/api';
 import { FormService } from 'src/app/services/form/form-service.service';
-import { TextService } from 'src/app/services/text-service.service';
+import { TranslateService } from 'src/app/services/translate-service.service';
 import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
 import { User } from 'src/app/models/user.model';
@@ -23,13 +23,13 @@ export class HomeComponent implements OnInit {
   value3!: string;
 
   constructor(private formService: FormService,
-    private textService: TextService, private router: Router,
+    private translateService: TranslateService, private router: Router,
     private readFileService: ReadFileService,
     private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
-    this.textService.getAllTexts().subscribe(data => this.homePageText = data);
+
     const user_id = this.cookieService.getCookie("user_id");
     this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.formsOwner = data);
     this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => this.formsAssign = data);

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { TextService } from 'src/app/services/text-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Form } from 'src/app/models/form.model';
 import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
@@ -27,14 +26,11 @@ export class DetailFormComponent implements OnInit {
   isEditing: boolean = false;
   isPanelEnabled: boolean = false;
 
-  constructor(public textService: TextService, private router: ActivatedRoute,
+  constructor(private router: ActivatedRoute,
     private routerNav: Router, private domainService: SkillDomainService,
     private formService: FormService) { }
 
   ngOnInit(): void {
-    this.textService.getAllTexts().subscribe(data => {
-      this.detailFormPageText = data;
-    });
     this.router.paramMap.subscribe(params => {
       const form_id = params.get('form_id');
       if (form_id !== null) {

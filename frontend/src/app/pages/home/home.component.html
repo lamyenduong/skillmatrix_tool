@@ -156,7 +156,8 @@
     <!-- dialog for uploading survey -->
     <p-dialog header="Upload Excel" [(visible)]="displayUploadButton" [modal]="true" [style]="{width: '50vw'}"
         [draggable]="false" [resizable]="false" styleClass="main__dialog-upload">
-        <p class="dialog__content">{{homePageText.uploadFileHeader}}</p>
+        <p class="dialog__content"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
+                download="DomainForm">{{homePageText.uploadFileHeader}}</a></p>
         <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
             (dragleave)="onDragLeave($event)">
             <div class="form__upload">
@@ -184,6 +185,7 @@
         <div class="dialog__content-domain">
             <h6>Domain name</h6>
             <input class="w-100" type="text" pInputText>
+            <p class="m-0">Skill name</p>
             <p-chips>
                 <ng-template let-item pTemplate="item">{{item}}</ng-template>
             </p-chips>
@@ -193,7 +195,8 @@
             <input class="w-100" type="text" pInputText>
         </div>
         <div class="">
-            <p class="dialog__content">{{homePageText.uploadFileHeader}}</p>
+            <p class="dialog__content"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
+                    download="DomainForm">{{homePageText.uploadFileHeader}}</a></p>
             <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
                 (dragleave)="onDragLeave($event)">
                 <div class="form__upload">
