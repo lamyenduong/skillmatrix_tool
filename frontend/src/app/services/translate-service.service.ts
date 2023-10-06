@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs';
@@ -6,8 +5,7 @@ import { map } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class TranslateService {
-
+export class TranslateHelperService {
     constructor(private translateService: TranslateService) { }
     lang = "en";
     translateText: any

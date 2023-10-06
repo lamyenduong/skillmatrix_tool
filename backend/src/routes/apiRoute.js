@@ -47,7 +47,7 @@ const apiRoute = (app) => {
   //domain
   apiRouter.get("/domains", getAllDomains);
   apiRouter.get("/domains/:domain_id", getDomainById);
-  apiRouter.get("/domains/:form_id", getDomainByFormId);
+  apiRouter.get("/domains/forms/:form_id", getDomainByFormId);
   apiRouter.post("/create-domain", createDomain);
   //team
   apiRouter.get("/teams", getAllTeams);

@@ -16,6 +16,6 @@ export class SkillDomainService {
         return this.http.get<SkillDomain[]>(`${this.apiUrl}/domains`)
     }
     getDomainByFormId(form_id: string): Observable<SkillDomain[]> {
-        return this.http.get<SkillDomain[]>(`${this.apiUrl}/domains/${form_id}`)
+        return this.http.get<SkillDomain[]>(`${this.apiUrl}/domains/forms/${form_id}`)
     }
 }

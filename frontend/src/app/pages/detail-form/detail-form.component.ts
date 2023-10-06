@@ -34,12 +34,10 @@ export class DetailFormComponent implements OnInit {
     this.router.paramMap.subscribe(params => {
       const form_id = params.get('form_id');
       if (form_id !== null) {
-        console.log(form_id);
         this.formService.getFormById(form_id).subscribe(data => {
           if (data && data.form_name) {
             this.form = data;
             this.form.form_name = data.form_name
-            console.log(this.form);
           } else {
             console.log("No data received.");
           }
@@ -48,9 +46,9 @@ export class DetailFormComponent implements OnInit {
             console.error("Error:", error);
           }
         );
-        this.domainService.getDomainByFormId(form_id).subscribe((dataDomain) => {
-          if (dataDomain) {
-            this.domains = dataDomain;
+        this.domainService.getDomainByFormId(form_id).subscribe(data => {
+          if (data) {
+            this.domains = data;
             console.log(this.domains);
           } else {
             console.log("No data received.");

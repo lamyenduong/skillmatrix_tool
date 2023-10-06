@@ -1,0 +1,22 @@
+{
+    "HomePage": {
+        "searchBarTitle": "Form Survey",
+        "firstTabPanel": "Assign me",
+        "secondTabPanel": "Owner by me",
+        "thirdTabPanel": "Draft",
+        "fourthTabPanel": "Domain",
+        "buttonCreateTitle": "Create form",
+        "buttonUploadTitle": "Upload survey",
+        "selectTimeDropdown": "Select time",
+        "uploadDialogTitle": "Upload excel",
+        "uploadDialogMainContext": "Click or drag file to this area to upload",
+        "uploadDialogContext": "Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files",
+        "uploadFileTitle": "Download example file .xlxs",
+        "emptyMessage": "No forms found."
+    },
+    "DetailPage": {},
+    "SearchPage": {},
+    "CreatePage": {
+        "frameTitle": "Create Form"
+    }
+}

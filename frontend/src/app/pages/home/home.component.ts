@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Form } from '../../models/form.model';
 import { MessageService } from 'primeng/api';
 import { FormService } from 'src/app/services/form/form-service.service';
-import { TranslateService } from 'src/app/services/translate-service.service';
 import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
 import { User } from 'src/app/models/user.model';
@@ -21,15 +20,15 @@ export class HomeComponent implements OnInit {
   selectedValue!: number
   user!: User | null
   value3!: string;
+  date!: Date
 
   constructor(private formService: FormService,
-    private translateService: TranslateService, private router: Router,
+    private router: Router,
     private readFileService: ReadFileService,
     private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
-
     const user_id = this.cookieService.getCookie("user_id");
     this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.formsOwner = data);
     this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => this.formsAssign = data);

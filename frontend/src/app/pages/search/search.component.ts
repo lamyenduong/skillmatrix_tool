@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Form } from 'src/app/models/form.model';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { User } from 'src/app/models/user.model';
 import { FormService } from 'src/app/services/form/form-service.service';
@@ -16,6 +17,13 @@ import { UserService } from 'src/app/services/user/user-service.service';
 export class SearchComponent implements OnInit {
   searchPageText: any
   users!: User[]
+  form: Form = {
+    form_id: '',
+    form_name: '',
+    create_date: '',
+    form_deadline: '',
+    form_description: ''
+  }
   displayFilterButton!: boolean
   skillDomains!: SkillDomain[]
   reactiveSkillDomainForm!: FormGroup
@@ -40,6 +48,12 @@ export class SearchComponent implements OnInit {
           if (data) {
             this.users = data;
             console.log(this.users);
+          }
+        })
+        this.formService.getFormById(formId).subscribe(data => {
+          if (data && data.form_name) {
+            this.form = data;
+            this.form.form_name = data.form_name
           }
         })
       }

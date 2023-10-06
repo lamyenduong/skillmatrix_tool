@@ -4,16 +4,20 @@
             <div class="main__frame-action d-flex ">
                 <button pRipple class="action__create" routerLink="/create">
                     <i class="pi pi-plus" style="color: #767676; font-size: 40px;"></i>
-                    <p>create form</p>
+                    <p>{{'HomePage.buttonCreateTitle' | translate}}</p>
                 </button>
                 <button pRipple class="action__upload" (click)="showUploadDialog()">
                     <i class="pi pi-upload" style="color: #767676; font-size: 40px;"></i>
-                    <p>upload survey</p>
+                    <p>{{'HomePage.buttonUploadTitle' | translate}}</p>
                 </button>
             </div>
             <div class="main__frame-filter d-flex">
-                <label>{{homePageText.mainFirstBar}}</label>
+                <label>{{ 'HomePage.searchBarTitle' | translate}}</label>
                 <div class="filter__bar-right d-flex">
+                    <button class="filter__time">
+                        <p-calendar inputId="basic" class="mx-3" [(ngModel)]="date" [showButtonBar]="true"
+                            placeholder="{{'HomePage.selectTimeDropdown' | translate}}"></p-calendar>
+                    </button>
                     <form class="filter__searchbar p-input-icon-right" (submit)="submitSearchForm()">
                         <input type="text" pInputText placeholder="Search" (input)="onSearch($event)">
                         <i class="pi pi-search" style="color: #7a7a7a; font-size: 24px;"></i>
@@ -21,10 +25,7 @@
                     <button class="filter__btn">
                         <i class="pi pi-sort-alpha-down" style="color: #7a7a7a; font-size: 24px;"></i>
                     </button>
-                    <button class="filter__time d-flex">
-                        <p>Select time</p>
-                        <i class="pi pi-angle-down" style="font-size: 16px;"></i>
-                    </button>
+
                 </div>
             </div>
         </div>
@@ -33,7 +34,7 @@
         <div class="container">
             <p-tabView class="main__tabview">
                 <!-- Assign me -->
-                <p-tabPanel header="Assign me" headerStyleClass="tabpanel__header">
+                <p-tabPanel header="{{'HomePage.firstTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsAssign" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
                         [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
                         <ng-template pTemplate="body" let-form>
@@ -57,13 +58,13 @@
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td>{{homePageText.noFormFound}}</td>
+                                <td>{{'HomePage.emptyMessage' | translate}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </p-tabPanel>
                 <!-- Owner by me -->
-                <p-tabPanel header="Owner by me" headerStyleClass="tabpanel__header">
+                <p-tabPanel header="{{'HomePage.secondTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsOwner" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
                         [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
                         <ng-template pTemplate="body" let-form>
@@ -87,16 +88,16 @@
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td>No forms found.</td>
+                                <td>{{'HomePage.emptyMessage' | translate}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </p-tabPanel>
                 <!-- Draft -->
-                <p-tabPanel header="Draft" headerStyleClass="tabpanel__header">
+                <p-tabPanel header="{{'HomePage.thirdTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                 </p-tabPanel>
                 <!-- Domain -->
-                <p-tabPanel header="Domain" headerStyleClass="tabpanel__header">
+                <p-tabPanel header="{{'HomePage.fourthTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                     <div class="tabpanel__search-bar w-100 d-flex">
                         <span class="p-input-icon-left w-100">
                             <i class="pi pi-search"></i>
@@ -157,18 +158,16 @@
     <p-dialog header="Upload Excel" [(visible)]="displayUploadButton" [modal]="true" [style]="{width: '50vw'}"
         [draggable]="false" [resizable]="false" styleClass="main__dialog-upload">
         <p class="dialog__content"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
-                download="DomainForm">{{homePageText.uploadFileHeader}}</a></p>
+                download="DomainForm">{{'HomePage.uploadFileTitle' | translate}}</a></p>
         <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
             (dragleave)="onDragLeave($event)">
             <div class="form__upload">
                 <i class="pi pi-inbox" style="font-size: 36px;"></i>
                 <input type="file" id="file" name="file" accept=".xls,.xlsx" class="upload__input"
                     (change)="onFileInputChange($event)" multiple #fileUpload>
-                <label for="file" id="fileLabel" [ngClass]="{'drag-over': isDragOver}">Click or drag file to this area
-                    to upload</label>
-                <p>Support for a single or bulk upload. Strictly prohibit from uploading company data or other band
-                    files
-                </p>
+                <label for="file" id="fileLabel"
+                    [ngClass]="{'drag-over': isDragOver}">{{'HomePage.uploadDialogMainContext' | translate}}</label>
+                <p>{{'HomePage.uploadDialogContext' | translate}}</p>
                 <button pButton class="upload__btn" type="submit" (click)="onUploadFile()"
                     *ngIf="fileSelected">Upload</button>
             </div>
@@ -176,43 +175,76 @@
     </p-dialog>
     <!-- dialog for creating domain-->
     <p-dialog header="Add Domain" [(visible)]="displayAddDomainButton" [modal]="true" [style]="{width: '40vw'}"
-        [draggable]="false" [resizable]="false" styleClass="dialog__create-domain">
-
-    </p-dialog>
-    <!-- dialog edit domain panel -->
-    <p-dialog header="Edit Domain" [(visible)]="displayEditDomainButton" [modal]="true" [style]="{width: '40vw'}"
         [draggable]="false" [resizable]="false" styleClass="main__dialog-edit">
-        <div class="dialog__content-domain">
+        <div class="dialog__domain-first">
             <h6>Domain name</h6>
             <input class="w-100" type="text" pInputText>
-            <p class="m-0">Skill name</p>
             <p-chips>
                 <ng-template let-item pTemplate="item">{{item}}</ng-template>
             </p-chips>
+            <button pButton label="ADD"></button>
         </div>
-        <div class="">
-            <h6>Skill name</h6>
+        <div class="dialog__domain-second">
+            <h6>Domain name</h6>
             <input class="w-100" type="text" pInputText>
         </div>
-        <div class="">
-            <p class="dialog__content"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
-                    download="DomainForm">{{homePageText.uploadFileHeader}}</a></p>
+        <div class="dialog__form">
+            <p class="dialog__form-title"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
+                    download="DomainForm">{{'HomePage.uploadFileTitle' | translate}}</a></p>
             <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
                 (dragleave)="onDragLeave($event)">
                 <div class="form__upload">
                     <i class="pi pi-inbox" style="font-size: 36px;"></i>
                     <input type="file" id="file" name="file" accept=".xls,.xlsx" class="upload__input"
                         (change)="onFileInputChange($event)" multiple #fileUpload>
-                    <label for="file" id="fileLabel" [ngClass]="{'drag-over': isDragOver}">Click or drag file to this
-                        area
-                        to upload</label>
-                    <p>Support for a single or bulk upload. Strictly prohibit from uploading company data or other band
-                        files
-                    </p>
+                    <label for="file" id="fileLabel"
+                        [ngClass]="{'drag-over': isDragOver}">{{'HomePage.uploadDialogMainContext' | translate}}</label>
+                    <p>{{'HomePage.uploadDialogContext' | translate}}</p>
                     <button pButton class="upload__btn" type="submit" (click)="onUploadFile()"
                         *ngIf="fileSelected">Upload</button>
                 </div>
             </form>
+        </div>
+        <div class="dialog__btn-control">
+            <button pButton type="button" class="p-button-outlined p-button-rounded" label="Cancel"></button>
+            <button pButton type="submit" class="p-button-rounded" label="Submit"></button>
+        </div>
+    </p-dialog>
+    <!-- dialog edit domain panel -->
+    <p-dialog header="Edit Domain" [(visible)]="displayEditDomainButton" [modal]="true" [style]="{width: '40vw'}"
+        [draggable]="false" [resizable]="false" styleClass="main__dialog-edit">
+        <div class="dialog__domain-first">
+            <h6>Domain name</h6>
+            <input class="w-100" type="text" pInputText>
+            <p-chips>
+                <ng-template let-item pTemplate="item">{{item}}</ng-template>
+            </p-chips>
+            <button pButton label="ADD"></button>
+        </div>
+        <div class="dialog__domain-second">
+            <h6>Domain name</h6>
+            <input class="w-100" type="text" pInputText>
+        </div>
+        <div class="dialog__form">
+            <p class="dialog__form-title"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
+                    download="DomainForm">{{'HomePage.uploadFileTitle' | translate}}</a></p>
+            <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)">
+                <div class="form__upload">
+                    <i class="pi pi-inbox" style="font-size: 36px;"></i>
+                    <input type="file" id="file" name="file" accept=".xls,.xlsx" class="upload__input"
+                        (change)="onFileInputChange($event)" multiple #fileUpload>
+                    <label for="file" id="fileLabel"
+                        [ngClass]="{'drag-over': isDragOver}">{{'HomePage.uploadDialogMainContext' | translate}}</label>
+                    <p>{{'HomePage.uploadDialogContext' | translate}}</p>
+                    <button pButton class="upload__btn" type="submit" (click)="onUploadFile()"
+                        *ngIf="fileSelected">Upload</button>
+                </div>
+            </form>
+        </div>
+        <div class="dialog__btn-control">
+            <button pButton type="button" class="p-button-outlined p-button-rounded" label="Cancel"></button>
+            <button pButton type="submit" class="p-button-rounded" label="Submit"></button>
         </div>
     </p-dialog>
 </div>
