@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
 import { User } from 'src/app/models/user.model';
 import { CookieService } from 'src/app/services/cookie-service.service';
+import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
+import { SkillDomain } from 'src/app/models/skill-domain.model';
+import { Skill } from 'src/app/models/skill.model';
+import { SkillService } from 'src/app/services/form/skill-service.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +20,8 @@ import { CookieService } from 'src/app/services/cookie-service.service';
 export class HomeComponent implements OnInit {
   formsOwner!: Form[]
   formsAssign!: Form[]
+  domains!: SkillDomain[]
+  skills!: Skill[]
   homePageText: any
   selectedValue!: number
   user!: User | null
@@ -23,22 +29,53 @@ export class HomeComponent implements OnInit {
   date!: Date
 
   constructor(private formService: FormService,
+    private domainService: SkillDomainService,
+    private skillService: SkillService,
     private router: Router,
     private readFileService: ReadFileService,
     private cookieService: CookieService) {
   }
-
+  domain!: SkillDomain
+  skill!: Skill
   ngOnInit(): void {
     const user_id = this.cookieService.getCookie("user_id");
     this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.formsOwner = data);
     this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => this.formsAssign = data);
+    this.domainService.getAllSkillDomains().subscribe((data: SkillDomain[]) => {
+      if (data) {
+        this.domains = data
+        this.domains.map((domain: SkillDomain) => {
+          if (domain && domain.domain_id && domain.domain_id) {
+            this.domain = domain
+            this.domain.domain_id = domain.domain_id
+            this.domain.domain_name = domain.domain_name
+          }
+        })
+      }
+
+    });
+
+    this.skillService.getAllSkills().subscribe((data: Skill[]) => {
+      if (data) {
+        this.skills = data
+        this.skills.map((skill: Skill) => {
+          if (skill && skill.skill_name && skill.skill_domain && skill.skill_domain?.domain_id) {
+            this.skill = skill
+            this.skill.skill_name = skill.skill_name
+            if (this.skill.skill_domain)
+              this.skill.skill_domain.domain_id = skill.skill_domain.domain_id
+          }
+        })
+      }
+
+    })
   }
 
   getFormOwnerByMe(form_id: string) {
     this.router.navigate(['/search', form_id]);
   }
 
-  getFormAsignMe(form_id: string) {
+  getFormAssignMe(form_id: string) {
     this.router.navigate(['/detail', form_id]);
   }
 
@@ -151,7 +188,9 @@ export class HomeComponent implements OnInit {
   showAddDomainDialog() {
     this.displayAddDomainButton = true
   }
-  showEditDomainDialog() {
+  domain1!: SkillDomain
+  showEditDomainDialog(domain_id: string) {
     this.displayEditDomainButton = true
+    //this.domainService.getDomainById(domain_id).subscribe((data: SkillDomain) => this.domain1 = data)
   }
 }

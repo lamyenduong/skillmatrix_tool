@@ -46,7 +46,7 @@
                                                 style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
                                             <div class="card__info">
                                                 <a class="card__title" role="button"
-                                                    (click)="getFormAsignMe(form.forms._id)">{{form.forms.form_name}}</a>
+                                                    (click)="getFormAssignMe(form.forms._id)">{{form.forms.form_name}}</a>
                                                 <p class="card__subtitle">{{form.forms.user.full_name}}</p>
                                                 <p class="card__subtitle">{{form.forms.create_date | date}}</p>
                                             </div>
@@ -105,51 +105,57 @@
                         </span>
                         <button pButton icon="pi pi-plus" label="ADD" (click)="showAddDomainDialog()"></button>
                     </div>
-                    <p-panel id="" class="domain__panel" [toggleable]="true" [collapsed]="true">
-                        <ng-template pTemplate="header">
-                            <span id="" class="domain__name">Domain name</span>
-                        </ng-template>
-                        <ng-template pTemplate="icons">
-                            <button pButton class="p-panel-header-icon p-link" (click)="showEditDomainDialog()">
-                                <span class="pi pi-file-edit"></span>
-                            </button>
-                            <button pButton class="p-panel-header-icon p-link" (click)="removePanel()">
-                                <span class="pi pi-trash"></span>
-                            </button>
-                            <p-menu #menu [popup]="true">
-                            </p-menu>
-                        </ng-template>
-                        <div class="radio__header d-flex mb-2">
-                            <div class="col-2"></div>
-                            <div class="radio__labels col-9">
-                                <label for="0">0</label>
-                                <label for="1">1</label>
-                                <label for="2">2</label>
-                                <label for="3">3</label>
-                                <label for="4">4</label>
-                                <label for="5">5</label>
+                    <div *ngFor="let domain of domains">
+                        <p-panel class="domain__panel" [toggleable]="true" [collapsed]="true">
+                            <ng-template pTemplate="header">
+                                <span class="domain__name">{{domain.domain_name}}</span>
+                            </ng-template>
+                            <ng-template pTemplate="icons">
+                                <button pButton class="p-panel-header-icon p-link"
+                                    (click)="showEditDomainDialog(domain.domain_id)">
+                                    <span class="pi pi-file-edit"></span>
+                                </button>
+                                <button pButton class="p-panel-header-icon p-link" (click)="removePanel()">
+                                    <span class="pi pi-trash"></span>
+                                </button>
+                            </ng-template>
+                            <div class="radio__header d-flex mb-2">
+                                <div class="col-2"></div>
+                                <div class="radio__labels col-9">
+                                    <label for="0">0</label>
+                                    <label for="1">1</label>
+                                    <label for="2">2</label>
+                                    <label for="3">3</label>
+                                    <label for="4">4</label>
+                                    <label for="5">5</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="radio__form d-flex align-items-center mb-4" id="">
-                            <div class="col-2">
-                                <span id="" class="skill__name">Skill name</span>
+                            <div *ngFor="let skill of skills">
+                                <div
+                                    *ngIf="skill.skill_domain?.domain_name?.toLowerCase() === domain.domain_name.toLowerCase()">
+                                    <div class="radio__form d-flex align-items-center mb-4">
+                                        <div class="col-2">
+                                            <span id="" class="skill__name">{{skill.skill_name}}</span>
+                                        </div>
+                                        <div class="radio__options col-9">
+                                            <p-radioButton id="0" name="number" [(ngModel)]="selectedValue" value="0"
+                                                [disabled]="true"></p-radioButton>
+                                            <p-radioButton id="1" name="number" [(ngModel)]="selectedValue" value="1"
+                                                [disabled]="true"></p-radioButton>
+                                            <p-radioButton id="2" name="number" [(ngModel)]="selectedValue" value="2"
+                                                [disabled]="true"></p-radioButton>
+                                            <p-radioButton id="3" name="number" [(ngModel)]="selectedValue" value="3"
+                                                [disabled]="true"></p-radioButton>
+                                            <p-radioButton id="4" name="number" [(ngModel)]="selectedValue" value="4"
+                                                [disabled]="true"></p-radioButton>
+                                            <p-radioButton id="5" name="number" [(ngModel)]="selectedValue" value="5"
+                                                [disabled]="true"></p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="radio__options col-9">
-                                <p-radioButton id="0" name="number" [(ngModel)]="selectedValue" value="0"
-                                    [disabled]="true"></p-radioButton>
-                                <p-radioButton id="1" name="number" [(ngModel)]="selectedValue" value="1"
-                                    [disabled]="true"></p-radioButton>
-                                <p-radioButton id="2" name="number" [(ngModel)]="selectedValue" value="2"
-                                    [disabled]="true"></p-radioButton>
-                                <p-radioButton id="3" name="number" [(ngModel)]="selectedValue" value="3"
-                                    [disabled]="true"></p-radioButton>
-                                <p-radioButton id="4" name="number" [(ngModel)]="selectedValue" value="4"
-                                    [disabled]="true"></p-radioButton>
-                                <p-radioButton id="5" name="number" [(ngModel)]="selectedValue" value="5"
-                                    [disabled]="true"></p-radioButton>
-                            </div>
-                        </div>
-                    </p-panel>
+                        </p-panel>
+                    </div>
                 </p-tabPanel>
             </p-tabView>
         </div>

@@ -68,16 +68,12 @@ const getDomainByFormId = async (req, res) => {
           $project: {
             _id: "$_id",
             domain_name: "$domain_name",
-            project: "$project",
-            status: "$status",
           },
         },
         {
           $group: {
             _id: "$_id",
             domain_name: { $first: "$domain_name" },
-            project: { $first: "$project" },
-            status: { $first: "$status" },
           },
         },
       ])

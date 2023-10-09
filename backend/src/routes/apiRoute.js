@@ -26,6 +26,10 @@ const {
   refreshToken,
 } = require("../controllers/authController");
 const { getAllTeams } = require("../controllers/teamController");
+const {
+  getSkillInDomain,
+  getAllSkills,
+} = require("../controllers/skillController");
 
 const apiRoute = (app) => {
   //auth
@@ -52,6 +56,8 @@ const apiRoute = (app) => {
   //team
   apiRouter.get("/teams", getAllTeams);
   //skill
+  apiRouter.get("/skills", getAllSkills);
+  apiRouter.get("/skills/:domain_id", getSkillInDomain);
   app.use("/", apiRouter);
 };
 
