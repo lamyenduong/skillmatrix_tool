@@ -22,7 +22,11 @@ export class NavbarComponent implements OnInit {
   profileTagItems: MenuItem[] = [
     {
       label: 'Profile',
-      icon: 'pi pi-user'
+      icon: 'pi pi-user',
+      command: () => {
+        const user_id = this.cookieService.getCookie("user_id")
+        this.router.navigate(['/profile', user_id]);
+      }
     },
     {
       label: 'Settings',
@@ -39,7 +43,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(private notificationService: NotificationService,
     public navbarService: NavbarService, public authService: AuthService,
-    private cookieService: CookieService, private userService: UserService) {
+    private cookieService: CookieService, private userService: UserService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -56,5 +61,4 @@ export class NavbarComponent implements OnInit {
     const notiCount = document.querySelector('#notiCount') as HTMLSpanElement
     notiCount.style.display = "none";
   }
-
 }

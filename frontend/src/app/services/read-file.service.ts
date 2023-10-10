@@ -21,7 +21,7 @@ export class ReadFileService {
                 const resultArray: any[][] = [];
 
                 const ranges = [
-                    { startRow: 7, endRow: 125, startCol: 0, endCol: 102 },
+                    { startRow: 7, endRow: 34, startCol: 0, endCol: 102 },
                     // { startRow: 7, endRow: 7, startCol: 7, endCol: 29 },
                     // { startRow: 7, endRow: 7, startCol: 30, endCol: 39 },
                     // { startRow: 7, endRow: 7, startCol: 40, endCol: 50 },
@@ -56,16 +56,12 @@ export class ReadFileService {
                         }
                         subarray.push(rowArray);
                     }
-
-                    // Kiểm tra nếu mảng con không trống (chứa ít nhất một giá trị khác undefined) thì mới thêm vào kết quả
                     if (subarray.some(row => row.some((cellValue: any) => cellValue !== undefined))) {
                         resultArray.push(...subarray);
                     }
                 });
                 const filteredResultArray = resultArray.filter(subarray => subarray.some(cellValue => cellValue !== undefined));
-
                 resolve(filteredResultArray);
-
             };
             reader.onerror = (error) => {
                 reject(error);

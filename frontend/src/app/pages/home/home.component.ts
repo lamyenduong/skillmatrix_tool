@@ -137,7 +137,6 @@ export class HomeComponent implements OnInit {
       const filesToUpload = fileInput.files;
       if (filesToUpload && filesToUpload.length > 0) {
         const uploadedFile = filesToUpload[0];
-        console.log("Uploading file from input:", uploadedFile);
         this.readFileService.readFile(uploadedFile)
           .then((dataArray: any[][]) => {
             console.log("Data from input file:", dataArray);

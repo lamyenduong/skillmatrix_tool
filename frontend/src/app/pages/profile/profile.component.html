@@ -1,1 +1,87 @@
-<p>profile works!</p>
+<div class="container form__info">
+    <div class="form__info-header">
+        <p-avatar image="{{currentUser.avatar}}" shape="circle"></p-avatar>
+        <div class="align-self-center">
+            <span class="user__name">{{currentUser.full_name}}</span>
+            <p class="user__role">{{currentUser.role}}</p>
+        </div>
+        <button pButton label="Edit" icon="pi pi-file-edit" (click)="showEditInfoDialog()"></button>
+    </div>
+    <div class="row form__info-show">
+        <div class="d-flex justify-content-between form__info-title">
+            <h4>Information</h4>
+        </div>
+        <div class="col-6 form__info-content">
+            <div class="form__row d-flex">
+                <p>Email :</p>
+                <input pInputText type="text" value="{{currentUser.email}}" disabled>
+            </div>
+            <div class="form__row d-flex">
+                <p>Full name :</p>
+                <input pInputText type="text" value="{{currentUser.full_name}}" disabled>
+            </div>
+            <div class="form__row d-flex">
+                <p>Date of birth :</p>
+                <input pInputText type="text" value="{{currentUser.birthday}}" disabled>
+            </div>
+            <div class="form__row d-flex">
+                <p>Gender :</p>
+                <input pInputText type="text" value="{{currentUser.gender}}" disabled>
+            </div>
+            <div class="form__row d-flex">
+                <p>Phone number:</p>
+                <input pInputText type="text" value="{{currentUser.phone_number}}" disabled>
+            </div>
+            <div class="form__row d-flex">
+                <p>Team :</p>
+                <input pInputText type="text" value="{{currentUser.team}}" disabled>
+            </div>
+        </div>
+        <div class="col-6 pt-2 form__info-link">
+            <ul>
+                <li><a href="">Change password</a></li>
+                <li><a href="">Advanced settings</a></li>
+                <li><a href="">Privacy policies</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Edit Information" [(visible)]="displayEditInfoButton" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false" styleClass="form__dialog-edit">
+    <form [formGroup]="formUpdate">
+        <div class="form__avatar">for avatar</div>
+        <div class="form__edit">
+            <div class="form__row">
+                <p>Email:</p>
+                <input name="email" pInputText type="text" value="{{currentUser.email}}">
+            </div>
+            <div class="form__row">
+                <p>Full name:</p>
+                <input name="full_name" pInputText type="text" value="{{currentUser.full_name}}">
+            </div>
+            <div class="form__row">
+                <p>Date of birth:</p>
+                <input name="birthday" pInputText type="date" value="{{currentUser.birthday}}">
+            </div>
+            <div class="form__row">
+                <p>Gender:</p>
+                <input pInputText type="text" value="{{currentUser.gender}}">
+            </div>
+            <div class="form__row">
+                <p>Phone number:</p>
+                <input name="phone_number" pInputText type="text" value="{{currentUser.phone_number}}">
+            </div>
+            <div class="form__row">
+                <p>Team:</p>
+                <p-dropdown name="team" [options]="teams" optionLabel="team_name"></p-dropdown>
+            </div>
+        </div>
+        <div>
+            <div class="dialog__btn-control">
+                <button pButton type="button" class="p-button-outlined p-button-rounded" label="Cancel"></button>
+                <button pButton type="submit" class="p-button-rounded" label="Submit" (click)="updateUser()"></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

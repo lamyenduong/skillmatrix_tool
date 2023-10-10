@@ -53,6 +53,31 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  const user_id = req.params.user_id;
+  const user = req.body;
+  try {
+    const db = getDb();
+    const userCollection = db.collection("user");
+    const filter = { _id: new ObjectId(user_id) };
+    const updateDoc = {
+      $set: {
+        full_name: user.full_name,
+        email: user.email,
+        phone_number: user.phone_number,
+        gender: user.gender,
+        birthday: user.birthday,
+        team: user.team,
+      },
+    };
+    const newUser = await userCollection.updateOne(filter, updateDoc);
+    res.status(200).json(newUser);
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 const getManagerByFormId = async (req, res) => {};
 
 module.exports = {
@@ -60,4 +85,5 @@ module.exports = {
   getUserById,
   getUserByName,
   getUserByEmail,
+  updateUser,
 };

@@ -14,6 +14,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { LoginComponent } from './login/login.component';
 import { CreateFormComponent } from './pages/create-form/create-form.component';
 import { DetailFormComponent } from './pages/detail-form/detail-form.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 // Primeng
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
@@ -41,7 +42,6 @@ import { ChipsModule } from 'primeng/chips';
 //Service
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
