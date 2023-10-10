@@ -45,22 +45,31 @@ export class ReadFileService {
                 ranges.forEach((range) => {
                     const { startRow, endRow, startCol, endCol } = range;
                     const subarray: any[] = [];
-
                     for (let row = startRow; row <= endRow; row++) {
                         const rowArray: any[] = [];
+                        let isRowEmpty = true;
                         for (let col = startCol; col <= endCol; col++) {
                             const cellAddress = XLSX.utils.encode_cell({ r: row, c: col });
                             const cell = worksheet[cellAddress];
                             const cellValue = cell ? cell.v : undefined;
+                            if (cellValue !== undefined) {
+                                if (typeof cellValue === 'string' && cellValue.trim() !== '') {
+                                    isRowEmpty = false;
+                                } else if (typeof cellValue !== 'string') {
+                                    isRowEmpty = false;
+                                }
+                            }
                             rowArray.push(cellValue);
                         }
-                        subarray.push(rowArray);
+                        if (!isRowEmpty) {
+                            subarray.push(rowArray);
+                        }
                     }
-                    if (subarray.some(row => row.some((cellValue: any) => cellValue !== undefined))) {
-                        resultArray.push(...subarray);
+                    if (subarray.length > 0) {
+                        resultArray.push(subarray);
                     }
                 });
-                const filteredResultArray = resultArray.filter(subarray => subarray.some(cellValue => cellValue !== undefined));
+                const filteredResultArray = resultArray.filter(subarray => subarray.length > 0);
                 resolve(filteredResultArray);
             };
             reader.onerror = (error) => {
