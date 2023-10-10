@@ -44,6 +44,7 @@ export class AuthService {
                         status: response.user.status,
                         role: response.user.role,
                         create_date: response.user.create_date,
+                        team: response.user.team,
                         avatar: response.user.avatar
                     }
                     this.currentUserSubject.next(currentUser)

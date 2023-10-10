@@ -41,6 +41,7 @@ import { ChipsModule } from 'primeng/chips';
 //Service
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     ErrorComponent,
     CreateFormComponent,
     DetailFormComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

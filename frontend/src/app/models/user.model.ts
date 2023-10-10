@@ -1,3 +1,5 @@
+import { Team } from "./team.model"
+
 export interface User {
     user_id: string,
     password: string
@@ -10,4 +12,5 @@ export interface User {
     role: string
     create_date: string
     avatar: string
+    team?: Team
 }

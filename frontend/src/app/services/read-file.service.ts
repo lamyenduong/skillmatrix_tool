@@ -17,8 +17,55 @@ export class ReadFileService {
                 const workbook = XLSX.read(data, { type: 'array' });
                 const firstSheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[firstSheetName];
-                const dataArray: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                resolve(dataArray);
+
+                const resultArray: any[][] = [];
+
+                const ranges = [
+                    { startRow: 7, endRow: 125, startCol: 0, endCol: 102 },
+                    // { startRow: 7, endRow: 7, startCol: 7, endCol: 29 },
+                    // { startRow: 7, endRow: 7, startCol: 30, endCol: 39 },
+                    // { startRow: 7, endRow: 7, startCol: 40, endCol: 50 },
+                    // { startRow: 7, endRow: 7, startCol: 51, endCol: 53 },
+                    // { startRow: 7, endRow: 7, startCol: 54, endCol: 64 },
+                    // { startRow: 7, endRow: 7, startCol: 65, endCol: 79 },
+                    // { startRow: 7, endRow: 7, startCol: 80, endCol: 89 },
+                    // { startRow: 7, endRow: 7, startCol: 90, endCol: 97 },
+                    // { startRow: 7, endRow: 7, startCol: 98, endCol: 102 },
+                    // { startRow: 8, endRow: 8, startCol: 3, endCol: 6 },
+                    // { startRow: 8, endRow: 8, startCol: 7, endCol: 29 },
+                    // { startRow: 8, endRow: 8, startCol: 30, endCol: 39 },
+                    // { startRow: 8, endRow: 8, startCol: 40, endCol: 50 },
+                    // { startRow: 8, endRow: 8, startCol: 51, endCol: 53 },
+                    // { startRow: 8, endRow: 8, startCol: 54, endCol: 64 },
+                    // { startRow: 8, endRow: 8, startCol: 65, endCol: 79 },
+                    // { startRow: 8, endRow: 8, startCol: 80, endCol: 89 },
+                    // { startRow: 8, endRow: 8, startCol: 90, endCol: 97 },
+                    // { startRow: 8, endRow: 8, startCol: 98, endCol: 102 },
+                ];
+                ranges.forEach((range) => {
+                    const { startRow, endRow, startCol, endCol } = range;
+                    const subarray: any[] = [];
+
+                    for (let row = startRow; row <= endRow; row++) {
+                        const rowArray: any[] = [];
+                        for (let col = startCol; col <= endCol; col++) {
+                            const cellAddress = XLSX.utils.encode_cell({ r: row, c: col });
+                            const cell = worksheet[cellAddress];
+                            const cellValue = cell ? cell.v : undefined;
+                            rowArray.push(cellValue);
+                        }
+                        subarray.push(rowArray);
+                    }
+
+                    // Kiểm tra nếu mảng con không trống (chứa ít nhất một giá trị khác undefined) thì mới thêm vào kết quả
+                    if (subarray.some(row => row.some((cellValue: any) => cellValue !== undefined))) {
+                        resultArray.push(...subarray);
+                    }
+                });
+                const filteredResultArray = resultArray.filter(subarray => subarray.some(cellValue => cellValue !== undefined));
+
+                resolve(filteredResultArray);
+
             };
             reader.onerror = (error) => {
                 reject(error);
