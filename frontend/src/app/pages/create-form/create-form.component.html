@@ -5,6 +5,8 @@
         </div>
     </div>
     <div class="container-fluid mx-auto" style="border-radius: 30px 30px 0 0; background: white; padding-bottom: 30px;">
+        <!--Success toast-->
+        <p-toast position="top-center"></p-toast>
         <div class="container">
             <div class="step__frame">
                 <p-steps [model]="items" [readonly]="false" [activeIndex]="currentStep"></p-steps>
@@ -68,8 +70,9 @@
                         <div class="step__form-row">
                             <label for="formTeam">Team survey</label>
                             <p-multiSelect formControlName="formTeam" styleClass="form__input px-0"
-                                defaultLabel="Select teams" [options]="teams" optionLabel="team_name"
-                                display="chip"></p-multiSelect>
+                                defaultLabel="Select teams" [(ngModel)]="selectedTeams" [options]="teams"
+                                optionLabel="team_name" display="chip"
+                                (onChange)="getMemberInTeam(selectedTeams)"></p-multiSelect>
                             <small
                                 *ngIf="secondStepForm.get('formTeam')?.hasError('required') && (secondStepForm.get('formTeam')?.touched || secondStepForm.get('formTeam')?.dirty)">
                                 This field is required.
@@ -104,8 +107,7 @@
                     <div class="step__form-result">
                         <h5>{{form.form_name}}</h5>
                         <div class="d-flex result__date">
-                            {{form.create_date}}<span>to</span>{{form.form_deadline}}<span>(22
-                                days)</span>
+                            {{form.create_date}}<span>to</span>{{form.form_deadline}}
                         </div>
                         <p>{{form.form_description}}</p>
                     </div>

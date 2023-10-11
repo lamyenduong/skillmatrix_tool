@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Form } from 'src/app/models/form.model';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { Team } from 'src/app/models/team.model';
@@ -31,6 +31,7 @@ export class CreateFormComponent implements OnInit {
     create_date: '',
     form_deadline: '',
     form_description: '',
+    user: undefined,
   }
   domains!: SkillDomain[]
   selectedValue!: string
@@ -59,11 +60,13 @@ export class CreateFormComponent implements OnInit {
   day: any
   month: any
   formStartTime!: string
+  //const deadline =
 
   constructor(
     private teamService: TeamService, private userService: UserService,
     private domainService: SkillDomainService, private fb: FormBuilder,
-    private formService: FormService, private cookieService: CookieService) { }
+    private formService: FormService, private cookieService: CookieService,
+    private messageService: MessageService,) { }
 
   ngOnInit(): void {
     this.teamService.getAllTeams().subscribe(teams => this.teams = teams)
@@ -127,19 +130,7 @@ export class CreateFormComponent implements OnInit {
     } else {
       this.markFormControlsAsTouched(this.secondStepForm)
     }
-    //this.formVariable()
-    const user_id = this.cookieService.getCookie("user_id");
-    this.userService.getUserById(user_id).subscribe((user: User) => { this.currentUser = user })
-    const form = {
-      form_id: '',
-      form_name: this.firstStepForm.get('formName')?.value,
-      form_description: this.firstStepForm.get('formDescription')?.value,
-      form_deadline: this.secondStepForm.get('formDeadline')?.value,
-      create_date: this.secondStepForm.get('formStartTime')?.value,
-      user: this.currentUser
-    }
-    this.form = form
-    console.log(this.form)
+    this.formVariable()
   }
   formVariable() {
     const user_id = this.cookieService.getCookie("user_id");
@@ -153,25 +144,22 @@ export class CreateFormComponent implements OnInit {
       user: this.currentUser
     }
     this.form = form
-    console.log(this.form)
+
+    console.log
     return this.form
   }
   createForm() {
-    // this.formService.createForm(this.formVariable())
-    this.userService.getUserById(this.cookieService.getCookie("user_id"))
-      .subscribe((user: User) => {
-        this.currentUser = user;
-        const form: Form = {
-          form_id: '',
-          form_name: this.firstStepForm.get('formName')?.value,
-          form_description: this.firstStepForm.get('formDescription')?.value,
-          form_deadline: this.secondStepForm.get('formDeadline')?.value,
-          create_date: this.secondStepForm.get('formStartTime')?.value,
-          user: this.currentUser
-        };
-        this.formService.createForm(form);
-        console.log(form);
-      });
+    this.formService.createForm(this.formVariable()).subscribe(
+      () => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
+      },
+      (error) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
+      }
+    )
   }
-
+  selectedTeams: string[] = [];
+  getMemberInTeam(selectedTeams: string[]) {
+    console.log('Selected teams:', selectedTeams);
+  }
 }

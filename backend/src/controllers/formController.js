@@ -34,6 +34,7 @@ const createForm = async (req, res) => {
       status: reqForm.user.status,
       birthday: reqForm.user.birthday,
       avatar: reqForm.user.avatar,
+      team: reqForm.user.team,
     }),
   };
   try {

@@ -140,7 +140,6 @@ export class HomeComponent implements OnInit {
         this.readFileService.readFile(uploadedFile)
           .then((dataArray: any[][]) => {
             console.log("Data from input file:", dataArray);
-            this.sendData(dataArray);
           })
           .catch(error => {
             console.error("Error reading input file:", error);
@@ -149,17 +148,7 @@ export class HomeComponent implements OnInit {
         console.log("No file selected for upload.");
       }
     }
-  }
-  sendData(dataArray: any[][]): void {
-    this.formService.createFormByUpload(dataArray)
-      .subscribe(
-        (response) => {
-          console.log('Data sent to the server successfully:', response);
-        },
-        (error) => {
-          console.error('Error sending data to the server:', error);
-        }
-      );
+    this.router.navigate(['/create'])
   }
 
   //Search form

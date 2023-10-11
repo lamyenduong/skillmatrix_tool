@@ -21,7 +21,7 @@ export class ReadFileService {
                 const resultArray: any[][] = [];
 
                 const ranges = [
-                    { startRow: 7, endRow: 34, startCol: 0, endCol: 102 },
+                    { startRow: 7, endRow: 34, startCol: 0, endCol: 101 },
                     // { startRow: 7, endRow: 7, startCol: 7, endCol: 29 },
                     // { startRow: 7, endRow: 7, startCol: 30, endCol: 39 },
                     // { startRow: 7, endRow: 7, startCol: 40, endCol: 50 },
@@ -65,12 +65,27 @@ export class ReadFileService {
                             subarray.push(rowArray);
                         }
                     }
-                    if (subarray.length > 0) {
-                        resultArray.push(subarray);
+                    //Name
+                    const names = subarray.map(row => row[0])
+                    const name: any[] = []
+                    for (let i = 0; i < names.length; i++) {
+                        if (names[i] !== undefined && typeof names[i] === 'string') {
+                            name.push(names[i])
+                        }
                     }
+                    console.log(name)
+                    //Team
+                    const teams = subarray.map(row => row[1])
+                    const team: any[] = []
+                    for (let i = 0; i < teams.length; i++) {
+                        if (teams[i] !== undefined && typeof teams[i] === 'string') {
+                            team.push(teams[i])
+                        }
+                    }
+                    console.log(team)
+
+                    resolve(subarray);
                 });
-                const filteredResultArray = resultArray.filter(subarray => subarray.length > 0);
-                resolve(filteredResultArray);
             };
             reader.onerror = (error) => {
                 reject(error);

@@ -53,6 +53,11 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
+// const getUserInTeam = async (req, res) =>
+// {
+//   try
+// };
+
 const updateUser = async (req, res) => {
   const user_id = req.params.user_id;
   const user = req.body;
