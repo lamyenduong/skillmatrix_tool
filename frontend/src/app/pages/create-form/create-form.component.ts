@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Form } from 'src/app/models/form.model';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
@@ -60,13 +61,12 @@ export class CreateFormComponent implements OnInit {
   day: any
   month: any
   formStartTime!: string
-  //const deadline =
 
   constructor(
     private teamService: TeamService, private userService: UserService,
     private domainService: SkillDomainService, private fb: FormBuilder,
     private formService: FormService, private cookieService: CookieService,
-    private messageService: MessageService,) { }
+    private messageService: MessageService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.teamService.getAllTeams().subscribe(teams => this.teams = teams)
@@ -90,6 +90,8 @@ export class CreateFormComponent implements OnInit {
     this.month = this.currentMonth < 10 ? "0" + this.currentMonth : this.currentMonth;
     this.formStartTime = `${this.currentYear}-${this.month}-${this.day}`;
     this.secondStepForm.get('formStartTime')?.setValue(this.formStartTime);
+
+
   }
   markFormControlsAsTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
@@ -164,21 +166,20 @@ export class CreateFormComponent implements OnInit {
   getMemberInTeam(selectedTeams: Team[]) {
     console.log('Selected teams:', selectedTeams);
 
-    selectedTeams.map((team: Team) => {
-      const team0: Team = {
-        team_id: team.team_id,
+    selectedTeams.map((team: any) => {
+      const team0 = {
+        team_id: team._id,
         team_name: team.team_name,
         status: team.status
       };
-      console.log(team0.team_id)
       const team_id = team0.team_id;
       this.userService.getUserInTeam(team_id).subscribe((data: User[]) => {
         if (data) {
           this.members = data;
-          console.log(this.members);
         }
       });
     });
   }
+
 
 }
