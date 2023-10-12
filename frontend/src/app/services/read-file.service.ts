@@ -65,24 +65,26 @@ export class ReadFileService {
                             subarray.push(rowArray);
                         }
                     }
-                    //Name
+                    // Name
                     const names = subarray.map(row => row[0])
                     const name: any[] = []
                     for (let i = 0; i < names.length; i++) {
-                        if (names[i] !== undefined && typeof names[i] === 'string') {
+                        if (names[i] !== undefined && typeof names[i] === 'string' && names[i].toLowerCase() !== 'employee') {
                             name.push(names[i])
                         }
                     }
                     console.log(name)
+
                     //Team
                     const teams = subarray.map(row => row[1])
                     const team: any[] = []
                     for (let i = 0; i < teams.length; i++) {
-                        if (teams[i] !== undefined && typeof teams[i] === 'string') {
+                        if (teams[i] !== undefined && typeof teams[i] === 'string' && teams[i].toLowerCase() !== 'team') {
                             team.push(teams[i])
                         }
                     }
-                    console.log(team)
+                    const team0 = [...new Set(team)]
+                    console.log(team0)
 
                     resolve(subarray);
                 });
