@@ -158,8 +158,27 @@ export class CreateFormComponent implements OnInit {
       }
     )
   }
-  selectedTeams: string[] = [];
-  getMemberInTeam(selectedTeams: string[]) {
+  selectedTeams: Team[] = [];
+  members!: User[]
+  team!: Team
+  getMemberInTeam(selectedTeams: Team[]) {
     console.log('Selected teams:', selectedTeams);
+
+    selectedTeams.map((team: Team) => {
+      const team0: Team = {
+        team_id: team.team_id,
+        team_name: team.team_name,
+        status: team.status
+      };
+      console.log(team0.team_id)
+      const team_id = team0.team_id;
+      this.userService.getUserInTeam(team_id).subscribe((data: User[]) => {
+        if (data) {
+          this.members = data;
+          console.log(this.members);
+        }
+      });
+    });
   }
+
 }

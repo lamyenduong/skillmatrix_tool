@@ -13,6 +13,7 @@ const {
   getUserById,
   getUserByName,
   getUserByEmail,
+  getUserInTeam,
   updateUser,
 } = require("../controllers/userController");
 const {
@@ -49,6 +50,7 @@ const apiRoute = (app) => {
   apiRouter.get("/users/:user_id", getUserById);
   apiRouter.get("/users/full-name", getUserByName);
   apiRouter.get("/users/email", getUserByEmail);
+  apiRouter.get("/users/team/:team_id", getUserInTeam);
   apiRouter.patch("/user/profile/:user_id", updateUser);
   //domain
   apiRouter.get("/domains", getAllDomains);

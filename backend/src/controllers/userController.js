@@ -53,10 +53,22 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
-// const getUserInTeam = async (req, res) =>
-// {
-//   try
-// };
+const getUserInTeam = async (req, res) => {
+  const team_id = req.params.team_id;
+  try {
+    const db = getDb();
+    const userCollection = db.collection("user");
+    const user = await userCollection
+      .find({
+        "team.team_id": new ObjectId(team_id),
+      })
+      .toArray();
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
 
 const updateUser = async (req, res) => {
   const user_id = req.params.user_id;
@@ -90,5 +102,6 @@ module.exports = {
   getUserById,
   getUserByName,
   getUserByEmail,
+  getUserInTeam,
   updateUser,
 };

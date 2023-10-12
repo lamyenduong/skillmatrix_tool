@@ -24,6 +24,10 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}/users/email`)
   }
 
+  getUserInTeam(team_id: string) {
+    return this.http.get<User[]>(`${this.apiUrl}/users/team/${team_id}`)
+  }
+
   getUserByName() {
     return this.http.get<User[]>(`${this.apiUrl}/users/full-name`)
   }
