@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Form } from 'src/app/models/form.model';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
@@ -61,12 +61,13 @@ export class CreateFormComponent implements OnInit {
   day: any
   month: any
   formStartTime!: string
+  data: any[] = []
 
   constructor(
     private teamService: TeamService, private userService: UserService,
     private domainService: SkillDomainService, private fb: FormBuilder,
     private formService: FormService, private cookieService: CookieService,
-    private messageService: MessageService, private route: ActivatedRoute) { }
+    private messageService: MessageService, private router: Router) { }
 
   ngOnInit(): void {
     this.teamService.getAllTeams().subscribe(teams => this.teams = teams)
@@ -91,6 +92,20 @@ export class CreateFormComponent implements OnInit {
     this.formStartTime = `${this.currentYear}-${this.month}-${this.day}`;
     this.secondStepForm.get('formStartTime')?.setValue(this.formStartTime);
 
+    // this.router.getCurrentNavigation()?.extras.state.subscribe(params => {
+    //   if (params && params.get('subarray')) {
+    //     this.data = params.get('subarray');
+    //     console.log(this.data);
+    //   } else {
+    //     console.error('The "subarray" query parameter is not defined in the URL.');
+    //   }
+    // });
+
+    const state = this.router.getCurrentNavigation()?.extras.state;
+    if (state && state['subarray']) {
+      this.data = state['subarray'];
+      // Bây giờ bạn có thể làm việc với dữ liệu trong mảng myArray
+    }
 
   }
   markFormControlsAsTouched(formGroup: FormGroup) {

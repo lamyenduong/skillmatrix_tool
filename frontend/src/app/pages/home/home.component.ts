@@ -139,29 +139,7 @@ export class HomeComponent implements OnInit {
         const uploadedFile = filesToUpload[0];
         this.readFileService.readFile(uploadedFile)
           .then((subarray: any[]) => {
-            // Name
-            const names = subarray.map(row => row[0])
-            const name: any[] = []
-            for (let i = 0; i < names.length; i++) {
-              if (names[i] !== undefined && typeof names[i] === 'string' && names[i].toLowerCase() !== 'employee') {
-                name.push(names[i])
-              }
-            }
-
-            //Team
-            const teams = subarray.map(row => row[1])
-            const team: any[] = []
-            for (let i = 0; i < teams.length; i++) {
-              if (teams[i] !== undefined && typeof teams[i] === 'string' && teams[i].toLowerCase() !== 'team') {
-                team.push(teams[i])
-              }
-            }
-            const team0 = [...new Set(team)]
-            const data = {
-              team0: team0,
-              name: name
-            }
-            this.router.navigate(['/create'], { state: { data: { team0, name } } })
+            this.router.navigate(['/create'], { state: { data: subarray } })
           })
           .catch(error => {
             console.error("Error reading input file:", error);
@@ -177,7 +155,28 @@ export class HomeComponent implements OnInit {
     // if (this.formService.)
   }
   submitSearchForm() {
+    // // Name
+    // const names = subarray.map(row => row[0])
+    // const name: any[] = []
+    // for (let i = 0; i < names.length; i++) {
+    //   if (names[i] !== undefined && typeof names[i] === 'string' && names[i].toLowerCase() !== 'employee') {
+    //     name.push(names[i])
+    //   }
+    // }
 
+    // //Team
+    // const teams = subarray.map(row => row[1])
+    // const team: any[] = []
+    // for (let i = 0; i < teams.length; i++) {
+    //   if (teams[i] !== undefined && typeof teams[i] === 'string' && teams[i].toLowerCase() !== 'team') {
+    //     team.push(teams[i])
+    //   }
+    // }
+    // const team0 = [...new Set(team)]
+    // const data = {
+    //   team0: team0,
+    //   name: name
+    // }
   }
 
   //Search domain
