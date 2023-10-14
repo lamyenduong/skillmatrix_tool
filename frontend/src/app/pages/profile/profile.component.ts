@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
-import { CookieService } from 'src/app/services/cookie-service.service';
-import { TeamService } from 'src/app/services/form/team-service.service';
-import { UserService } from 'src/app/services/user/user-service.service';
+import { CookieService } from '../../services/cookie.service';
+import { TeamService } from '../../services/form/team.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-profile',

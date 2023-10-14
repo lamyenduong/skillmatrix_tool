@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class FormSkillService {
-    private apiUrl = environment.apiUrl
-    constructor(private http: HttpClient) { }
+  private apiUrl = environment.apiUrl
+  constructor(private http: HttpClient) { }
 
-    getAllFormSkill() {
-        return this.http.get<FormSkill>(`${this.apiUrl}/form-skill`)
-    }
+  getAllFormSkill() {
+    return this.http.get<FormSkill>(`${this.apiUrl}/form-skill`)
+  }
 }

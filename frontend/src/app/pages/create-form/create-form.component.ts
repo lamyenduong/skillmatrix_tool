@@ -6,11 +6,11 @@ import { Form } from 'src/app/models/form.model';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
-import { CookieService } from 'src/app/services/cookie-service.service';
-import { FormService } from 'src/app/services/form/form-service.service';
-import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
-import { TeamService } from 'src/app/services/form/team-service.service';
-import { UserService } from 'src/app/services/user/user-service.service';
+import { CookieService } from '../../services/cookie.service';
+import { FormService } from '../../services/form/form.service';
+import { DomainService } from '../../services/form/domain.service';
+import { TeamService } from '../../services/form/team.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-create-form',
@@ -65,7 +65,7 @@ export class CreateFormComponent implements OnInit {
 
   constructor(
     private teamService: TeamService, private userService: UserService,
-    private domainService: SkillDomainService, private fb: FormBuilder,
+    private domainService: DomainService, private fb: FormBuilder,
     private formService: FormService, private cookieService: CookieService,
     private messageService: MessageService, private router: Router) { }
 
@@ -91,21 +91,6 @@ export class CreateFormComponent implements OnInit {
     this.month = this.currentMonth < 10 ? "0" + this.currentMonth : this.currentMonth;
     this.formStartTime = `${this.currentYear}-${this.month}-${this.day}`;
     this.secondStepForm.get('formStartTime')?.setValue(this.formStartTime);
-
-    // this.router.getCurrentNavigation()?.extras.state.subscribe(params => {
-    //   if (params && params.get('subarray')) {
-    //     this.data = params.get('subarray');
-    //     console.log(this.data);
-    //   } else {
-    //     console.error('The "subarray" query parameter is not defined in the URL.');
-    //   }
-    // });
-
-    const state = this.router.getCurrentNavigation()?.extras.state;
-    if (state && state['subarray']) {
-      this.data = state['subarray'];
-      // Bây giờ bạn có thể làm việc với dữ liệu trong mảng myArray
-    }
 
   }
   markFormControlsAsTouched(formGroup: FormGroup) {

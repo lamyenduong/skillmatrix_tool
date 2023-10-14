@@ -4,12 +4,12 @@ import { User } from '../../models/user.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class UserRateService {
-    private apiUrl = environment.apiUrl
+  private apiUrl = environment.apiUrl
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
 }

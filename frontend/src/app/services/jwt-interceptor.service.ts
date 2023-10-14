@@ -1,4 +1,3 @@
-// Ví dụ về cách tạo interceptor
 import { Injectable } from '@angular/core';
 import {
     HttpRequest,

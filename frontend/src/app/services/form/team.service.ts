@@ -4,14 +4,14 @@ import { environment } from 'src/environments/environment';
 import { Team } from '../../models/team.model';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class TeamService {
-    private apiUrl = environment.apiUrl
-    constructor(private http: HttpClient) { }
+  private apiUrl = environment.apiUrl
+  constructor(private http: HttpClient) { }
 
-    getAllTeams() {
-        return this.http.get<Team[]>(`${this.apiUrl}/teams`)
-    }
+  getAllTeams() {
+    return this.http.get<Team[]>(`${this.apiUrl}/teams`)
+  }
 
 }

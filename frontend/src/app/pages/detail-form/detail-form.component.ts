@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Form } from 'src/app/models/form.model';
-import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
+import { DomainService } from '../../services/form/domain.service';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
-import { FormService } from 'src/app/services/form/form-service.service';
+import { FormService } from '../../services/form/form.service';
 
 @Component({
   selector: 'app-detail-form',
@@ -27,7 +27,7 @@ export class DetailFormComponent implements OnInit {
   isPanelEnabled: boolean = false;
 
   constructor(private router: ActivatedRoute,
-    private routerNav: Router, private domainService: SkillDomainService,
+    private routerNav: Router, private domainService: DomainService,
     private formService: FormService) { }
 
   ngOnInit(): void {

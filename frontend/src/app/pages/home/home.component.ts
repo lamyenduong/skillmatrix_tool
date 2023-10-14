@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Form } from '../../models/form.model';
 import { MessageService } from 'primeng/api';
-import { FormService } from 'src/app/services/form/form-service.service';
+import { FormService } from '../../services/form/form.service';
 import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
 import { User } from 'src/app/models/user.model';
-import { CookieService } from 'src/app/services/cookie-service.service';
-import { SkillDomainService } from 'src/app/services/form/skill-domain-service.service';
+import { CookieService } from '../../services/cookie.service';
+import { DomainService } from '../../services/form/domain.service';
 import { SkillDomain } from 'src/app/models/skill-domain.model';
 import { Skill } from 'src/app/models/skill.model';
-import { SkillService } from 'src/app/services/form/skill-service.service';
+import { SkillService } from '../../services/form/skill.service';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   date!: Date
 
   constructor(private formService: FormService,
-    private domainService: SkillDomainService,
+    private domainService: DomainService,
     private skillService: SkillService,
     private router: Router,
     private readFileService: ReadFileService,
