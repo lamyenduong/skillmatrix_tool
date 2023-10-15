@@ -1,4 +1,41 @@
 {
+    "Logo": {
+        "firstWord": "Skillmat",
+        "secondWord": "Toolrix"
+    },
+    "GeneralMessage": {
+        "fieldRequiredMessage": "This field is required.",
+        "btnSubmitLabel": "Submit",
+        "btnCancelLabel": "Cancel",
+        "btnBackLabel": "Back",
+        "btnEditLabel": "Edit"
+    },
+    "Navbar": {
+        "notificationTitle": "Notifications"
+    },
+    "LoginPage": {
+        "registerTitle": "Register",
+        "loginTitle": "Log in",
+        "fullNameLabel": "Full name:",
+        "mailLabel": "E-mail:",
+        "dobLabel": "Date of birth:",
+        "genderLabel": "Gender:",
+        "femaleLabel": "Female",
+        "maleLabel": "Male",
+        "phoneLabel": "Phone number:",
+        "passwordLabel": "Password:",
+        "confirmPasswordLabel": "Confirm password:",
+        "fullNamePlaceholder": "Enter your full name",
+        "mailPlaceholder": "Enter your e-mail",
+        "phonePlaceholder": "Enter your phone number",
+        "passwordPlaceholder": "Enter your password",
+        "confirmPasswordPlaceholder": "Confirm your password",
+        "loginDemand": "Have an Account?",
+        "registerDemand": "Don't have an Account?",
+        "successMessage": "Registration successful!",
+        "failedMessage": "Registration failed!",
+        "loginFailedMessage": "Login failed!"
+    },
     "HomePage": {
         "searchBarTitle": "Form Survey",
         "firstTabPanel": "Assign me",
@@ -12,11 +49,59 @@
         "uploadDialogMainContext": "Click or drag file to this area to upload",
         "uploadDialogContext": "Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files",
         "uploadFileTitle": "Download example file .xlxs",
-        "emptyMessage": "No forms found."
+        "emptyMessage": "No forms found.",
+        "addDomainTitle": "Add Domain",
+        "domainNameHeader": "Domain name",
+        "editDomainTitle": "Edit Domain",
+        "btnAddLabel": "Add",
+        "btnUploadLabel": "Upload"
     },
-    "DetailPage": {},
-    "SearchPage": {},
+    "DetailPage": {
+        "btnViewProfileLabel": "View Profile"
+    },
+    "SearchPage": {
+        "searchPlaceHolder": "Search",
+        "btnFilterLabel": "Filter",
+        "dialogFilterPlaceholder": "Domain name",
+        "avatarColumnHeader": "Avatar",
+        "genderColumnHeader": "Gender",
+        "dobColumnHeader": "Birthday",
+        "mailColumnHeader": "E-mail",
+        "phoneColumnheader": "Phone",
+        "statusColumnHeader": "Status",
+        "actionColumnHeader": "Action"
+    },
     "CreatePage": {
-        "frameTitle": "Create Form"
+        "frameTitle": "Create Form",
+        "formNameLabel": "Form name",
+        "descriptionLabel": "Description",
+        "startDateLabel": "Time from",
+        "deadlineDateLabel": "Time to",
+        "managerLabel": "Add manager",
+        "teamLabel": "Team survey",
+        "memberLabel": "Member survey",
+        "domainLabel": "Domain",
+        "formNamePlaceholder": "Enter form name",
+        "descriptionPlaceholder": "Enter form description",
+        "managerPlaceholder": "Select manager",
+        "teamPlaceholder": "Select teams",
+        "memberPlaceholder": "Select members",
+        "domainPlaceholder": "Select domains",
+        "btnNextLabel": "Next"
+    },
+    "ProfilePage": {
+        "frameTitle": "Information",
+        "mailLabel": "E-mail:",
+        "fullNameLabel": "Full name:",
+        "dobLabel": "Date of birth:",
+        "genderLabel": "Gender:",
+        "phoneLabel": "Phone number",
+        "teamLabel": "Team:",
+        "firstServiceLabel": "Change password",
+        "secondServiceLabel": "Advanced settings",
+        "thirdServiceLabel": "Privacy policies"
+    },
+    "ErrorPage": {
+        "errorMessage": "Oops! Page not found"
     }
 }

@@ -1,13 +1,15 @@
+<p-toast position="top-center"></p-toast>
 <div class="container-fluid primary-frame">
     <div class="container mx-auto d-flex justify-content-between">
-        <div class="edit__frame-header align-items-center d-flex"><span class="material-icons"
-                style="font-size: 48px; color: rgb(103, 0, 172); margin-right: 8px;">description</span>
+        <div class="edit__frame-header align-items-center d-flex">
+            <span class="material-icons">description</span>
             <p>{{form.form_name}}</p>
         </div>
         <div class="d-flex edit__frame-btn">
             <button class="frame__btn-back" pButton icon="pi pi-arrow-left" (click)="backToHomePage()"
-                label="Back"></button>
-            <button pRipple pButton icon="pi pi-file-edit" label="Edit" (click)="editDomainForm($event)"></button>
+                label="{{ 'GeneralMessage.btnBackLabel' | translate}}"></button>
+            <button pRipple pButton icon="pi pi-file-edit" label="{{ 'GeneralMessage.btnEditLabel' | translate}}"
+                (click)="editDomainForm($event)"></button>
         </div>
     </div>
 </div>
@@ -17,7 +19,7 @@
             <p-avatar image=""></p-avatar>
             <p class="card__title"></p>
             <p class="card__subtitle"></p>
-            <button pButton pRipple label="View profile"></button>
+            <button pButton pRipple label="{{ 'DetailPage.btnViewProfileLabel' | translate}}"></button>
         </div>
     </div>
     <div class="frame__form">
@@ -25,7 +27,7 @@
             <p-panel [collapsed]="!isPanelEnabled" [toggleable]="true">
                 <ng-template pTemplate="header">
                     {{domain.domain_name}}
-                    <span style="margin-left: 8px; color: rgb(255, 144, 103);">4.5</span>
+                    <span class="form__point">4.5</span>
                 </ng-template>
                 <ng-template pTemplate="icons">
                     <p-menu #menu [popup]="true">
@@ -34,12 +36,7 @@
                 <div class="radio__header d-flex mb-2">
                     <div class="col-2"></div>
                     <div class="radio__labels col-10">
-                        <label for="0">0</label>
-                        <label for="1">1</label>
-                        <label for="2">2</label>
-                        <label for="3">3</label>
-                        <label for="4">4</label>
-                        <label for="5">5</label>
+                        <label *ngFor="let point of points" for={{point}}>{{point}}</label>
                     </div>
                 </div>
                 <div class="radio__form d-flex align-items-center">
@@ -47,18 +44,8 @@
                         <!-- <span> {{formSkill.skill.skill_name}}</span> -->
                     </div>
                     <div class="radio__options col-10">
-                        <p-radioButton id="0" name="number" value="0" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                        <p-radioButton id="1" name="number" value="1" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                        <p-radioButton id="2" name="number" value="2" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                        <p-radioButton id="3" name="number" value="3" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                        <p-radioButton id="4" name="number" value="4" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
-                        <p-radioButton id="5" name="number" value="5" [(ngModel)]="selectedValue"
-                            [disabled]="!isEditing"></p-radioButton>
+                        <p-radioButton *ngFor="let point of points" id={{point}} name="number" value={{point}}
+                            [(ngModel)]="selectedValue" [disabled]="!isEditing"></p-radioButton>
                     </div>
                 </div>
             </p-panel>

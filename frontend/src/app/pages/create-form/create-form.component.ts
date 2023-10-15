@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Form } from 'src/app/models/form.model';
-import { SkillDomain } from 'src/app/models/skill-domain.model';
+import { Domain } from 'src/app/models/domain.model';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
 import { CookieService } from '../../services/cookie.service';
@@ -19,6 +19,7 @@ import { UserService } from '../../services/user/user.service';
   encapsulation: ViewEncapsulation.None
 })
 export class CreateFormComponent implements OnInit {
+  points = [0, 1, 2, 3, 4, 5]
   createFormPageText: any
   isFirstStep: boolean = true
   isSecondStep!: boolean
@@ -34,7 +35,7 @@ export class CreateFormComponent implements OnInit {
     form_description: '',
     user: undefined,
   }
-  domains!: SkillDomain[]
+  domains!: Domain[]
   selectedValue!: string
   currentStep = 0
   firstStepForm!: FormGroup
@@ -43,7 +44,7 @@ export class CreateFormComponent implements OnInit {
     { label: 'Create' },
     { label: 'In progress', },
     { label: 'Finished' }];
-  items3: MenuItem[] = [
+  submitMenuItems: MenuItem[] = [
     {
       icon: 'pi pi-send',
       label: 'Submit'
@@ -163,9 +164,8 @@ export class CreateFormComponent implements OnInit {
   selectedTeams: Team[] = [];
   members!: User[]
   team!: Team
-  getMemberInTeam(selectedTeams: Team[]) {
-    console.log('Selected teams:', selectedTeams);
 
+  getMemberInTeam(selectedTeams: Team[]) {
     selectedTeams.map((team: any) => {
       const team0 = {
         team_id: team._id,

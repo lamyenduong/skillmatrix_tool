@@ -1,4 +1,3 @@
-import { SkillDomain } from './../../models/skill-domain.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Skill } from '../../models/skill.model';

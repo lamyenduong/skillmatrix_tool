@@ -1,15 +1,17 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Form } from '../../models/form.model';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FormService } from '../../services/form/form.service';
-import { Router } from '@angular/router';
 import { ReadFileService } from 'src/app/services/read-file.service';
-import { User } from 'src/app/models/user.model';
 import { CookieService } from '../../services/cookie.service';
 import { DomainService } from '../../services/form/domain.service';
-import { SkillDomain } from 'src/app/models/skill-domain.model';
-import { Skill } from 'src/app/models/skill.model';
 import { SkillService } from '../../services/form/skill.service';
+import { Domain } from 'src/app/models/domain.model';
+import { Skill } from 'src/app/models/skill.model';
+import { User } from 'src/app/models/user.model';
+import { Form } from '../../models/form.model';
+import "../../../assets/file/WSI_SkillMatrix.xlsx"
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-home',
@@ -18,33 +20,37 @@ import { SkillService } from '../../services/form/skill.service';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+  points = [0, 1, 2, 3, 4, 5]
   formsOwner!: Form[]
   formsAssign!: Form[]
-  domains!: SkillDomain[]
+  domains!: Domain[]
   skills!: Skill[]
   homePageText: any
   selectedValue!: number
   user!: User | null
   value3!: string;
   date!: Date
+  domain!: Domain
+  skill!: Skill
 
   constructor(private formService: FormService,
     private domainService: DomainService,
     private skillService: SkillService,
     private router: Router,
     private readFileService: ReadFileService,
-    private cookieService: CookieService) {
+    private cookieService: CookieService,
+    private fileService: FileService) {
+    this.fileService.setFilePath("../../../assets/file/WSI_SkillMatrix.xlsx")
   }
-  domain!: SkillDomain
-  skill!: Skill
+
   ngOnInit(): void {
     const user_id = this.cookieService.getCookie("user_id");
     this.formService.getFormOwner(user_id).subscribe((data: Form[]) => this.formsOwner = data);
     this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => this.formsAssign = data);
-    this.domainService.getAllSkillDomains().subscribe((data: SkillDomain[]) => {
+    this.domainService.getAllSkillDomains().subscribe((data: Domain[]) => {
       if (data) {
         this.domains = data
-        this.domains.map((domain: SkillDomain) => {
+        this.domains.map((domain: Domain) => {
           if (domain && domain.domain_id && domain.domain_id) {
             this.domain = domain
             this.domain.domain_id = domain.domain_id
@@ -124,30 +130,47 @@ export class HomeComponent implements OnInit {
   }
   onUploadFile() {
     if (this.droppedFile) {
-      console.log("Uploading dropped file:", this.droppedFile);
-      this.readFileService.readFile(this.droppedFile)
-        .then((dataArray: any[][]) => {
-          console.log("Data from dropped file:", dataArray);
-        })
-        .catch(error => {
-          console.error("Error reading dropped file:", error);
-        });
+      this.manageExcelFile(this.droppedFile)
     } else {
       const fileInput = document.querySelector("#file") as HTMLInputElement;
       const filesToUpload = fileInput.files;
       if (filesToUpload && filesToUpload.length > 0) {
         const uploadedFile = filesToUpload[0];
-        this.readFileService.readFile(uploadedFile)
-          .then((subarray: any[]) => {
-            this.router.navigate(['/create'], { state: { data: subarray } })
-          })
-          .catch(error => {
-            console.error("Error reading input file:", error);
-          });
+        this.manageExcelFile(uploadedFile)
       } else {
         console.log("No file selected for upload.");
       }
     }
+  }
+  manageExcelFile(file: File) {
+    this.readFileService.readFile(file)
+      .then((resultArray: any[]) => {
+        // Name
+        const names = resultArray.map(row => row[0])
+        const name: any[] = []
+        for (let i = 0; i < names.length; i++) {
+          if (names[i] !== undefined && typeof names[i] === 'string' && names[i].toLowerCase() !== 'employee') {
+            name.push(names[i])
+          }
+        }
+
+        //Team
+        const teams = resultArray.map(row => row[1])
+        const team: any[] = []
+        for (let i = 0; i < teams.length; i++) {
+          if (teams[i] !== undefined && typeof teams[i] === 'string' && teams[i].toLowerCase() !== 'team') {
+            team.push(teams[i])
+          }
+        }
+        const team0 = [...new Set(team)]
+        const data = {
+          team0: team0,
+          name: name
+        }
+      })
+      .catch(error => {
+        console.error("Error reading input file:", error);
+      });
   }
 
   //Search form
@@ -155,28 +178,7 @@ export class HomeComponent implements OnInit {
     // if (this.formService.)
   }
   submitSearchForm() {
-    // // Name
-    // const names = subarray.map(row => row[0])
-    // const name: any[] = []
-    // for (let i = 0; i < names.length; i++) {
-    //   if (names[i] !== undefined && typeof names[i] === 'string' && names[i].toLowerCase() !== 'employee') {
-    //     name.push(names[i])
-    //   }
-    // }
 
-    // //Team
-    // const teams = subarray.map(row => row[1])
-    // const team: any[] = []
-    // for (let i = 0; i < teams.length; i++) {
-    //   if (teams[i] !== undefined && typeof teams[i] === 'string' && teams[i].toLowerCase() !== 'team') {
-    //     team.push(teams[i])
-    //   }
-    // }
-    // const team0 = [...new Set(team)]
-    // const data = {
-    //   team0: team0,
-    //   name: name
-    // }
   }
 
   //Search domain
@@ -196,7 +198,7 @@ export class HomeComponent implements OnInit {
   showAddDomainDialog() {
     this.displayAddDomainButton = true
   }
-  domain1!: SkillDomain
+  domain1!: Domain
   showEditDomainDialog(domain_id: string) {
     this.displayEditDomainButton = true
     //this.domainService.getDomainById(domain_id).subscribe((data: SkillDomain) => this.domain1 = data)

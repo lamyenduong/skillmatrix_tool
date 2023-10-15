@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SkillDomain } from '../../models/skill-domain.model';
+import { Domain } from '../../models/domain.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -12,13 +12,13 @@ export class DomainService {
 
   constructor(private http: HttpClient) { }
 
-  getAllSkillDomains(): Observable<SkillDomain[]> {
-    return this.http.get<SkillDomain[]>(`${this.apiUrl}/domains`)
+  getAllSkillDomains(): Observable<Domain[]> {
+    return this.http.get<Domain[]>(`${this.apiUrl}/domains`)
   }
-  getDomainById(domain_id: string): Observable<SkillDomain> {
-    return this.http.get<SkillDomain>(`${this.apiUrl}/domains/${domain_id}`)
+  getDomainById(domain_id: string): Observable<Domain> {
+    return this.http.get<Domain>(`${this.apiUrl}/domains/${domain_id}`)
   }
-  getDomainByFormId(form_id: string): Observable<SkillDomain[]> {
-    return this.http.get<SkillDomain[]>(`${this.apiUrl}/domains/forms/${form_id}`)
+  getDomainByFormId(form_id: string): Observable<Domain[]> {
+    return this.http.get<Domain[]>(`${this.apiUrl}/domains/forms/${form_id}`)
   }
 }

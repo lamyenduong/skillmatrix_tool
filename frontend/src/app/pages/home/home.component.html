@@ -1,13 +1,14 @@
+<p-toast position="top-center"></p-toast>
 <div class="frame">
     <div class="main__first-frame">
         <div class="container">
             <div class="main__frame-action d-flex ">
                 <button pRipple class="action__create" routerLink="/create">
-                    <i class="pi pi-plus" style="color: #767676; font-size: 40px;"></i>
+                    <i class="pi pi-plus"></i>
                     <p>{{'HomePage.buttonCreateTitle' | translate}}</p>
                 </button>
                 <button pRipple class="action__upload" (click)="showUploadDialog()">
-                    <i class="pi pi-upload" style="color: #767676; font-size: 40px;"></i>
+                    <i class="pi pi-upload"></i>
                     <p>{{'HomePage.buttonUploadTitle' | translate}}</p>
                 </button>
             </div>
@@ -19,11 +20,12 @@
                             placeholder="{{'HomePage.selectTimeDropdown' | translate}}"></p-calendar>
                     </button>
                     <form class="filter__searchbar p-input-icon-right" (submit)="submitSearchForm()">
-                        <input type="text" pInputText placeholder="Search" (input)="onSearch($event)">
-                        <i class="pi pi-search" style="color: #7a7a7a; font-size: 24px;"></i>
+                        <input type="text" pInputText placeholder="{{'SearchPage.searchPlaceHolder' | translate}}"
+                            (input)="onSearch($event)">
+                        <i class="pi pi-search"></i>
                     </form>
                     <button class="filter__btn">
-                        <i class="pi pi-sort-alpha-down" style="color: #7a7a7a; font-size: 24px;"></i>
+                        <i class="pi pi-sort-alpha-down"></i>
                     </button>
 
                 </div>
@@ -42,8 +44,7 @@
                                 <td>
                                     <div class="card__body">
                                         <div class="card__content">
-                                            <span class="material-icons"
-                                                style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
+                                            <span class="material-icons">description</span>
                                             <div class="card__info">
                                                 <a class="card__title" role="button"
                                                     (click)="getFormAssignMe(form.forms._id)">{{form.forms.form_name}}</a>
@@ -51,7 +52,7 @@
                                                 <p class="card__subtitle">{{form.forms.create_date | date}}</p>
                                             </div>
                                         </div>
-                                        <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>
+                                        <button><i class="pi pi-ellipsis-h"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -72,8 +73,7 @@
                                 <td>
                                     <div class="card__body">
                                         <div class="card__content">
-                                            <span class="material-icons"
-                                                style="font-size: 48px; color: rgb(103, 0, 172);">description</span>
+                                            <span class="material-icons">description</span>
                                             <div class="card__info">
                                                 <a class="card__title" role="button"
                                                     (click)="getFormOwnerByMe(form._id)">{{form.form_name}}</a>
@@ -81,7 +81,7 @@
                                                 <p class="card__subtitle">{{form.create_date | date}}</p>
                                             </div>
                                         </div>
-                                        <button><i class="pi pi-ellipsis-h" style="color: #7a7a7a;"></i></button>
+                                        <button><i class="pi pi-ellipsis-h"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -101,7 +101,8 @@
                     <div class="tabpanel__search-bar w-100 d-flex">
                         <span class="p-input-icon-left w-100">
                             <i class="pi pi-search"></i>
-                            <input type="text" class="w-100" pInputText placeholder="Search" [(ngModel)]="value3" />
+                            <input type="text" class="w-100" pInputText
+                                placeholder="{{'SearchPage.searchPlaceHolder' | translate}}" [(ngModel)]="value3" />
                         </span>
                         <button pButton icon="pi pi-plus" label="ADD" (click)="showAddDomainDialog()"></button>
                     </div>
@@ -122,12 +123,7 @@
                             <div class="radio__header d-flex mb-2">
                                 <div class="col-2"></div>
                                 <div class="radio__labels col-9">
-                                    <label for="0">0</label>
-                                    <label for="1">1</label>
-                                    <label for="2">2</label>
-                                    <label for="3">3</label>
-                                    <label for="4">4</label>
-                                    <label for="5">5</label>
+                                    <label *ngFor="let point of points" for={{point}}>{{point}}</label>
                                 </div>
                             </div>
                             <div *ngFor="let skill of skills">
@@ -135,20 +131,11 @@
                                     *ngIf="skill.skill_domain?.domain_name?.toLowerCase() === domain.domain_name.toLowerCase()">
                                     <div class="radio__form d-flex align-items-center mb-4">
                                         <div class="col-2">
-                                            <span id="" class="skill__name">{{skill.skill_name}}</span>
+                                            <span class="skill__name">{{skill.skill_name}}</span>
                                         </div>
                                         <div class="radio__options col-9">
-                                            <p-radioButton id="0" name="number" [(ngModel)]="selectedValue" value="0"
-                                                [disabled]="true"></p-radioButton>
-                                            <p-radioButton id="1" name="number" [(ngModel)]="selectedValue" value="1"
-                                                [disabled]="true"></p-radioButton>
-                                            <p-radioButton id="2" name="number" [(ngModel)]="selectedValue" value="2"
-                                                [disabled]="true"></p-radioButton>
-                                            <p-radioButton id="3" name="number" [(ngModel)]="selectedValue" value="3"
-                                                [disabled]="true"></p-radioButton>
-                                            <p-radioButton id="4" name="number" [(ngModel)]="selectedValue" value="4"
-                                                [disabled]="true"></p-radioButton>
-                                            <p-radioButton id="5" name="number" [(ngModel)]="selectedValue" value="5"
+                                            <p-radioButton *ngFor="let point of points" id={{point}} name="number"
+                                                [(ngModel)]="selectedValue" value={{point}}
                                                 [disabled]="true"></p-radioButton>
                                         </div>
                                     </div>
@@ -161,41 +148,41 @@
         </div>
     </div>
     <!-- dialog for uploading survey -->
-    <p-dialog header="Upload Excel" [(visible)]="displayUploadButton" [modal]="true" [style]="{width: '50vw'}"
-        [draggable]="false" [resizable]="false" styleClass="main__dialog-upload">
+    <p-dialog header="{{'HomePage.uploadDialogTitle' | translate}}" [(visible)]="displayUploadButton" [modal]="true"
+        [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" styleClass="main__dialog-upload">
         <p class="dialog__content"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
                 download="DomainForm">{{'HomePage.uploadFileTitle' | translate}}</a></p>
         <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
             (dragleave)="onDragLeave($event)">
             <div class="form__upload">
-                <i class="pi pi-inbox" style="font-size: 36px;"></i>
+                <i class="pi pi-inbox"></i>
                 <input type="file" id="file" name="file" accept=".xls,.xlsx" class="upload__input"
                     (change)="onFileInputChange($event)" multiple #fileUpload>
                 <label for="file" id="fileLabel"
                     [ngClass]="{'drag-over': isDragOver}">{{'HomePage.uploadDialogMainContext' | translate}}</label>
                 <p>{{'HomePage.uploadDialogContext' | translate}}</p>
                 <button pButton class="upload__btn" type="submit" (click)="onUploadFile()"
-                    *ngIf="fileSelected">Upload</button>
+                    *ngIf="fileSelected">{{'HomePage.btnUploadLabel' | translate}}</button>
             </div>
         </form>
     </p-dialog>
     <!-- dialog for creating domain-->
-    <p-dialog header="Add Domain" [(visible)]="displayAddDomainButton" [modal]="true" [style]="{width: '40vw'}"
-        [draggable]="false" [resizable]="false" styleClass="main__dialog-edit">
+    <p-dialog header="{{'HomePage.addDomainTitle' | translate}}" [(visible)]="displayAddDomainButton" [modal]="true"
+        [style]="{width: '40vw'}" [draggable]="false" [resizable]="false" styleClass="main__dialog-edit">
         <div class="dialog__domain-first">
-            <h6>Domain name</h6>
+            <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
             <input class="w-100" type="text" pInputText>
             <p-chips>
                 <ng-template let-item pTemplate="item">{{item}}</ng-template>
             </p-chips>
-            <button pButton label="ADD"></button>
+            <button pButton label="{{'HomePage.btnAddLabel' | translate}}"></button>
         </div>
         <div class="dialog__domain-second">
-            <h6>Domain name</h6>
+            <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
             <input class="w-100" type="text" pInputText>
         </div>
         <div class="dialog__form">
-            <p class="dialog__form-title"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
+            <p class="dialog__form-title"><a href="filePathService.getFilePath()"
                     download="DomainForm">{{'HomePage.uploadFileTitle' | translate}}</a></p>
             <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
                 (dragleave)="onDragLeave($event)">
@@ -207,28 +194,30 @@
                         [ngClass]="{'drag-over': isDragOver}">{{'HomePage.uploadDialogMainContext' | translate}}</label>
                     <p>{{'HomePage.uploadDialogContext' | translate}}</p>
                     <button pButton class="upload__btn" type="submit" (click)="onUploadFile()"
-                        *ngIf="fileSelected">Upload</button>
+                        *ngIf="fileSelected">{{'HomePage.btnUploadLabel' | translate}}</button>
                 </div>
             </form>
         </div>
         <div class="dialog__btn-control">
-            <button pButton type="button" class="p-button-outlined p-button-rounded" label="Cancel"></button>
-            <button pButton type="submit" class="p-button-rounded" label="Submit"></button>
+            <button pButton type="button" class="p-button-outlined p-button-rounded"
+                label="{{'GeneralMessage.btnCancelLabel' | translate}}"></button>
+            <button pButton type="submit" class="p-button-rounded"
+                label="{{'GeneralMessage.btnSubmitLabel' | translate}}"></button>
         </div>
     </p-dialog>
     <!-- dialog edit domain panel -->
-    <p-dialog header="Edit Domain" [(visible)]="displayEditDomainButton" [modal]="true" [style]="{width: '40vw'}"
-        [draggable]="false" [resizable]="false" styleClass="main__dialog-edit">
+    <p-dialog header="{{'HomePage.editDomainTitle' | translate}}" [(visible)]="displayEditDomainButton" [modal]="true"
+        [style]="{width: '40vw'}" [draggable]="false" [resizable]="false" styleClass="main__dialog-edit">
         <div class="dialog__domain-first">
-            <h6>Domain name</h6>
+            <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
             <input class="w-100" type="text" pInputText>
             <p-chips>
                 <ng-template let-item pTemplate="item">{{item}}</ng-template>
             </p-chips>
-            <button pButton label="ADD"></button>
+            <button pButton label="{{'HomePage.btnAddLabel' | translate}}"></button>
         </div>
         <div class="dialog__domain-second">
-            <h6>Domain name</h6>
+            <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
             <input class="w-100" type="text" pInputText>
         </div>
         <div class="dialog__form">
@@ -237,20 +226,22 @@
             <form class="dialog__form-upload" method="post" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
                 (dragleave)="onDragLeave($event)">
                 <div class="form__upload">
-                    <i class="pi pi-inbox" style="font-size: 36px;"></i>
+                    <i class="pi pi-inbox"></i>
                     <input type="file" id="file" name="file" accept=".xls,.xlsx" class="upload__input"
                         (change)="onFileInputChange($event)" multiple #fileUpload>
                     <label for="file" id="fileLabel"
                         [ngClass]="{'drag-over': isDragOver}">{{'HomePage.uploadDialogMainContext' | translate}}</label>
                     <p>{{'HomePage.uploadDialogContext' | translate}}</p>
                     <button pButton class="upload__btn" type="submit" (click)="onUploadFile()"
-                        *ngIf="fileSelected">Upload</button>
+                        *ngIf="fileSelected">{{'HomePage.btnUploadLabel' | translate}}</button>
                 </div>
             </form>
         </div>
         <div class="dialog__btn-control">
-            <button pButton type="button" class="p-button-outlined p-button-rounded" label="Cancel"></button>
-            <button pButton type="submit" class="p-button-rounded" label="Submit"></button>
+            <button pButton type="button" class="p-button-outlined p-button-rounded"
+                label="{{'GeneralMessage.btnCancelLabel' | translate}}"></button>
+            <button pButton type="submit" class="p-button-rounded"
+                label="{{'GeneralMessage.btnSubmitLabel' | translate}}"></button>
         </div>
     </p-dialog>
 </div>

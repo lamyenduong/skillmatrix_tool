@@ -17,13 +17,12 @@ export class ReadFileService {
                 const workbook = XLSX.read(data, { type: 'array' });
                 const firstSheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[firstSheetName];
-                const resultArray: any[][] = [];
                 const ranges = [
                     { startRow: 7, endRow: 34, startCol: 0, endCol: 101 },
                 ];
                 ranges.forEach((range) => {
                     const { startRow, endRow, startCol, endCol } = range;
-                    const subarray: any[] = [];
+                    const resultArray: any[][] = [];
                     for (let row = startRow; row <= endRow; row++) {
                         const rowArray: any[] = [];
                         let isRowEmpty = true;
@@ -41,12 +40,11 @@ export class ReadFileService {
                             rowArray.push(cellValue);
                         }
                         if (!isRowEmpty) {
-                            subarray.push(rowArray);
+                            resultArray.push(rowArray);
                         }
                     }
-                    resultArray.push(subarray);
+                    resolve(resultArray);
                 });
-                resolve(resultArray);
             };
             reader.onerror = (error) => {
                 reject(error);

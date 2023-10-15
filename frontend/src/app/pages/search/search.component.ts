@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Form } from 'src/app/models/form.model';
-import { SkillDomain } from 'src/app/models/skill-domain.model';
+import { Domain } from 'src/app/models/domain.model';
 import { User } from 'src/app/models/user.model';
 import { FormService } from '../../services/form/form.service';
 import { DomainService } from '../../services/form/domain.service';
@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
     form_description: ''
   }
   displayFilterButton!: boolean
-  skillDomains!: SkillDomain[]
+  skillDomains!: Domain[]
   reactiveSkillDomainForm!: FormGroup
   points: any[] = ["any", 1, 2, 3, 4, 5]
 

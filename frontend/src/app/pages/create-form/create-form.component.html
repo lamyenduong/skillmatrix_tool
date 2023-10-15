@@ -1,41 +1,42 @@
+<p-toast position="top-center"></p-toast>
 <div class="primary-frame">
-    <div class="container-fluid mx-auto primary-frame">
+    <div class="container-fluid mx-auto first__frame">
         <div class="container">
             <div class="create__frame-header">{{'CreatePage.frameTitle' | translate}}</div>
         </div>
     </div>
-    <div class="container-fluid mx-auto" style="border-radius: 30px 30px 0 0; background: white; padding-bottom: 30px;">
-        <!--Success toast-->
-        <p-toast position="top-center"></p-toast>
+    <div class="container-fluid mx-auto second__frame">
         <div class="container">
             <div class="step__frame">
                 <p-steps [model]="items" [readonly]="false" [activeIndex]="currentStep"></p-steps>
             </div>
             <ng-container>
                 <!-- Step 1 -->
-                <form action="" method="post">
+                <form method="post">
                     <div [formGroup]="firstStepForm" class="step__form-first"
                         *ngIf="isFirstStep && !isSecondStep && !isThirdStep">
                         <div class="step__form-row">
-                            <label for="formName">Form Name</label>
+                            <label for="formName">{{'CreatePage.formNameLabel' | translate}}</label>
                             <input formControlName="formName" class="form__input" type="text" name="formName" pInputText
-                                placeholder="Enter form name">
+                                placeholder="{{'CreatePage.formNamePlaceholder' | translate}}">
                             <small
                                 *ngIf="firstStepForm.get('formName')?.hasError('required') && (firstStepForm.get('formName')?.touched || firstStepForm.get('formName')?.dirty)">
-                                This field is required.
+                                {{'GeneralMessage.fieldRequiredMessage' | translate}}
                             </small>
                         </div>
                         <div class="step__form-row">
-                            <label for="formDescription">Description</label>
+                            <label for="formDescription">{{'CreatePage.descriptionLabel' | translate}}</label>
                             <textarea formControlName="formDescription" class="form__input" name="formDescription"
-                                type="text" pInputTextarea placeholder="Enter form description" rows="10"></textarea>
+                                type="text" pInputTextarea
+                                placeholder="{{'CreatePage.descriptionPlaceholder' | translate}}" rows="10"></textarea>
                             <small
                                 *ngIf="firstStepForm.get('formDescription')?.hasError('required') && (firstStepForm.get('formDescription')?.touched || firstStepForm.get('formDescription')?.dirty)">
-                                This field is required.
+                                {{'GeneralMessage.fieldRequiredMessage' | translate}}
                             </small>
                         </div>
                         <div class="step__form-btn text-end">
-                            <button pButton pRipple icon="pi pi-arrow-right" label="Next" iconPos="right"
+                            <button pButton pRipple icon="pi pi-arrow-right"
+                                label="{{'CreatePage.btnNextLabel' | translate}}" iconPos="right"
                                 (click)="navigateToSecondStep()"></button>
                         </div>
                     </div>
@@ -44,60 +45,62 @@
                         *ngIf="!isFirstStep && isSecondStep && !isThirdStep">
                         <div class="row">
                             <div class="step__form-row col-6">
-                                <label for="formStartTime">Time from</label>
+                                <label for="formStartTime">{{'CreatePage.startDateLabel' | translate}}</label>
                                 <input formControlName="formStartTime" type="date" class="form__input" pInputText
                                     id="startdate" [defaultValue]="formStartTime">
                                 <small
                                     *ngIf="secondStepForm.get('formStartTime')?.hasError('required') && (secondStepForm.get('formStartTime')?.touched || secondStepForm.get('formStartTime')?.dirty)">
-                                    This field is required.
+                                    {{'GeneralMessage.fieldRequiredMessage' | translate}}
                                 </small>
                             </div>
                             <div class="step__form-row col-6">
-                                <label for="formDeadline">Time to</label>
-                                <input formControlName="formDeadline" class="form__input" type="date" pInputText
-                                    placeholder="Select date">
+                                <label for="formDeadline">{{'CreatePage.deadlineDateLabel' | translate}}</label>
+                                <input formControlName="formDeadline" class="form__input" type="date" pInputText>
                                 <small
                                     *ngIf="secondStepForm.get('formDeadline')?.hasError('required') && (secondStepForm.get('formDeadline')?.touched || secondStepForm.get('formDeadline')?.dirty)">
-                                    This field is required.
+                                    {{'GeneralMessage.fieldRequiredMessage' | translate}}
                                 </small>
                             </div>
                         </div>
                         <div class="step__form-row">
-                            <label for="formManager">Add manager</label>
-                            <p-dropdown placeholder="Select manager" formControlName="formManager"
-                                styleClass="form__input px-0" [options]="users" optionLabel="full_name"></p-dropdown>
+                            <label for="formManager">{{'CreatePage.managerLabel' | translate}}</label>
+                            <p-dropdown placeholder="{{'CreatePage.managerPlaceholder' | translate}}"
+                                formControlName="formManager" styleClass="form__input px-0" [options]="users"
+                                optionLabel="full_name"></p-dropdown>
                         </div>
                         <div class="step__form-row">
-                            <label for="formTeam">Team survey</label>
+                            <label for="formTeam">{{'CreatePage.teamLabel' | translate}}</label>
                             <p-multiSelect formControlName="formTeam" styleClass="form__input px-0"
-                                defaultLabel="Select teams" [(ngModel)]="selectedTeams" [options]="teams"
-                                optionLabel="team_name" display="chip"
+                                defaultLabel="{{'CreatePage.teamPlaceholder' | translate}}" [(ngModel)]="selectedTeams"
+                                [options]="teams" optionLabel="team_name" display="chip"
                                 (onChange)="getMemberInTeam(selectedTeams)"></p-multiSelect>
                             <small
                                 *ngIf="secondStepForm.get('formTeam')?.hasError('required') && (secondStepForm.get('formTeam')?.touched || secondStepForm.get('formTeam')?.dirty)">
-                                This field is required.
+                                {{'GeneralMessage.fieldRequiredMessage' | translate}}
                             </small>
                         </div>
                         <div class="step__form-row">
-                            <label for="formMember">Member survey</label>
+                            <label for="formMember">{{'CreatePage.memberLabel' | translate}}</label>
                             <p-multiSelect formControlName="formMember" styleClass="form__input px-0"
-                                defaultLabel="Select members" [options]="members" optionLabel="full_name"
-                                display="chip"></p-multiSelect>
+                                defaultLabel="{{'CreatePage.memberPlaceholder' | translate}}" [options]="members"
+                                optionLabel="full_name" display="chip"></p-multiSelect>
                         </div>
                         <div class="step__form-row">
-                            <label for="formDomain">Domain</label>
+                            <label for="formDomain">{{'CreatePage.domainLabel' | translate}}</label>
                             <p-multiSelect formControlName="formDomain" styleClass="form__input px-0"
-                                placeholder="Select domains" [options]="domains" optionLabel="domain_name"
-                                display="chip"></p-multiSelect>
+                                placeholder="{{'CreatePage.domainPlaceholder' | translate}}" [options]="domains"
+                                optionLabel="domain_name" display="chip"></p-multiSelect>
                             <small
                                 *ngIf="secondStepForm.get('formDomain')?.hasError('required') && (secondStepForm.get('formDomain')?.touched || secondStepForm.get('formDomain')?.dirty)">
-                                This field is required.
+                                {{'GeneralMessage.fieldRequiredMessage' | translate}}
                             </small>
                         </div>
                         <div class="step__form-btn text-end">
-                            <button pButton pRipple icon="pi pi-arrow-left" label="Back"
+                            <button pButton pRipple icon="pi pi-arrow-left"
+                                label="{{'GeneralMessage.btnBackLabel' | translate}}"
                                 (click)="navigateToFirstStep()"></button>
-                            <button pButton pRipple icon="pi pi-arrow-right" label="Next" iconPos="right"
+                            <button pButton pRipple icon="pi pi-arrow-right"
+                                label="{{'CreatePage.btnNextLabel' | translate}}" iconPos="right"
                                 (click)="navigateToThirdStep()"></button>
                         </div>
                     </div>
@@ -115,7 +118,7 @@
                         <p-panel [toggleable]="true">
                             <ng-template pTemplate="header">
                                 Skill Domain
-                                <span style="margin-left: 8px; color: rgb(255, 215, 103);">4.5</span>
+                                <span>4.5</span>
                             </ng-template>
                             <ng-template pTemplate="icons">
                                 <p-menu #menu [popup]="true">
@@ -124,12 +127,7 @@
                             <div class="radio__header d-flex mb-2">
                                 <div class="col-2"></div>
                                 <div class="radio__labels col-10">
-                                    <label for="0">0</label>
-                                    <label for="1">1</label>
-                                    <label for="2">2</label>
-                                    <label for="3">3</label>
-                                    <label for="4">4</label>
-                                    <label for="5">5</label>
+                                    <label *ngFor="let point of points" for={{point}}>{{point}}</label>
                                 </div>
                             </div>
                             <div class="radio__form d-flex align-items-center">
@@ -137,27 +135,19 @@
                                     <span>Skill name</span>
                                 </div>
                                 <div class="radio__options col-10">
-                                    <p-radioButton id="0" name="number" [(ngModel)]="selectedValue"
-                                        value="0">0</p-radioButton>
-                                    <p-radioButton id="1" name="number" [(ngModel)]="selectedValue"
-                                        value="1">0</p-radioButton>
-                                    <p-radioButton id="2" name="number" [(ngModel)]="selectedValue"
-                                        value="2"></p-radioButton>
-                                    <p-radioButton id="3" name="number" [(ngModel)]="selectedValue"
-                                        value="3"></p-radioButton>
-                                    <p-radioButton id="4" name="number" [(ngModel)]="selectedValue"
-                                        value="4"></p-radioButton>
-                                    <p-radioButton id="5" name="number" [(ngModel)]="selectedValue"
-                                        value="5"></p-radioButton>
+                                    <p-radioButton *ngFor="let point of points" id={{point}} name="number"
+                                        [(ngModel)]="selectedValue" value={{point}} [disabled]="true"></p-radioButton>
                                 </div>
                             </div>
                         </p-panel>
                     </div>
-                    <div class="step3__form-btn text-end">
-                        <button class="btn__previous" type="button" pButton pRipple icon="pi pi-arrow-left" label="Back"
+                    <div class=" step3__form-btn text-end">
+                        <button class="btn__previous" type="button" pButton pRipple icon="pi pi-arrow-left"
+                            label="{{'GeneralMessage.btnBackLabel' | translate}}"
                             (click)="navigateToSecondStep()"></button>
-                        <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [model]="items3"
-                            label="Submit" icon="pi pi-send" pRipple (onClick)="createForm()"></p-splitButton>
+                        <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
+                            [model]="submitMenuItems" label="{{'GeneralMessage.btnSubmitLabel' | translate}}"
+                            icon="pi pi-send" pRipple (onClick)="createForm()"></p-splitButton>
                     </div>
                 </div>
             </ng-container>

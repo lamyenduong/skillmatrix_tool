@@ -1,100 +1,104 @@
 @import "../../../styles"
 
-.search__frame-header
-    color: $neutro-07
-    font-family: $secondary-font
-    font-size: 24px
-    font-weight: 700
-    text-transform: uppercase
-    line-height: 500%
-.search__frame
-    transform: translateY(-50%)
-    .search__frame-bar
-        width: 100%
-        display: flex
-        padding: 14px
-        justify-content: space-between
-        align-items: center
-        border-radius: 12px
-        background: $neutro-07
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
-        .search__bar
-            width: 75%
-            input
-                width: 100%
-.search__table
-    padding: 16px
-    .p-datatable-wrapper
-        margin-bottom: 16px
-        border-radius: 10px
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
-        .p-datatable-thead>tr>th
-            border: none
-            background: $primary-02
-            color: $neutro-07
-        .p-datatable-tbody>tr
-            font-size: 14px
-            .table__col-avatar
-                display: flex
-                align-items: center
-                .col__content
-                    display: grid
-                    margin-left: 8px
-                    span
-                        font-size: 14px
-                    p
-                        font-size: 8px
-                        margin: 0
-            .table__col-status
-                align-items: center
-    .p-paginator
-        justify-content: end
-        .p-paginator-element
-            border: none
-        .p-paginator-icon
-            color: $primary-01
-        .p-paginator-pages .p-link
-            border: none
-            border-radius: 100%
-        .p-paginator-pages .p-paginator-page.p-highlight
-            background: $primary-01
-            &:focus
-                box-shadow: none
-
-.search__dialog-filter
-    .filter__form
-        width: 100%
-        height: auto
-        padding: 12px
-        margin-block: 16px
-        border-radius: 10px
-        border: 1px solid $neutro-05
-        background: transparent
-        &:focus
-            outline: none
-        option
+.first__frame
+    .search__frame-header
+        color: $neutro-07
+        font-family: $secondary-font
+        font-size: 24px
+        font-weight: 700
+        text-transform: uppercase
+        line-height: 500%
+.second__frame
+    border-radius: 30px 30px 0 0
+    background: $neutro-07
+    .search__frame
+        transform: translateY(-50%)
+        .search__frame-bar
+            width: 100%
+            display: flex
+            padding: 14px
+            justify-content: space-between
+            align-items: center
+            border-radius: 12px
+            background: $neutro-07
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+            .search__bar
+                width: 75%
+                input
+                    width: 100%
+    .search__table
+        padding: 16px
+        .p-datatable-wrapper
+            margin-bottom: 16px
             border-radius: 10px
-    .p-chip
-        margin: 8px
-        .domain__value-name
-            font-size: 16px
-        .domain__value-point
-            font-size: 16px
-            color: $primary-01
-            margin-left: 4px
-            font-weight: 600
-    .filter__btn-point
-        border-top: 0.5px solid $neutro-03
-        margin-top: 16px
-        padding-block: 16px
-        .btn__point-number
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+            .p-datatable-thead>tr>th
+                border: none
+                background: $primary-02
+                color: $neutro-07
+            .p-datatable-tbody>tr
+                font-size: 14px
+                .table__col-avatar
+                    display: flex
+                    align-items: center
+                    .col__content
+                        display: grid
+                        margin-left: 8px
+                        span
+                            font-size: 14px
+                        p
+                            font-size: 8px
+                            margin: 0
+                .table__col-status
+                    align-items: center
+        .p-paginator
+            justify-content: end
+            .p-paginator-element
+                border: none
+            .p-paginator-icon
+                color: $primary-01
+            .p-paginator-pages .p-link
+                border: none
+                border-radius: 100%
+            .p-paginator-pages .p-paginator-page.p-highlight
+                background: $primary-01
+                &:focus
+                    box-shadow: none
+
+    .search__dialog-filter
+        .filter__form
+            width: 100%
+            height: auto
+            padding: 12px
+            margin-block: 16px
+            border-radius: 10px
+            border: 1px solid $neutro-05
+            background: transparent
+            &:focus
+                outline: none
+            option
+                border-radius: 10px
+        .p-chip
+            margin: 8px
+            .domain__value-name
+                font-size: 16px
+            .domain__value-point
+                font-size: 16px
+                color: $primary-01
+                margin-left: 4px
+                font-weight: 600
+        .filter__btn-point
+            border-top: 0.5px solid $neutro-03
             margin-top: 16px
-            height: 36px
-            font-size: 14px
-            margin-right: 12px
-            width: 48px
-    .filter__btn-control
-        position: relative
-        text-align: end
-        button
-            margin-left: 10px
+            padding-block: 16px
+            .btn__point-number
+                margin-top: 16px
+                height: 36px
+                font-size: 14px
+                margin-right: 12px
+                width: 48px
+        .filter__btn-control
+            position: relative
+            text-align: end
+            button
+                margin-left: 10px

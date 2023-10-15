@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Form } from 'src/app/models/form.model';
 import { DomainService } from '../../services/form/domain.service';
-import { SkillDomain } from 'src/app/models/skill-domain.model';
+import { Domain } from 'src/app/models/domain.model';
 import { FormService } from '../../services/form/form.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { FormService } from '../../services/form/form.service';
   encapsulation: ViewEncapsulation.None
 })
 export class DetailFormComponent implements OnInit {
+  points = [0, 1, 2, 3, 4, 5]
   selectedValue!: string
   detailFormPageText: any
   form: Form = {
@@ -22,7 +23,7 @@ export class DetailFormComponent implements OnInit {
     form_description: '',
     user: undefined
   }
-  domains!: SkillDomain[]
+  domains!: Domain[]
   isEditing: boolean = false;
   isPanelEnabled: boolean = false;
 

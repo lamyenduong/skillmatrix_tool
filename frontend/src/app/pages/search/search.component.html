@@ -1,21 +1,25 @@
+<p-toast position="top-center"></p-toast>
 <div class="primary-frame">
-    <div class="container-fluid mx-auto primary-frame">
+    <div class="container-fluid mx-auto first__frame">
         <div class="container">
             <div class="search__frame-header">{{form.form_name}}</div>
         </div>
     </div>
 
-    <div class="container-fluid mx-auto" style="border-radius: 30px 30px 0 0; background: white;">
+    <div class="container-fluid mx-auto second__frame">
         <div class="container">
             <div class="search__frame">
                 <div class="search__frame-bar">
-                    <button pRipple pButton class="p-button-outlined" label="Back" icon="pi pi-arrow-left"
+                    <button pRipple pButton class="p-button-outlined"
+                        label="{{ 'GeneralMessage.btnBackLabel' | translate}}" icon="pi pi-arrow-left"
                         (click)="backToHomePage()"></button>
                     <span class="p-input-icon-left search__bar">
                         <i class="pi pi-search"></i>
-                        <input type="text" pInputText placeholder="Search" (input)="searchEvent($event)" />
+                        <input type="text" pInputText placeholder="{{ 'SearchPage.searchPlaceHolder' | translate}}"
+                            (input)="searchEvent($event)" />
                     </span>
-                    <button pRipple pButton class="p-button-outlined" label="Filter" icon="pi pi-filter"
+                    <button pRipple pButton class="p-button-outlined"
+                        label="{{ 'SearchPage.btnFilterLabel' | translate}}" icon="pi pi-filter"
                         (click)="showFilterDialog()"></button>
                 </div>
             </div>
@@ -23,13 +27,13 @@
                 [showCurrentPageReport]="false" [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
                 <ng-template pTemplate="header" let-user>
                     <tr>
-                        <th style="width: 20%;">Avatar</th>
-                        <th style="width: 10%;">Gender</th>
-                        <th style="width: 10%;">Birthday</th>
-                        <th style="width: 20%;">E-mail</th>
-                        <th style="width: 15%;">Phone</th>
-                        <th style="width: 15%;">Status</th>
-                        <th style="width: 10%; ">Action</th>
+                        <th style="width: 20%;">{{'SearchPage.avatarColumnHeader' | translate}}</th>
+                        <th style="width: 10%;">{{'SearchPage.genderColumnHeader' | translate}}</th>
+                        <th style="width: 10%;">{{'SearchPage.dobColumnHeader' | translate}}</th>
+                        <th style="width: 20%;">{{'SearchPage.mailColumnHeader' | translate}}</th>
+                        <th style="width: 15%;">{{'SearchPage.phoneColumnheader' | translate}}</th>
+                        <th style="width: 15%;">{{'SearchPage.statusColumnHeader' | translate}}</th>
+                        <th style="width: 10%; ">{{'SearchPage.actionColumnHeader' | translate}}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
@@ -49,8 +53,10 @@
                             <i class="pi pi-circle-fill" style="font-size: 10px; margin-right: 4px;"></i>
                             <span>{{user.f.status}}</span>
                         </td>
-                        <td class="text-center"><button><i class="pi pi-ellipsis-h"
-                                    style="color: #7a7a7a;"></i></button>
+                        <td class="text-center">
+                            <button>
+                                <i class="pi pi-ellipsis-h"></i>
+                            </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -58,26 +64,29 @@
         </div>
     </div>
 
-    <p-dialog header="Filter" [(visible)]="displayFilterButton" [modal]="true" [style]="{width: '40vw'}"
-        [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
+    <p-dialog header="{{ 'SearchPage.btnFilterLabel' | translate}}" [(visible)]="displayFilterButton" [modal]="true"
+        [style]="{width: '40vw'}" [draggable]="false" [resizable]="false" styleClass="search__dialog-filter">
         <form [formGroup]="reactiveSkillDomainForm">
             <p-dropdown styleClass="filter__form" formControlName="skillDomainsControl" [options]="skillDomains"
-                optionLabel="domain_name" placeholder="Domain name" (onChange)="addToChip($event.value)"></p-dropdown>
+                optionLabel="domain_name" placeholder="{{ 'SearchPage.dialogFilterPlaceholder' | translate}}"
+                (onChange)="addToChip($event.value)"></p-dropdown>
         </form>
         <p-chip [removable]="true" *ngFor="let item of selectedDomainsWithPoints">
             <span class="domain__value-name">{{item.domain.domain_name}}</span>
             <span class="domain__value-point" id="pointValue">{{item.point}}</span>
         </p-chip>
         <div class="filter__btn-point">
-            <h6>Domain name</h6>
+            <h6>{{ 'SearchPage.dialogFilterPlaceholder' | translate}}</h6>
             <ng-container *ngFor="let point of points">
                 <button value="{{point}}" pButton label="{{point}}" (click)="addPoint(point)"
                     class="p-button-outlined p-button-rounded btn__point-number"></button>
             </ng-container>
         </div>
         <div class="filter__btn-control">
-            <button pButton type="button" class="p-button-outlined p-button-rounded" label="Cancel"></button>
-            <button pButton type="submit" class="p-button-rounded" label="Submit"></button>
+            <button pButton type="button" class="p-button-outlined p-button-rounded"
+                label="{{ 'GeneralMessage.btnCancelLabel' | translate}}"></button>
+            <button pButton type="submit" class="p-button-rounded"
+                label="{{ 'GeneralMessage.btnSubmitLabel' | translate}}"></button>
         </div>
     </p-dialog>
 </div>

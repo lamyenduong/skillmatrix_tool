@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavbarService } from '../services/navbar-service.service';
-import { UserService } from '../services/user/user-service.service';
+import { NavbarService } from '../services/navbar.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth/auth-service.service';
+import { AuthService } from '../services/auth/auth.service';
 import { User } from '../models/user.model';
 
 @Component({
@@ -35,7 +34,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private formbuilder: FormBuilder,
     public navbarService: NavbarService,
-    private messageService: MessageService, private router: Router,
+    private messageService: MessageService,
+    private router: Router,
     private authService: AuthService) {
     this.navbarService.hide();
   }
@@ -96,11 +96,11 @@ export class LoginComponent implements OnInit {
     if (this.registerForm.valid) {
       this.authService.register(this.user).subscribe(
         () => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration successful!' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: "{{'CreatePage.successMessage' | translate}}" });
           this.isLoginForm = true;
         },
         (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registration failed!' });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: "{{'CreatePage.failedMessage' | translate}}" });
         }
       )
     } else {

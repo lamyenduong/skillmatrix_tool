@@ -1,33 +1,35 @@
 <div class="row vh-100">
     <div class="col-6 background"></div>
     <div class="col-6 form__container">
-        <div class="container" style="position: relative; top: 50%; transform: translateY(-50%);">
+        <div class="container">
             <!--Success toast-->
             <p-toast position="top-center"></p-toast>
             <!--REGISTER FORM-->
             <form *ngIf="!isLoginForm" class="form form__register" id="formRegister" [formGroup]="registerForm"
                 method="POST" (submit)="registerUserSubmit()">
-                <p class="form__title">REGISTER</p>
+                <p class="form__title">{{ 'LoginPage.registerTitle' | translate}}</p>
                 <!--Full name-->
                 <div class="form__row">
-                    <label for="fname">Full name:</label>
+                    <label for="fname">{{ 'LoginPage.fullNameLabel' | translate}}</label>
                     <div class="form__input">
                         <input type="text" pInputText formControlName="fname" id="fname" autocomplete="name"
-                            placeholder="Enter your full name" name="fname" [(ngModel)]="user.full_name" />
+                            placeholder="{{ 'LoginPage.fullNamePlaceholder' | translate}}" name="fname"
+                            [(ngModel)]="user.full_name" />
                         <small
-                            *ngIf="registerForm.get('fname')?.hasError('required') && (registerForm.get('fname')?.touched || registerForm.get('fname')?.dirty)">Full
-                            name is required.</small>
+                            *ngIf="registerForm.get('fname')?.hasError('required') && (registerForm.get('fname')?.touched || registerForm.get('fname')?.dirty)">{{
+                            'GeneralMessage.fieldRequiredMessage' | translate}}</small>
                     </div>
                 </div>
                 <!--E-mail-->
                 <div class="form__row">
-                    <label for="emailRes">E-mail:</label>
+                    <label for="emailRes">{{ 'LoginPage.mailLabel' | translate}}</label>
                     <div class="form__input">
                         <input type="email" pInputText formControlName="email" id="emailRes" autocomplete="email"
-                            placeholder="Enter your e-mail" name="email" [(ngModel)]="user.email" />
+                            placeholder="{{ 'LoginPage.mailPlaceholder' | translate}}" name="email"
+                            [(ngModel)]="user.email" />
                         <small
                             *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
-                            Email is required.
+                            {{'GeneralMessage.fieldRequiredMessage' | translate}}
                         </small>
                         <!-- <small
                             *ngIf="registerForm.get('email')?.hasError('email') && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
@@ -37,13 +39,13 @@
                 </div>
                 <!--Dob-->
                 <div class="form__row">
-                    <label for="dob">Date of birth:</label>
+                    <label for="dob">{{ 'LoginPage.dobLabel' | translate}}</label>
                     <div class="form__input">
                         <input type="date" [max]="calculateMaxDate()" pInputText formControlName="dob" id="dob"
                             name="dob" [(ngModel)]="user.birthday" autocomplete="bday" />
                         <small
                             *ngIf="registerForm.get('dob')?.hasError('required') && (registerForm.get('dob')?.touched || registerForm.get('dob')?.dirty)">
-                            Date of birth is required.
+                            {{ 'GeneralMessage.fieldRequiredMessage' | translate}}
                         </small>
                         <!-- <small
                             *ngIf="registerForm.get('dob')?.hasError('invalidDate') && !registerForm.get('dob')?.hasError('required') && (registerForm.get('dob')?.touched || registerForm.get('dob')?.dirty)">
@@ -53,26 +55,26 @@
                 </div>
                 <!--Gender-->
                 <div class="form__row">
-                    <label>Gender:</label>
+                    <label>{{ 'LoginPage.genderLabel' | translate}}</label>
                     <div class="form__input-gender">
                         <input class="p-radiobutton" type="radio" name="gender" value="Female" id="female"
                             formControlName="gender" [(ngModel)]="user.gender">
-                        <label for="female">Female</label>
+                        <label for="female">{{ 'LoginPage.femaleLabel' | translate}}</label>
                         <input class="p-radiobutton" type="radio" name="gender" value="Male" id="male"
                             formControlName="gender" [(ngModel)]="user.gender">
-                        <label for="male">Male</label>
+                        <label for="male">{{ 'LoginPage.maleLabel' | translate}}</label>
                     </div>
                 </div>
                 <!--Phone number-->
                 <div class="form__row">
-                    <label for="phone">Phone number:</label>
+                    <label for="phone">{{ 'LoginPage.phoneLabel' | translate}}</label>
                     <div class="form__input">
                         <input type="tel" minlength="10" pInputText formControlName="phone"
-                            placeholder="Enter your phone number" name="phone" id="phone"
+                            placeholder="{{ 'LoginPage.phonePlaceholder' | translate}}" name="phone" id="phone"
                             [(ngModel)]="user.phone_number" autocomplete="tel" />
                         <small
                             *ngIf="registerForm.get('phone')?.hasError('required') && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)">
-                            Phone number is required.
+                            {{'GeneralMessage.fieldRequiredMessage' | translate}}
                         </small>
                         <!--  <small
                             *ngIf="registerForm.get('phone')?.hasError('invalidPhone') && !registerForm.get('phone')?.hasError('required') &&  (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)">
@@ -82,10 +84,11 @@
                 </div>
                 <!--Password-->
                 <div class="form__row">
-                    <label for="passwordRes">Password:</label>
+                    <label for="passwordRes">{{ 'LoginPage.passwordLabel' | translate}}</label>
                     <div class="form__input">
                         <div class="form__row-password">
-                            <input type="{{hide? 'password': 'text'}}" name="password" placeholder="Enter your password"
+                            <input type="{{hide? 'password': 'text'}}" name="password"
+                                placeholder="{{ 'LoginPage.passwordPlaceholder' | translate}}"
                                 formControlName="password" id="passwordRes" [(ngModel)]="user.password"
                                 autocomplete="new-password" />
                             <button type="button" class="btn__visibility" (click)="hide = !hide"
@@ -96,17 +99,18 @@
                         </div>
                         <small
                             *ngIf="registerForm.get('password')?.hasError('required') && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)">
-                            Password is required.
+                            {{'GeneralMessage.fieldRequiredMessage' | translate}}
                         </small>
                     </div>
                 </div>
                 <!--Confirm password-->
                 <div class="form__row">
-                    <label for="cfpassword">Confirm password:</label>
+                    <label for="cfpassword">{{ 'LoginPage.confirmPasswordLabel' | translate}}</label>
                     <div class="form__input">
                         <div class="form__row-password">
                             <input type="{{cfhide? 'password': 'text'}}" id="cfpassword" name="cfpassword"
-                                placeholder="Confirm password" formControlName="confirm" />
+                                placeholder="{{ 'LoginPage.confirmPasswordPlaceholder' | translate}}"
+                                formControlName="confirm" />
                             <button type="button" class="btn__visibility" (click)="cfhide = !cfhide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="cfhide"><span
                                     class="material-icons md-24">{{cfhide?
@@ -115,7 +119,7 @@
                         </div>
                         <small
                             *ngIf="registerForm.get('confirm')?.hasError('required') && (registerForm.get('confirm')?.touched || registerForm.get('confirm')?.dirty)">
-                            Confirm password is required.
+                            {{'GeneralMessage.fieldRequiredMessage'}}
                         </small>
                         <!-- <small
                             *ngIf="registerForm.get('confirm')?.hasError('confirmPassword') && (registerForm.get('confirm')?.touched || registerForm.get('confirm')?.dirty)">
@@ -126,11 +130,17 @@
                 <!--Submit-->
                 <div class="form__row">
                     <div class="form__row-connect">
-                        <p>Have an Account?</p>
-                        <button type="button" (click)="isLoginForm = !isLoginForm"> {{ isLoginForm ? 'Register' :
-                            'Sign in' }}</button>
+                        <p>{{ 'LoginPage.loginDemand' | translate}}</p>
+                        <button type="button" (click)="isLoginForm = !isLoginForm">
+                            <ng-container *ngIf="isLoginForm; else elseBlock">
+                                {{ 'LoginPage.registerTitle' | translate }}
+                            </ng-container>
+                            <ng-template #elseBlock>
+                                {{ 'LoginPage.loginTitle' | translate }}
+                            </ng-template>
+                        </button>
                     </div>
-                    <button pButton pRipple type="submit" label="Register"
+                    <button pButton pRipple type="submit" label="{{ 'LoginPage.registerTitle' | translate }}"
                         class="p-button-secondary btn__submit"></button>
                 </div>
             </form>
@@ -138,27 +148,28 @@
             <!--LOGIN FORM-->
             <form *ngIf="isLoginForm" class="form form__login vh-100" id="formLogin" [formGroup]="loginForm"
                 (submit)="loginSubmit()">
-                <div style="position: relative; top: 50%; transform: translateY(-50%);">
-                    <p class="form__title">LOGIN</p>
+                <div class="container">
+                    <p class="form__title">{{ 'LoginPage.loginTitle' | translate }}</p>
                     <!--E-mail-->
                     <div class="form__row">
-                        <label for="email">E-mail:</label>
+                        <label for="email">{{ 'LoginPage.mailLabel' | translate}}</label>
                         <div class="form__input">
                             <input type="email" pInputText id="email" formControlName="email"
-                                placeholder="Enter your e-mail" name="email" />
+                                placeholder="{{ 'LoginPage.mailPlaceholder' | translate}}" name="email" />
                             <small
                                 *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.touched || registerForm.get('email')?.dirty)">
-                                Email is required.
+                                {{'GeneralMessage.fieldRequiredMessage' | translate}}
                             </small>
                         </div>
                     </div>
                     <!--Password-->
                     <div class="form__row">
-                        <label for="password">Password:</label>
+                        <label for="password">{{ 'LoginPage.passwordLabel' | translate}}</label>
                         <div class="form__input">
                             <div class="form__row-password">
                                 <input type="{{hide? 'password': 'text'}}" id="password" name="password"
-                                    placeholder="Enter your password" formControlName="password">
+                                    placeholder="{{ 'LoginPage.passwordPlaceholder' | translate}}"
+                                    formControlName="password">
                                 <button type="button" class="btn__visibility" (click)="hide = !hide"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><span
                                         class="material-icons md-24">{{hide?
@@ -167,18 +178,23 @@
                             </div>
                             <small
                                 *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)">
-                                Password is required.
+                                {{'GeneralMessage.fieldRequiredMessage' | translate}}
                             </small>
                         </div>
                     </div>
                     <!--Submit-->
                     <div class="form__row">
                         <div class="form__row-connect">
-                            <p>Don't have an Account?</p>
-                            <button type="button" (click)="isLoginForm = !isLoginForm"> {{ isLoginForm ? 'Register' :
-                                'Sign in' }}</button>
+                            <p>{{ 'LoginPage.registerDemand' | translate}}</p>
+                            <button type="button" (click)="isLoginForm = !isLoginForm"> <ng-container
+                                    *ngIf="isLoginForm; else elseBlock">
+                                    {{ 'LoginPage.registerTitle' | translate }}
+                                </ng-container>
+                                <ng-template #elseBlock>
+                                    {{ 'LoginPage.loginTitle' | translate }}
+                                </ng-template></button>
                         </div>
-                        <button pButton pRipple type="submit" label="Login"
+                        <button pButton pRipple type="submit" label="{{ 'LoginPage.loginTitle' | translate }}"
                             class="p-button-secondary btn__submit"></button>
                     </div>
                 </div>
