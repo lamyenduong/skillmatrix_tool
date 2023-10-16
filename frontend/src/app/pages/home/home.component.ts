@@ -10,8 +10,7 @@ import { Domain } from 'src/app/models/domain.model';
 import { Skill } from 'src/app/models/skill.model';
 import { User } from 'src/app/models/user.model';
 import { Form } from '../../models/form.model';
-import "../../../assets/file/WSI_SkillMatrix.xlsx"
-import { FileService } from 'src/app/services/file.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +19,7 @@ import { FileService } from 'src/app/services/file.service';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+  filePath: string = "../../../assets/file/WSI_SkillMatrix.xlsx"
   points = [0, 1, 2, 3, 4, 5]
   formsOwner!: Form[]
   formsAssign!: Form[]
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   homePageText: any
   selectedValue!: number
   user!: User | null
-  value3!: string;
+  searchContext!: string;
   date!: Date
   domain!: Domain
   skill!: Skill
@@ -39,8 +39,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private readFileService: ReadFileService,
     private cookieService: CookieService,
-    private fileService: FileService) {
-    this.fileService.setFilePath("../../../assets/file/WSI_SkillMatrix.xlsx")
+    private dataService: DataService) {
   }
 
   ngOnInit(): void {
@@ -51,16 +50,14 @@ export class HomeComponent implements OnInit {
       if (data) {
         this.domains = data
         this.domains.map((domain: Domain) => {
-          if (domain && domain.domain_id && domain.domain_id) {
+          if (domain && domain.domain_id && domain.domain_name) {
             this.domain = domain
             this.domain.domain_id = domain.domain_id
             this.domain.domain_name = domain.domain_name
           }
         })
       }
-
     });
-
     this.skillService.getAllSkills().subscribe((data: Skill[]) => {
       if (data) {
         this.skills = data
@@ -153,7 +150,6 @@ export class HomeComponent implements OnInit {
             name.push(names[i])
           }
         }
-
         //Team
         const teams = resultArray.map(row => row[1])
         const team: any[] = []
@@ -162,11 +158,13 @@ export class HomeComponent implements OnInit {
             team.push(teams[i])
           }
         }
-        const team0 = [...new Set(team)]
+        const setTeam = [...new Set(team)]
         const data = {
-          team0: team0,
+          setTeam: setTeam,
           name: name
         }
+        this.dataService.setData(data)
+        this.router.navigate(['/create'])
       })
       .catch(error => {
         console.error("Error reading input file:", error);
@@ -174,24 +172,29 @@ export class HomeComponent implements OnInit {
   }
 
   //Search form
-  onSearch(event: any) {
+  searchForm(event: any) {
     // if (this.formService.)
-  }
-  submitSearchForm() {
-
   }
 
   //Search domain
+  searchDomain(e: any) {
+    const searchContext = e.target.value;
+    this.domainService.getAllSkillDomains().subscribe((data: Domain[]) => {
+      if (data) {
+        this.domains = data
+        this.domains.map((domain: Domain) => {
+          if (domain && domain.domain_name) {
+            this.domain.domain_name = domain.domain_name
+            if (this.domain.domain_name.toLowerCase() === searchContext.toLowerCase()) {
+              this.domains.push(domain)
+            }
+          }
+        })
+      }
+    });
+  }
   //Domain tabpanel
-  templates: any[] = [];
-  addTemplate() {
-    this.templates.push({ selectedValue: "" });
-  }
-  removeTemplate(index: number) {
-    return this.templates.splice(index, 1);
-  }
   removePanel() {
-
   }
 
   //Add domain button 

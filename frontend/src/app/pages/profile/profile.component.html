@@ -49,8 +49,8 @@
     </div>
 </div>
 
-<p-dialog header="Edit Information" [(visible)]="displayEditInfoButton" [modal]="true" [style]="{width: '50vw'}"
-    [draggable]="false" [resizable]="false" styleClass="form__dialog-edit">
+<p-dialog header="{{ 'ProfilePage.editFormTitle' | translate }}" [(visible)]="displayEditInfoButton" [modal]="true"
+    [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" styleClass="form__dialog-edit">
     <form [formGroup]="formUpdate">
         <div class="form__avatar">for avatar</div>
         <div class="form__edit">
@@ -81,7 +81,8 @@
         </div>
         <div>
             <div class="dialog__btn-control">
-                <button pButton type="button" class="p-button-outlined p-button-rounded"
+                <button pButton type="button" (click)="displayEditInfoButton=false"
+                    class="p-button-outlined p-button-rounded"
                     label="{{ 'GeneralMessage.btnCancelLabel' | translate }}"></button>
                 <button pButton type="submit" class="p-button-rounded"
                     label="{{ 'GeneralMessage.btnSubmitLabel' | translate }}" (click)="updateUser()"></button>

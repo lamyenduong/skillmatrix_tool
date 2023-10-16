@@ -11,6 +11,7 @@ import { FormService } from '../../services/form/form.service';
 import { DomainService } from '../../services/form/domain.service';
 import { TeamService } from '../../services/form/team.service';
 import { UserService } from '../../services/user/user.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-create-form',
@@ -19,6 +20,10 @@ import { UserService } from '../../services/user/user.service';
   encapsulation: ViewEncapsulation.None
 })
 export class CreateFormComponent implements OnInit {
+  selectedTeams: Team[] = [];
+  selectedMembers: User[] = [];
+  members!: User[]
+  team!: Team
   points = [0, 1, 2, 3, 4, 5]
   createFormPageText: any
   isFirstStep: boolean = true
@@ -62,16 +67,15 @@ export class CreateFormComponent implements OnInit {
   day: any
   month: any
   formStartTime!: string
-  data: any[] = []
 
   constructor(
     private teamService: TeamService, private userService: UserService,
     private domainService: DomainService, private fb: FormBuilder,
     private formService: FormService, private cookieService: CookieService,
-    private messageService: MessageService, private router: Router) { }
+    private messageService: MessageService, private router: Router,
+    private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.teamService.getAllTeams().subscribe(teams => this.teams = teams)
     this.userService.getAllUsers().subscribe(users => this.users = users)
     this.domainService.getAllSkillDomains().subscribe(domains => this.domains = domains)
 
@@ -93,7 +97,40 @@ export class CreateFormComponent implements OnInit {
     this.formStartTime = `${this.currentYear}-${this.month}-${this.day}`;
     this.secondStepForm.get('formStartTime')?.setValue(this.formStartTime);
 
+    this.teamService.getAllTeams().subscribe(teams => {
+      this.teams = teams
+      this.dataService.data$.subscribe(data => {
+        if (data && data.setTeam) {
+          const a: string[] = data.setTeam;
+          a.forEach((selectedTeam: string) => {
+            this.teams.forEach((team: Team) => {
+              if (team.team_name.toLowerCase() === selectedTeam.toLowerCase()) {
+                this.selectedTeams.push(team);
+                this.getMemberInTeam(this.selectedTeams)
+              }
+            });
+          });
+        }
+      })
+    })
+
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users
+      this.dataService.data$.subscribe(data => {
+        if (data && data.name) {
+          const b: string[] = data.name;
+          b.forEach((selectedMember: string) => {
+            this.users.forEach((user: User) => {
+              if (user.full_name.toLowerCase() === selectedMember.toLowerCase()) {
+                this.selectedMembers.push(user);
+              }
+            });
+          });
+        }
+      })
+    })
   }
+
   markFormControlsAsTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
@@ -102,6 +139,7 @@ export class CreateFormComponent implements OnInit {
       }
     });
   }
+
   navigateToFirstStep() {
     this.currentStep = 0
     this.isFirstStep = true;
@@ -147,8 +185,6 @@ export class CreateFormComponent implements OnInit {
       user: this.currentUser
     }
     this.form = form
-
-    console.log
     return this.form
   }
   createForm() {
@@ -161,18 +197,15 @@ export class CreateFormComponent implements OnInit {
       }
     )
   }
-  selectedTeams: Team[] = [];
-  members!: User[]
-  team!: Team
 
   getMemberInTeam(selectedTeams: Team[]) {
     selectedTeams.map((team: any) => {
-      const team0 = {
+      const selectedTeam = {
         team_id: team._id,
         team_name: team.team_name,
         status: team.status
       };
-      const team_id = team0.team_id;
+      const team_id = selectedTeam.team_id;
       this.userService.getUserInTeam(team_id).subscribe((data: User[]) => {
         if (data) {
           this.members = data;
@@ -180,6 +213,4 @@ export class CreateFormComponent implements OnInit {
       });
     });
   }
-
-
 }

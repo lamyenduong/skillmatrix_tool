@@ -16,6 +16,10 @@ const getFormById = async (req, res) => {
 
 const createForm = async (req, res) => {
   const reqForm = req.body;
+
+  if (!user) {
+    res.status(400).json({ message: "Invalid email" });
+  }
   //logic here
   const newForm = {
     form_name: reqForm.form_name,
@@ -23,7 +27,7 @@ const createForm = async (req, res) => {
     form_deadline: new Date(reqForm.form_deadline),
     create_date: new Date(reqForm.create_date),
     user: (reqForm.user = {
-      user_id: reqForm.user._id,
+      user_id: new ObjectId(reqForm.user._id),
       full_name: reqForm.user.full_name,
       email: reqForm.user.email,
       password: reqForm.user.password,
@@ -40,6 +44,9 @@ const createForm = async (req, res) => {
   try {
     const db = getDb();
     const formCollection = db.collection("form");
+    const formCheck = await formCollection.findOne({
+      form_name: reqForm.form_name,
+    });
     const form = await formCollection.insertOne(newForm);
     res.status(200).json(form);
   } catch (error) {

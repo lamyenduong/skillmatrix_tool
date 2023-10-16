@@ -82,6 +82,7 @@
                         <div class="step__form-row">
                             <label for="formMember">{{'CreatePage.memberLabel' | translate}}</label>
                             <p-multiSelect formControlName="formMember" styleClass="form__input px-0"
+                                [(ngModel)]="selectedMembers"
                                 defaultLabel="{{'CreatePage.memberPlaceholder' | translate}}" [options]="members"
                                 optionLabel="full_name" display="chip"></p-multiSelect>
                         </div>

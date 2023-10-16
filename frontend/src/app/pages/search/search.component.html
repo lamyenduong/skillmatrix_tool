@@ -83,7 +83,7 @@
             </ng-container>
         </div>
         <div class="filter__btn-control">
-            <button pButton type="button" class="p-button-outlined p-button-rounded"
+            <button pButton type="button" (click)="displayFilterButton=false" class="p-button-outlined p-button-rounded"
                 label="{{ 'GeneralMessage.btnCancelLabel' | translate}}"></button>
             <button pButton type="submit" class="p-button-rounded"
                 label="{{ 'GeneralMessage.btnSubmitLabel' | translate}}"></button>

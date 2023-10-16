@@ -97,6 +97,7 @@
         "genderLabel": "Gender:",
         "phoneLabel": "Phone number",
         "teamLabel": "Team:",
+        "editFormTitle": "Edit information",
         "firstServiceLabel": "Change password",
         "secondServiceLabel": "Advanced settings",
         "thirdServiceLabel": "Privacy policies"
