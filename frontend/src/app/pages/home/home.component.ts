@@ -159,9 +159,17 @@ export class HomeComponent implements OnInit {
           }
         }
         const setTeam = [...new Set(team)]
+        //Domain
+        console.log(resultArray)
+        const domain: any[] = []
+        this.getJoinInDomain(2, 5, resultArray, domain) //soft skill
+        this.getJoinInDomain(6, 28, resultArray, domain)
+        console.log(domain)
+
         const data = {
           setTeam: setTeam,
-          name: name
+          name: name,
+          domain: domain
         }
         this.dataService.setData(data)
         this.router.navigate(['/create'])
@@ -169,6 +177,26 @@ export class HomeComponent implements OnInit {
       .catch(error => {
         console.error("Error reading input file:", error);
       });
+  }
+  getJoinInDomain(startCol: number, endCol: number, arr: any[], data: any[]) {
+    let sum = 0;
+    let startRow = 2
+    let endRow = arr.length - 1;
+    while (sum <= 0 && endRow > startRow) {
+      for (let col = startCol; col <= endCol; col++) {
+        sum += arr[endRow][col];
+      }
+      if (sum <= 0) {
+        endRow--;
+      }
+    }
+    if (sum === 0) {
+      for (let col = startCol; col <= endCol; col++) {
+        arr[0][col] = null;
+      }
+    } else if (sum > 0) {
+      data.push(arr[0][startCol]);
+    }
   }
 
   //Search form

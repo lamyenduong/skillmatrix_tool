@@ -16,39 +16,40 @@ const getFormById = async (req, res) => {
 
 const createForm = async (req, res) => {
   const reqForm = req.body;
-
-  if (!user) {
-    res.status(400).json({ message: "Invalid email" });
-  }
-  //logic here
-  const newForm = {
-    form_name: reqForm.form_name,
-    form_description: reqForm.form_description,
-    form_deadline: new Date(reqForm.form_deadline),
-    create_date: new Date(reqForm.create_date),
-    user: (reqForm.user = {
-      user_id: new ObjectId(reqForm.user._id),
-      full_name: reqForm.user.full_name,
-      email: reqForm.user.email,
-      password: reqForm.user.password,
-      create_date: new Date(reqForm.user.create_date),
-      gender: reqForm.user.gender,
-      phone_number: reqForm.user.phone_number,
-      role: reqForm.user.role,
-      status: reqForm.user.status,
-      birthday: reqForm.user.birthday,
-      avatar: reqForm.user.avatar,
-      team: reqForm.user.team,
-    }),
-  };
   try {
     const db = getDb();
     const formCollection = db.collection("form");
     const formCheck = await formCollection.findOne({
       form_name: reqForm.form_name,
     });
-    const form = await formCollection.insertOne(newForm);
-    res.status(200).json(form);
+    if (formCheck) {
+      res.status(400).json({ error: "Form name already exists" });
+      return;
+    } else {
+      const newForm = {
+        form_name: reqForm.form_name,
+        form_description: reqForm.form_description,
+        form_deadline: new Date(reqForm.form_deadline),
+        create_date: new Date(reqForm.create_date),
+        user: {
+          user_id: new ObjectId(reqForm.user._id),
+          full_name: reqForm.user.full_name,
+          email: reqForm.user.email,
+          password: reqForm.user.password,
+          create_date: new Date(reqForm.user.create_date),
+          gender: reqForm.user.gender,
+          phone_number: reqForm.user.phone_number,
+          role: reqForm.user.role,
+          status: reqForm.user.status,
+          birthday: reqForm.user.birthday,
+          avatar: reqForm.user.avatar,
+          team: reqForm.user.team,
+        },
+      };
+
+      const form = await formCollection.insertOne(newForm);
+      res.status(200).json(form);
+    }
   } catch (error) {
     console.error("Error fetching forms:", error);
     res.status(500).json({ error: "An error occurred" });

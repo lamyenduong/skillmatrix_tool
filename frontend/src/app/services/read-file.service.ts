@@ -53,22 +53,3 @@ export class ReadFileService {
         });
     }
 }
-// { startRow: 7, endRow: 7, startCol: 7, endCol: 29 },
-// { startRow: 7, endRow: 7, startCol: 30, endCol: 39 },
-// { startRow: 7, endRow: 7, startCol: 40, endCol: 50 },
-// { startRow: 7, endRow: 7, startCol: 51, endCol: 53 },
-// { startRow: 7, endRow: 7, startCol: 54, endCol: 64 },
-// { startRow: 7, endRow: 7, startCol: 65, endCol: 79 },
-// { startRow: 7, endRow: 7, startCol: 80, endCol: 89 },
-// { startRow: 7, endRow: 7, startCol: 90, endCol: 97 },
-// { startRow: 7, endRow: 7, startCol: 98, endCol: 102 },
-// { startRow: 8, endRow: 8, startCol: 3, endCol: 6 },
-// { startRow: 8, endRow: 8, startCol: 7, endCol: 29 },
-// { startRow: 8, endRow: 8, startCol: 30, endCol: 39 },
-// { startRow: 8, endRow: 8, startCol: 40, endCol: 50 },
-// { startRow: 8, endRow: 8, startCol: 51, endCol: 53 },
-// { startRow: 8, endRow: 8, startCol: 54, endCol: 64 },
-// { startRow: 8, endRow: 8, startCol: 65, endCol: 79 },
-// { startRow: 8, endRow: 8, startCol: 80, endCol: 89 },
-// { startRow: 8, endRow: 8, startCol: 90, endCol: 97 },
-// { startRow: 8, endRow: 8, startCol: 98, endCol: 102 },

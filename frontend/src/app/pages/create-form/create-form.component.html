@@ -89,6 +89,7 @@
                         <div class="step__form-row">
                             <label for="formDomain">{{'CreatePage.domainLabel' | translate}}</label>
                             <p-multiSelect formControlName="formDomain" styleClass="form__input px-0"
+                                [(ngModel)]="selectedDomains"
                                 placeholder="{{'CreatePage.domainPlaceholder' | translate}}" [options]="domains"
                                 optionLabel="domain_name" display="chip"></p-multiSelect>
                             <small
@@ -116,10 +117,10 @@
                         <p>{{form.form_description}}</p>
                     </div>
                     <div class="step__form-frame">
-                        <p-panel [toggleable]="true">
+                        <p-panel [collapsed]="false" [toggleable]="true" *ngFor="let domain of selectedDomains">
                             <ng-template pTemplate="header">
-                                Skill Domain
-                                <span>4.5</span>
+                                {{domain.domain_name}}
+                                <span></span>
                             </ng-template>
                             <ng-template pTemplate="icons">
                                 <p-menu #menu [popup]="true">

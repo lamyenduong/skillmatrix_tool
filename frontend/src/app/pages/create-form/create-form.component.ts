@@ -22,6 +22,7 @@ import { DataService } from 'src/app/services/data.service';
 export class CreateFormComponent implements OnInit {
   selectedTeams: Team[] = [];
   selectedMembers: User[] = [];
+  selectedDomains: Domain[] = []
   members!: User[]
   team!: Team
   points = [0, 1, 2, 3, 4, 5]
@@ -129,6 +130,22 @@ export class CreateFormComponent implements OnInit {
         }
       })
     })
+
+    this.domainService.getAllSkillDomains().subscribe(domains => {
+      this.domains = domains
+      this.dataService.data$.subscribe(data => {
+        if (data && data.domain) {
+          const c: string[] = data.domain;
+          c.forEach((selectedDomain: string) => {
+            this.domains.forEach((domain: Domain) => {
+              if (domain.domain_name.toLowerCase() === selectedDomain.toLowerCase()) {
+                this.selectedDomains.push(domain);
+              }
+            })
+          })
+        }
+      })
+    })
   }
 
   markFormControlsAsTouched(formGroup: FormGroup) {
@@ -173,6 +190,7 @@ export class CreateFormComponent implements OnInit {
     }
     this.formVariable()
   }
+
   formVariable() {
     const user_id = this.cookieService.getCookie("user_id");
     this.userService.getUserById(user_id).subscribe((user: User) => { this.currentUser = user })
@@ -187,10 +205,13 @@ export class CreateFormComponent implements OnInit {
     this.form = form
     return this.form
   }
+
   createForm() {
     this.formService.createForm(this.formVariable()).subscribe(
-      () => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
+      (response) => {
+        if (response) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
+        }
       },
       (error) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
@@ -199,7 +220,9 @@ export class CreateFormComponent implements OnInit {
   }
 
   getMemberInTeam(selectedTeams: Team[]) {
-    selectedTeams.map((team: any) => {
+    const selectedTeamIds = selectedTeams.map((team: any) => team._id);
+    const updatedMembers: User[] = [];
+    selectedTeams.forEach((team: any) => {
       const selectedTeam = {
         team_id: team._id,
         team_name: team.team_name,
@@ -208,9 +231,11 @@ export class CreateFormComponent implements OnInit {
       const team_id = selectedTeam.team_id;
       this.userService.getUserInTeam(team_id).subscribe((data: User[]) => {
         if (data) {
-          this.members = data;
+          updatedMembers.push(...data);
+          this.members = updatedMembers;
         }
       });
-    });
+    })
+    this.members = this.members.filter((member: User) => selectedTeamIds.includes(member.team?.team_id))
   }
 }
