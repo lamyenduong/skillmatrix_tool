@@ -211,7 +211,7 @@
         [draggable]="false" [resizable]="false" styleClass="main__dialog-edit">
         <div class="dialog__domain-first">
             <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
-            <input class="w-100" type="text" pInputText>
+            <input class="w-100" type="text" pInputText value={{domainDetail.domain_name}} disabled>
             <p-chips>
                 <ng-template let-item pTemplate="item">{{item}}</ng-template>
             </p-chips>

@@ -201,9 +201,46 @@ const getFormJoinInByUser = async (req, res) => {
   }
 };
 
+const createFormParticipant = async (req, res) => {
+  const reqFp = req.body;
+  const newFp = {
+    form: {
+      form_id: new ObjectId(reqFp.form._id),
+      form_name: reqFp.form.form_name,
+      form_description: reqFp.form_description,
+      form_deadline: new Date(reqFp.form_deadline),
+      create_date: new Date(reqFp.create_date),
+    },
+    user: {
+      user_id: new ObjectId(reqFp.user._id),
+      full_name: reqFp.user.full_name,
+      email: reqFp.user.email,
+      password: reqFp.user.password,
+      create_date: new Date(reqFp.user.create_date),
+      gender: reqFp.user.gender,
+      phone_number: reqFp.user.phone_number,
+      role: reqFp.user.role,
+      status: reqFp.user.status,
+      birthday: reqFp.user.birthday,
+      avatar: reqFp.user.avatar,
+      team: reqFp.user.team,
+    },
+  };
+  try {
+    const db = getDb();
+    const fpCollection = db.collection("form-participant");
+    const fp = await fpCollection.insertOne(newFp);
+    res.status(200).json(fp);
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 module.exports = {
   getFormById,
   createForm,
+  createFormParticipant,
   getFormOwner,
   getFormManager,
   getFormParticipants,

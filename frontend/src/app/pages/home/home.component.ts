@@ -25,13 +25,21 @@ export class HomeComponent implements OnInit {
   formsAssign!: Form[]
   domains!: Domain[]
   skills!: Skill[]
+  skill!: Skill
   homePageText: any
   selectedValue!: number
   user!: User | null
   searchContext!: string;
   date!: Date
-  domain!: Domain
-  skill!: Skill
+  domain: Domain = {
+    domain_id: '',
+    domain_name: ''
+  }
+  domainDetail: Domain = {
+    domain_id: '',
+    domain_name: ''
+  }
+
 
   constructor(private formService: FormService,
     private domainService: DomainService,
@@ -49,10 +57,10 @@ export class HomeComponent implements OnInit {
     this.domainService.getAllSkillDomains().subscribe((data: Domain[]) => {
       if (data) {
         this.domains = data
-        this.domains.map((domain: Domain) => {
-          if (domain && domain.domain_id && domain.domain_name) {
+        this.domains.forEach((domain: any) => {
+          if (domain && domain._id && domain.domain_name) {
             this.domain = domain
-            this.domain.domain_id = domain.domain_id
+            this.domain.domain_id = domain._id
             this.domain.domain_name = domain.domain_name
           }
         })
@@ -160,12 +168,18 @@ export class HomeComponent implements OnInit {
         }
         const setTeam = [...new Set(team)]
         //Domain
-        console.log(resultArray)
         const domain: any[] = []
         this.getJoinInDomain(2, 5, resultArray, domain) //soft skill
-        this.getJoinInDomain(6, 28, resultArray, domain)
-        console.log(domain)
-
+        this.getJoinInDomain(6, 28, resultArray, domain) //frontend
+        this.getJoinInDomain(29, 38, resultArray, domain) //backend
+        this.getJoinInDomain(39, 49, resultArray, domain) //AI
+        this.getJoinInDomain(50, 52, resultArray, domain) //mobile
+        this.getJoinInDomain(53, 63, resultArray, domain) //techonologies
+        this.getJoinInDomain(64, 78, resultArray, domain) //programming languages
+        this.getJoinInDomain(79, 88, resultArray, domain) //unit testing
+        this.getJoinInDomain(89, 96, resultArray, domain) //databases
+        this.getJoinInDomain(97, 99, resultArray, domain) //cloud
+        this.getJoinInDomain(100, 101, resultArray, domain) //working model
         const data = {
           setTeam: setTeam,
           name: name,
@@ -182,7 +196,7 @@ export class HomeComponent implements OnInit {
     let sum = 0;
     let startRow = 2
     let endRow = arr.length - 1;
-    while (sum <= 0 && endRow > startRow) {
+    while (sum <= 0 && endRow >= startRow) {
       for (let col = startCol; col <= endCol; col++) {
         sum += arr[endRow][col];
       }
@@ -207,14 +221,16 @@ export class HomeComponent implements OnInit {
   //Search domain
   searchDomain(e: any) {
     const searchContext = e.target.value;
+    console.log(searchContext)
     this.domainService.getAllSkillDomains().subscribe((data: Domain[]) => {
       if (data) {
         this.domains = data
-        this.domains.map((domain: Domain) => {
+        this.domains.map((domain: any) => {
           if (domain && domain.domain_name) {
             this.domain.domain_name = domain.domain_name
-            if (this.domain.domain_name.toLowerCase() === searchContext.toLowerCase()) {
+            if (this.domain.domain_name.includes(searchContext)) {
               this.domains.push(domain)
+              console.log(this.domains)
             }
           }
         })
@@ -229,9 +245,14 @@ export class HomeComponent implements OnInit {
   showAddDomainDialog() {
     this.displayAddDomainButton = true
   }
-  domain1!: Domain
+  //Edit domain button
   showEditDomainDialog(domain_id: string) {
     this.displayEditDomainButton = true
-    //this.domainService.getDomainById(domain_id).subscribe((data: SkillDomain) => this.domain1 = data)
+    this.domainService.getDomainById(domain_id).subscribe((data: any) => {
+      if (data && data.domain_name) {
+        this.domainDetail = data
+        this.domainDetail.domain_name = data.domain_name
+      }
+    })
   }
 }

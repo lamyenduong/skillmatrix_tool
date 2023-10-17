@@ -1,3 +1,4 @@
+import { FormParticipant } from './../../models/form-participant.model';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,12 +7,16 @@ import { Form } from 'src/app/models/form.model';
 import { Domain } from 'src/app/models/domain.model';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
+import { Skill } from 'src/app/models/skill.model';
 import { CookieService } from '../../services/cookie.service';
 import { FormService } from '../../services/form/form.service';
 import { DomainService } from '../../services/form/domain.service';
 import { TeamService } from '../../services/form/team.service';
 import { UserService } from '../../services/user/user.service';
 import { DataService } from 'src/app/services/data.service';
+import { FormParticipantService } from 'src/app/services/form/form-participant.service';
+import { SkillService } from 'src/app/services/form/skill.service';
+
 
 @Component({
   selector: 'app-create-form',
@@ -25,6 +30,8 @@ export class CreateFormComponent implements OnInit {
   selectedDomains: Domain[] = []
   members!: User[]
   team!: Team
+  skill!: Skill
+  skills!: Skill[]
   points = [0, 1, 2, 3, 4, 5]
   createFormPageText: any
   isFirstStep: boolean = true
@@ -62,7 +69,7 @@ export class CreateFormComponent implements OnInit {
   ]
   //Default date 
   date = new Date();
-  currentDay = this.date.getUTCDay();
+  currentDay = this.date.getUTCDate();
   currentMonth = this.date.getUTCMonth() + 1;
   currentYear = this.date.getUTCFullYear();
   day: any
@@ -74,7 +81,8 @@ export class CreateFormComponent implements OnInit {
     private domainService: DomainService, private fb: FormBuilder,
     private formService: FormService, private cookieService: CookieService,
     private messageService: MessageService, private router: Router,
-    private dataService: DataService) { }
+    private dataService: DataService, private fpService: FormParticipantService,
+    private skillService: SkillService) { }
 
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(users => this.users = users)
@@ -89,7 +97,7 @@ export class CreateFormComponent implements OnInit {
       formDeadline: ['', Validators.required],
       formManager: [''],
       formTeam: ['', Validators.required],
-      formMember: [''],
+      formMember: ['', Validators.required],
       formDomain: ['', Validators.required],
     })
 
@@ -97,6 +105,21 @@ export class CreateFormComponent implements OnInit {
     this.month = this.currentMonth < 10 ? "0" + this.currentMonth : this.currentMonth;
     this.formStartTime = `${this.currentYear}-${this.month}-${this.day}`;
     this.secondStepForm.get('formStartTime')?.setValue(this.formStartTime);
+
+    this.skillService.getAllSkills().subscribe((data: Skill[]) => {
+      if (data) {
+        this.skills = data
+        this.skills.map((skill: Skill) => {
+          if (skill && skill.skill_name && skill.skill_domain && skill.skill_domain?.domain_id) {
+            this.skill = skill
+            this.skill.skill_name = skill.skill_name
+            if (this.skill.skill_domain)
+              this.skill.skill_domain.domain_id = skill.skill_domain.domain_id
+          }
+        })
+      }
+
+    })
 
     this.teamService.getAllTeams().subscribe(teams => {
       this.teams = teams
@@ -205,6 +228,42 @@ export class CreateFormComponent implements OnInit {
     this.form = form
     return this.form
   }
+  formParticipant: FormParticipant = {
+    form_participant_id: '',
+    user: undefined,
+    form: undefined
+  }
+  user0: User = {
+    user_id: '',
+    password: '',
+    full_name: '',
+    gender: '',
+    phone_number: '',
+    birthday: '',
+    email: '',
+    status: '',
+    role: '',
+    create_date: '',
+    avatar: '',
+    team: undefined
+  }
+  formParticipantVariable() {
+    this.members.map((member: User) => {
+      if (member && member.user_id) {
+        this.userService.getUserById(member.user_id).subscribe(user => {
+          this.user0 = user
+        })
+      }
+      else { "error" }
+    })
+    const formP = {
+      form_participant_id: '',
+      form: this.form,
+      user: this.user0
+    }
+    this.formParticipant = formP
+    return this.formParticipant
+  }
 
   createForm() {
     this.formService.createForm(this.formVariable()).subscribe(
@@ -215,8 +274,16 @@ export class CreateFormComponent implements OnInit {
       },
       (error) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
-      }
-    )
+      })
+    // this.fpService.createFormParticipant(this.formParticipant).subscribe(
+    //   (response) => {
+    //     if (response) {
+    //       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
+    //     }
+    //   },
+    //   (error) => {
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
+    //   })
   }
 
   getMemberInTeam(selectedTeams: Team[]) {

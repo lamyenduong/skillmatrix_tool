@@ -16,9 +16,9 @@
 <div class="container mx-auto row edit__frame-content">
     <div class="frame__profile">
         <div class="frame__profile-card text-center">
-            <p-avatar image=""></p-avatar>
-            <p class="card__title"></p>
-            <p class="card__subtitle"></p>
+            <p-avatar image={{user.avatar}}></p-avatar>
+            <p class="card__title">{{user.full_name}}</p>
+            <p class="card__subtitle">{{user.role}}</p>
             <button pButton pRipple label="{{ 'DetailPage.btnViewProfileLabel' | translate}}"></button>
         </div>
     </div>
@@ -27,7 +27,7 @@
             <p-panel [collapsed]="!isPanelEnabled" [toggleable]="true">
                 <ng-template pTemplate="header">
                     {{domain.domain_name}}
-                    <span class="form__point">4.5</span>
+                    <span class="form__point"></span>
                 </ng-template>
                 <ng-template pTemplate="icons">
                     <p-menu #menu [popup]="true">
@@ -39,13 +39,17 @@
                         <label *ngFor="let point of points" for={{point}}>{{point}}</label>
                     </div>
                 </div>
-                <div class="radio__form d-flex align-items-center">
-                    <div class="col-2">
-                        <!-- <span> {{formSkill.skill.skill_name}}</span> -->
-                    </div>
-                    <div class="radio__options col-10">
-                        <p-radioButton *ngFor="let point of points" id={{point}} name="number" value={{point}}
-                            [(ngModel)]="selectedValue" [disabled]="!isEditing"></p-radioButton>
+                <div *ngFor="let skill of skills">
+                    <div *ngIf="skill.skill_domain?.domain_name?.toLowerCase() === domain.domain_name.toLowerCase()">
+                        <div class="radio__form d-flex align-items-center mb-4">
+                            <div class="col-2">
+                                <span class="skill__name">{{skill.skill_name}}</span>
+                            </div>
+                            <div class="radio__options col-10">
+                                <p-radioButton *ngFor="let point of points" id={{point}} name="number" value={{point}}
+                                    [(ngModel)]="selectedValue" [disabled]="!isEditing"></p-radioButton>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </p-panel>

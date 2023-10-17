@@ -47,7 +47,6 @@ export class SearchComponent implements OnInit {
         this.formService.getFormParticipants(formId).subscribe(data => {
           if (data) {
             this.users = data;
-            console.log(this.users);
           }
         })
         this.formService.getFormById(formId).subscribe(data => {
