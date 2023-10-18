@@ -16,17 +16,17 @@ import { UserService } from 'src/app/services/user/user.service';
   encapsulation: ViewEncapsulation.None
 })
 export class DetailFormComponent implements OnInit {
-  points = [0, 1, 2, 3, 4, 5]
-  selectedValue!: string
-  detailFormPageText: any
+  points = [0, 1, 2, 3, 4, 5];
+  selectedValue!: string;
+  detailFormPageText: any;
   form: Form = {
     form_id: '',
     form_name: '',
     create_date: '',
     form_deadline: '',
     form_description: '',
-    user: undefined
-  }
+    user: null
+  };
   user: User = {
     user_id: '',
     password: '',
@@ -40,33 +40,35 @@ export class DetailFormComponent implements OnInit {
     role: '',
     create_date: '',
     team: undefined
-  }
-  domains!: Domain[]
-  skills!: Skill[]
-  skill!: Skill
+  };
+  domains: Domain[] = [];
+  skills: Skill[] = [];
+  skill: Skill | null = null;
   isEditing: boolean = false;
   isPanelEnabled: boolean = false;
 
   constructor(private router: ActivatedRoute,
-    private routerNav: Router, private domainService: DomainService,
-    private formService: FormService, private skillService: SkillService,
+    private routerNav: Router,
+    private domainService: DomainService,
+    private formService: FormService,
+    private skillService: SkillService,
     private userService: UserService) { }
 
   ngOnInit(): void {
     this.router.paramMap.subscribe(params => {
       const form_id = params.get('form_id');
       if (form_id !== null) {
-        this.formService.getFormById(form_id).subscribe((data: any) => {
+        this.formService.getFormById(form_id).subscribe((data: Form) => {
           if (data && data.form_name) {
             this.form = data;
-            this.form.form_name = data.form_name
+            this.form.form_name = data.form_name;
             if (data.user && data.user.user_id) {
-              const user_id = data.user.user_id
-              this.userService.getUserById(user_id).subscribe((data: any) => {
-                if (data) {
-                  this.user = data
+              const user_id = data.user.user_id;
+              this.userService.getUserById(user_id).subscribe((userData: User) => {
+                if (userData) {
+                  this.user = userData;
                 }
-              })
+              });
             }
           }
         });
@@ -76,30 +78,33 @@ export class DetailFormComponent implements OnInit {
           }
         });
       }
-    })
+    });
 
     this.skillService.getAllSkills().subscribe((data: Skill[]) => {
       if (data) {
-        this.skills = data
+        this.skills = data;
         this.skills.map((skill: Skill) => {
           if (skill && skill.skill_name && skill.skill_domain && skill.skill_domain?.domain_id) {
-            this.skill = skill
-            this.skill.skill_name = skill.skill_name
-            if (this.skill.skill_domain)
-              this.skill.skill_domain.domain_id = skill.skill_domain.domain_id
+            this.skill = skill;
+            this.skill.skill_name = skill.skill_name;
+            if (this.skill.skill_domain) {
+              this.skill.skill_domain.domain_id = skill.skill_domain.domain_id;
+            }
           }
-        })
+        });
       }
-    })
+    });
   }
-  //Back button
+
+  // Back button
   backToHomePage() {
     this.routerNav.navigate(['/']);
   }
-  //Edit button
+
+  // Edit button
   editDomainForm(event: any) {
-    this.isEditing = true
-    const overlay = document.getElementById("overlay") as HTMLDivElement
-    overlay.style.display = "none"
+    this.isEditing = true;
+    const overlay = document.getElementById("overlay") as HTMLDivElement;
+    overlay.style.display = "none";
   }
 }

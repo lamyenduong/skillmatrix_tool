@@ -6,5 +6,5 @@ export interface Form {
     create_date: string
     form_deadline: string
     form_description: string
-    user?: User
+    user: User | null
 }

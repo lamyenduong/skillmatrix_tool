@@ -22,7 +22,8 @@ export class SearchComponent implements OnInit {
     form_name: '',
     create_date: '',
     form_deadline: '',
-    form_description: ''
+    form_description: '',
+    user: null
   }
   displayFilterButton!: boolean
   skillDomains!: Domain[]

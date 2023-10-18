@@ -39,12 +39,18 @@ export class HomeComponent implements OnInit {
     domain_id: '',
     domain_name: ''
   }
-
+  displayUploadButton!: boolean
+  displayAddDomainButton!: boolean
+  displayEditDomainButton!: boolean
+  isDragOver = false;
+  fileSelected = false;
+  droppedFile: File | null = null;
 
   constructor(private formService: FormService,
     private domainService: DomainService,
     private skillService: SkillService,
     private router: Router,
+    private messageService: MessageService,
     private readFileService: ReadFileService,
     private cookieService: CookieService,
     private dataService: DataService) {
@@ -78,7 +84,6 @@ export class HomeComponent implements OnInit {
           }
         })
       }
-
     })
   }
 
@@ -91,15 +96,10 @@ export class HomeComponent implements OnInit {
   }
 
   //Upload File  
-  displayUploadButton!: boolean
-  displayAddDomainButton!: boolean
-  displayEditDomainButton!: boolean
-  isDragOver = false;
-  fileSelected = false;
-  droppedFile: File | null = null;
   showUploadDialog() {
     this.displayUploadButton = true;
   }
+
   onFileInputChange(event: any): void {
     const fileInput = event.target;
     if (fileInput.files && fileInput.files.length > 0) {
@@ -111,6 +111,7 @@ export class HomeComponent implements OnInit {
       this.fileSelected = false;
     }
   }
+
   onFileDrop(event: any): void {
     event.preventDefault();
     this.isDragOver = false;
@@ -125,14 +126,17 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+
   onDragOver(event: any): void {
     event.preventDefault();
     this.isDragOver = true;
   }
+
   onDragLeave(event: any): void {
     event.preventDefault();
     this.isDragOver = false;
   }
+
   onUploadFile() {
     if (this.droppedFile) {
       this.manageExcelFile(this.droppedFile)
@@ -147,6 +151,7 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+
   manageExcelFile(file: File) {
     this.readFileService.readFile(file)
       .then((resultArray: any[]) => {
@@ -166,7 +171,7 @@ export class HomeComponent implements OnInit {
             team.push(teams[i])
           }
         }
-        const setTeam = [...new Set(team)]
+        let setTeam = [...new Set(team)]
         //Domain
         const domain: any[] = []
         this.getJoinInDomain(2, 5, resultArray, domain) //soft skill
@@ -186,12 +191,14 @@ export class HomeComponent implements OnInit {
           domain: domain
         }
         this.dataService.setData(data)
-        this.router.navigate(['/create'])
+        if (setTeam.length === 0 || name.length === 0 || domain.length === 0) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please use the valid form!' });
+        } else {
+          this.router.navigate(['/create']);
+        }
       })
-      .catch(error => {
-        console.error("Error reading input file:", error);
-      });
   }
+
   getJoinInDomain(startCol: number, endCol: number, arr: any[], data: any[]) {
     let sum = 0;
     let startRow = 2
@@ -200,9 +207,7 @@ export class HomeComponent implements OnInit {
       for (let col = startCol; col <= endCol; col++) {
         sum += arr[endRow][col];
       }
-      if (sum <= 0) {
-        endRow--;
-      }
+      if (sum <= 0) { endRow--; }
     }
     if (sum === 0) {
       for (let col = startCol; col <= endCol; col++) {
@@ -214,29 +219,34 @@ export class HomeComponent implements OnInit {
   }
 
   //Search form
+  activeTab: string = 'owner';
+  onTabChange(event: any) {
+    this.activeTab = event.index === 0 ? 'owner' : 'assign';
+  }
   searchForm(event: any) {
-    // if (this.formService.)
+    const user_id = this.cookieService.getCookie("user_id");
+    const searchContext = event.target.value.toLowerCase();
+    if (this.activeTab === 'owner') {
+      this.formService.getFormOwner(user_id).subscribe((data: Form[]) => {
+        this.formsOwner = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
+      });
+    } else if (this.activeTab === 'assign') {
+      this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
+        this.formsAssign = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
+      });
+    }
   }
 
   //Search domain
-  searchDomain(e: any) {
-    const searchContext = e.target.value;
-    console.log(searchContext)
+  searchDomain(event: any) {
+    const searchContext = event.target.value.toLowerCase();
     this.domainService.getAllSkillDomains().subscribe((data: Domain[]) => {
       if (data) {
-        this.domains = data
-        this.domains.map((domain: any) => {
-          if (domain && domain.domain_name) {
-            this.domain.domain_name = domain.domain_name
-            if (this.domain.domain_name.includes(searchContext)) {
-              this.domains.push(domain)
-              console.log(this.domains)
-            }
-          }
-        })
+        this.domains = data.filter(domain => domain.domain_name.toLowerCase().includes(searchContext));
       }
     });
   }
+
   //Domain tabpanel
   removePanel() {
   }
@@ -245,6 +255,7 @@ export class HomeComponent implements OnInit {
   showAddDomainDialog() {
     this.displayAddDomainButton = true
   }
+
   //Edit domain button
   showEditDomainDialog(domain_id: string) {
     this.displayEditDomainButton = true

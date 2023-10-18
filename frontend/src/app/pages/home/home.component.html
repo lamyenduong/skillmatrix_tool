@@ -33,7 +33,7 @@
     </div>
     <div class="main__second-frame">
         <div class="container">
-            <p-tabView class="main__tabview">
+            <p-tabView class="main__tabview" (onTabChange)="onTabChange($event)">
                 <!-- Assign me -->
                 <p-tabPanel header="{{'HomePage.firstTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsAssign" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"

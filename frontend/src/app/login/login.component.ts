@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     create_date: '',
     avatar: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
     user_id: ''
-  }
-  selectedValue: any
+  };
+  selectedValue: any;
 
   constructor(private formbuilder: FormBuilder,
     public navbarService: NavbarService,
@@ -53,10 +53,10 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formbuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
   }
 
-  //Max attribute for date input 
+  // Max attribute for date input 
   calculateMaxDate(): string {
     const today = new Date();
     const year = today.getFullYear();
@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
     return `${year}-${formattedMonth}-${formattedDay}`;
   }
 
+  // Helper function to mark form controls as touched
   markFormControlsAsTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
@@ -76,6 +77,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // Submit login form
   loginSubmit() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
@@ -86,12 +88,13 @@ export class LoginComponent implements OnInit {
         (error) => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed!' });
         }
-      )
+      );
     } else {
       this.markFormControlsAsTouched(this.loginForm);
     }
   }
 
+  // Submit user registration form
   registerUserSubmit() {
     if (this.registerForm.valid) {
       this.authService.register(this.user).subscribe(
@@ -102,7 +105,7 @@ export class LoginComponent implements OnInit {
         (error) => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: "{{'CreatePage.failedMessage' | translate}}" });
         }
-      )
+      );
     } else {
       this.markFormControlsAsTouched(this.registerForm);
     }

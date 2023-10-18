@@ -1,13 +1,13 @@
-import { MenuItem } from 'primeng/api';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 import { NotificationService } from '../services/notification-service.service';
-import { Notification } from '../models/notification.model';
 import { NavbarService } from '../services/navbar.service';
 import { AuthService } from '../services/auth/auth.service';
-import { Router } from '@angular/router';
-import { User } from '../models/user.model';
-import { CookieService } from '../services/cookie.service';
 import { UserService } from '../services/user/user.service';
+import { CookieService } from '../services/cookie.service';
+import { Notification } from '../models/notification.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -16,15 +16,16 @@ import { UserService } from '../services/user/user.service';
   encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
-  notifications!: Notification[]
-  currentUser!: User | null
+  notifications: Notification[] = [];
+  currentUser: User | null = null;
+  isNewNotification = false;
 
   profileTagItems: MenuItem[] = [
     {
       label: 'Profile',
       icon: 'pi pi-user',
       command: () => {
-        const user_id = this.cookieService.getCookie("user_id")
+        const user_id = this.cookieService.getCookie('user_id');
         this.router.navigate(['/profile', user_id]);
       }
     },
@@ -35,32 +36,41 @@ export class NavbarComponent implements OnInit {
     {
       label: 'Log out',
       icon: 'pi pi-sign-out',
-      command: () => {
-        this.authService.logout();
-      }
+      command: () => this.authService.logout()
     }
-  ]
+  ];
 
-  constructor(private notificationService: NotificationService,
+  constructor(
+    private notificationService: NotificationService,
     public navbarService: NavbarService,
     public authService: AuthService,
     private cookieService: CookieService,
     private userService: UserService,
-    private router: Router) {
-  }
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.notificationService.getAllNotifications().then(notifications => this.notifications = notifications);
-    this.authService.currentUserSubject.asObservable().subscribe(data => {
-      const user_id = this.cookieService.getCookie("user_id")
-      this.userService.getUserById(user_id).subscribe(user => this.currentUser = user)
-    })
+    this.loadNotifications();
+    this.authService.currentUserSubject.asObservable().subscribe(() => {
+      this.loadCurrentUser();
+    });
   }
 
-  //Notification
-  isNewNotification!: boolean
-  closeNotification() {
-    const notiCount = document.querySelector('#notiCount') as HTMLSpanElement
-    notiCount.style.display = "none";
+  loadNotifications(): void {
+    this.notificationService.getAllNotifications().then((notifications) => {
+      this.notifications = notifications;
+    });
+  }
+
+  loadCurrentUser(): void {
+    const user_id = this.cookieService.getCookie('user_id');
+    this.userService.getUserById(user_id).subscribe((user) => {
+      this.currentUser = user;
+    });
+  }
+
+  closeNotification(): void {
+    const notiCount = document.querySelector('#notiCount') as HTMLSpanElement;
+    notiCount.style.display = 'none';
   }
 }

@@ -1,22 +1,20 @@
-import { FormParticipant } from './../../models/form-participant.model';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Form } from 'src/app/models/form.model';
-import { Domain } from 'src/app/models/domain.model';
-import { Team } from 'src/app/models/team.model';
-import { User } from 'src/app/models/user.model';
-import { Skill } from 'src/app/models/skill.model';
-import { CookieService } from '../../services/cookie.service';
-import { FormService } from '../../services/form/form.service';
-import { DomainService } from '../../services/form/domain.service';
-import { TeamService } from '../../services/form/team.service';
-import { UserService } from '../../services/user/user.service';
+import { FormService } from 'src/app/services/form/form.service';
+import { DomainService } from 'src/app/services/form/domain.service';
+import { TeamService } from 'src/app/services/form/team.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { DataService } from 'src/app/services/data.service';
 import { FormParticipantService } from 'src/app/services/form/form-participant.service';
 import { SkillService } from 'src/app/services/form/skill.service';
-
+import { CookieService } from '../../services/cookie.service';
+import { Form } from '../../models/form.model';
+import { FormParticipant } from 'src/app/models/form-participant.model';
+import { Domain } from 'src/app/models/domain.model';
+import { Skill } from 'src/app/models/skill.model';
+import { Team } from 'src/app/models/team.model';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-create-form',
@@ -46,7 +44,7 @@ export class CreateFormComponent implements OnInit {
     create_date: '',
     form_deadline: '',
     form_description: '',
-    user: undefined,
+    user: null,
   }
   domains!: Domain[]
   selectedValue!: string
@@ -77,12 +75,17 @@ export class CreateFormComponent implements OnInit {
   formStartTime!: string
 
   constructor(
-    private teamService: TeamService, private userService: UserService,
-    private domainService: DomainService, private fb: FormBuilder,
-    private formService: FormService, private cookieService: CookieService,
-    private messageService: MessageService, private router: Router,
-    private dataService: DataService, private fpService: FormParticipantService,
-    private skillService: SkillService) { }
+    private teamService: TeamService,
+    private userService: UserService,
+    private domainService: DomainService,
+    private fb: FormBuilder,
+    private formService: FormService,
+    private cookieService: CookieService,
+    private messageService: MessageService,
+    private dataService: DataService,
+    private fpService: FormParticipantService,
+    private skillService: SkillService
+  ) { }
 
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(users => this.users = users)
@@ -186,6 +189,7 @@ export class CreateFormComponent implements OnInit {
     this.isSecondStep = false;
     this.isThirdStep = false;
   }
+
   navigateToSecondStep() {
     if (this.currentStep === 0 && this.firstStepForm.valid) {
       this.currentStep = 1
@@ -202,6 +206,7 @@ export class CreateFormComponent implements OnInit {
       this.isThirdStep = false;
     }
   }
+
   navigateToThirdStep() {
     if (this.currentStep === 1 && this.secondStepForm.valid) {
       this.currentStep = 2
@@ -228,6 +233,7 @@ export class CreateFormComponent implements OnInit {
     this.form = form
     return this.form
   }
+
   formParticipant: FormParticipant = {
     form_participant_id: '',
     user: undefined,
@@ -254,7 +260,6 @@ export class CreateFormComponent implements OnInit {
           this.user0 = user
         })
       }
-      else { "error" }
     })
     const formP = {
       form_participant_id: '',
