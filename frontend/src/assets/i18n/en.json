@@ -8,7 +8,8 @@
         "btnSubmitLabel": "Submit",
         "btnCancelLabel": "Cancel",
         "btnBackLabel": "Back",
-        "btnEditLabel": "Edit"
+        "btnEditLabel": "Edit",
+        "btnSaveLabel": "Save"
     },
     "Navbar": {
         "notificationTitle": "Notifications"

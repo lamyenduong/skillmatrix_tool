@@ -8,8 +8,16 @@
         <div class="d-flex edit__frame-btn">
             <button class="frame__btn-back" pButton icon="pi pi-arrow-left" (click)="backToHomePage()"
                 label="{{ 'GeneralMessage.btnBackLabel' | translate}}"></button>
-            <button pRipple pButton icon="pi pi-file-edit" label="{{ 'GeneralMessage.btnEditLabel' | translate}}"
-                (click)="editDomainForm($event)"></button>
+            <button pRipple pButton (click)="editDomainForm($event)">
+                <ng-container *ngIf="isEditing; else elseBlock">
+                    <i class="pi pi-check me-1"></i>
+                    {{'GeneralMessage.btnSaveLabel' | translate}}
+                </ng-container>
+                <ng-template #elseBlock>
+                    <i class="pi pi-file-edit me-1"></i>
+                    {{'GeneralMessage.btnEditLabel' | translate}}
+                </ng-template>
+            </button>
         </div>
     </div>
 </div>
@@ -25,6 +33,7 @@
     <div class="frame__form">
         <ng-container *ngFor="let domain of domains">
             <p-panel [collapsed]="!isPanelEnabled" [toggleable]="true">
+
                 <ng-template pTemplate="header">
                     {{domain.domain_name}}
                     <span class="form__point"></span>

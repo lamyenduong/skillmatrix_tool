@@ -36,7 +36,7 @@
             </div>
             <div class="form__row d-flex">
                 <p>{{ 'ProfilePage.teamLabel' | translate }}</p>
-                <input pInputText type="text" value="{{currentUser.team}}" disabled>
+                <input pInputText type="text" value="{{currentUser.team?.team_name}}" disabled>
             </div>
         </div>
         <div class="col-6 pt-2 form__info-link">

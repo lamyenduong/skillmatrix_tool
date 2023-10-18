@@ -19,7 +19,6 @@ export class DetailFormComponent implements OnInit {
   points = [0, 1, 2, 3, 4, 5]
   selectedValue!: string
   detailFormPageText: any
-
   form: Form = {
     form_id: '',
     form_name: '',
@@ -69,25 +68,13 @@ export class DetailFormComponent implements OnInit {
                 }
               })
             }
-          } else {
-            console.log("No data received.");
           }
-        },
-          (error) => {
-            console.error("Error:", error);
-          }
-        );
+        });
         this.domainService.getDomainByFormId(form_id).subscribe(data => {
           if (data) {
             this.domains = data;
-          } else {
-            console.log("No data received.");
           }
-        },
-          (error) => {
-            console.error("Error:", error);
-          }
-        );
+        });
       }
     })
 
@@ -103,7 +90,6 @@ export class DetailFormComponent implements OnInit {
           }
         })
       }
-
     })
   }
   //Back button
@@ -112,9 +98,8 @@ export class DetailFormComponent implements OnInit {
   }
   //Edit button
   editDomainForm(event: any) {
-    // const panel = document.querySelector("p-panel") as HTMLDivElement;
-    // if (panel.classList.contains("p-panel-expanded")) {
     this.isEditing = true
-    // }
+    const overlay = document.getElementById("overlay") as HTMLDivElement
+    overlay.style.display = "none"
   }
 }
