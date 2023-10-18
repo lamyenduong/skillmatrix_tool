@@ -73,20 +73,28 @@ const getUserInTeam = async (req, res) => {
 const updateUser = async (req, res) => {
   const user_id = req.params.user_id;
   const user = req.body;
+  console.log(req.body);
   try {
     const db = getDb();
     const userCollection = db.collection("user");
     const filter = { _id: new ObjectId(user_id) };
     const updateDoc = {
       $set: {
+        user_id: new ObjectId(user_id),
         full_name: user.full_name,
         email: user.email,
-        phone_number: user.phone_number,
+        password: user.password,
+        create_date: new Date(user.create_date),
         gender: user.gender,
+        phone_number: user.phone_number,
+        role: user.role,
+        status: user.status,
         birthday: user.birthday,
+        avatar: user.avatar,
         team: user.team,
       },
     };
+
     const newUser = await userCollection.updateOne(filter, updateDoc);
     res.status(200).json(newUser);
   } catch (error) {
@@ -94,8 +102,6 @@ const updateUser = async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 };
-
-const getManagerByFormId = async (req, res) => {};
 
 module.exports = {
   getAllUsers,

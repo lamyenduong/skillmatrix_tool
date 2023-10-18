@@ -18,7 +18,7 @@
                 <p>{{ 'ProfilePage.mailLabel' | translate }}</p>
                 <input pInputText type="text" value="{{currentUser.email}}" disabled>
             </div>
-            <div class="form__row d-flex">
+            <div class=" form__row d-flex">
                 <p>{{ 'ProfilePage.fullNameLabel' | translate }}</p>
                 <input pInputText type="text" value="{{currentUser.full_name}}" disabled>
             </div>
@@ -51,28 +51,39 @@
 
 <p-dialog header="{{ 'ProfilePage.editFormTitle' | translate }}" [(visible)]="displayEditInfoButton" [modal]="true"
     [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" styleClass="form__dialog-edit">
-    <form [formGroup]="formUpdate">
+    <form [formGroup]="formUpdate" method="post">
         <div class="form__avatar">for avatar</div>
         <div class="form__edit">
             <div class="form__row">
                 <p>{{ 'ProfilePage.mailLabel' | translate }}</p>
-                <input name="email" pInputText type="text" value="{{currentUser.email}}">
+                <input name="email" pInputText type="text" value="{{currentUser.email}}" formControlName="email"
+                    name="email" [(ngModel)]="user.email">
             </div>
             <div class="form__row">
                 <p>{{ 'ProfilePage.fullNameLabel' | translate }}</p>
-                <input name="full_name" pInputText type="text" value="{{currentUser.full_name}}">
+                <input name="full_name" pInputText type="text" value="{{currentUser.full_name}}" formControlName="fname"
+                    name="fname" [(ngModel)]="user.full_name">
             </div>
             <div class="form__row">
                 <p>{{ 'ProfilePage.dobLabel' | translate }}</p>
-                <input name="birthday" pInputText type="date" value="{{currentUser.birthday}}">
+                <input name="birthday" pInputText type="date" value="{{currentUser.birthday}}" formControlName="dob"
+                    name="dob" [(ngModel)]="user.birthday">
             </div>
-            <div class="form__row">
+            <div class="form__row-gender">
                 <p>{{ 'ProfilePage.genderLabel' | translate }}</p>
-                <input pInputText type="text" value="{{currentUser.gender}}">
+                <div class="form__input-gender">
+                    <input class="p-radiobutton" type="radio" name="gender" value="Female" id="female"
+                        formControlName="gender" [(ngModel)]="user.gender">
+                    <label for="female">{{ 'LoginPage.femaleLabel' | translate}}</label>
+                    <input class="p-radiobutton" type="radio" name="gender" value="Male" id="male"
+                        formControlName="gender" [(ngModel)]="user.gender">
+                    <label for="male">{{ 'LoginPage.maleLabel' | translate}}</label>
+                </div>
             </div>
             <div class="form__row">
                 <p>{{ 'ProfilePage.phoneLabel' | translate }}</p>
-                <input name="phone_number" pInputText type="text" value="{{currentUser.phone_number}}">
+                <input name="phone_number" pInputText type="text" value="{{currentUser.phone_number}}"
+                    formControlName="phone_number" name="phone_number" [(ngModel)]="user.phone_number">
             </div>
             <div class="form__row">
                 <p>{{ 'ProfilePage.teamLabel' | translate }}</p>
