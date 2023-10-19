@@ -6,11 +6,11 @@ import { ReadFileService } from 'src/app/services/read-file.service';
 import { CookieService } from '../../services/cookie.service';
 import { DomainService } from '../../services/form/domain.service';
 import { SkillService } from '../../services/form/skill.service';
+import { DataService } from 'src/app/services/data.service';
 import { Domain } from 'src/app/models/domain.model';
 import { Skill } from 'src/app/models/skill.model';
 import { User } from 'src/app/models/user.model';
 import { Form } from '../../models/form.model';
-import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -218,24 +218,52 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  //Search form
-  activeIndex: number = 0;
-  onTabChange(event: any) {
-    this.activeIndex ? 'owner' : 'assign';
-    console.log(this.activeIndex)
+  //Search by create_date
+  searchByDate() {
+    const user_id = this.cookieService.getCookie("user_id");
+    const selectedDate = this.date;
+    if (!selectedDate || selectedDate.toDateString() === new Date().toDateString()) {
+      this.formService.getFormJoinInByUser(user_id).subscribe((dataAssign: Form[]) => {
+        this.formsAssign = dataAssign;
+      });
+      this.formService.getFormOwner(user_id).subscribe((dataOwner: Form[]) => {
+        this.formsOwner = dataOwner;
+      });
+    } else {
+      this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
+        if (data) {
+          this.formsAssign = data.filter(form => {
+            const formCreateDate = new Date(form.create_date);
+            return formCreateDate > selectedDate;
+          });
+        }
+      });
+      this.formService.getFormOwner(user_id).subscribe((data: Form[]) => {
+        if (data) {
+          this.formsOwner = data.filter(form => {
+            const formCreateDate = new Date(form.create_date);
+            return formCreateDate > selectedDate;
+          });
+        }
+      });
+      console.log(selectedDate)
+    }
   }
+
+  //Search form
   searchForm(event: any) {
     const user_id = this.cookieService.getCookie("user_id");
     const searchContext = event.target.value.toLowerCase();
-    if (this.activeIndex === 0) {
-      this.formService.getFormOwner(user_id).subscribe((data: Form[]) => {
-        this.formsOwner = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
-      });
-    } else if (this.activeIndex === 0) {
-      this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
+    this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
+      if (data) {
         this.formsAssign = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
-      });
-    }
+      }
+    });
+    this.formService.getFormOwner(user_id).subscribe((data: Form[]) => {
+      if (data) {
+        this.formsOwner = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
+      }
+    });
   }
 
   //Search domain
@@ -244,6 +272,26 @@ export class HomeComponent implements OnInit {
     this.domainService.getAllSkillDomains().subscribe((data: Domain[]) => {
       if (data) {
         this.domains = data.filter(domain => domain.domain_name.toLowerCase().includes(searchContext));
+      }
+    });
+  }
+
+  //Sort form name
+  sortOrder: 'asc' | 'desc' = 'asc';
+  toggleSortOrder() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.formsOwner.sort((a, b) => {
+      if (this.sortOrder === 'asc') {
+        return a.form_name.localeCompare(b.form_name);
+      } else {
+        return b.form_name.localeCompare(a.form_name);
+      }
+    });
+    this.formsAssign.sort((a, b) => {
+      if (this.sortOrder === 'asc') {
+        return a.form_name.localeCompare(b.form_name);
+      } else {
+        return b.form_name.localeCompare(a.form_name);
       }
     });
   }

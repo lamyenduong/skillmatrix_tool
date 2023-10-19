@@ -142,9 +142,8 @@ const getFormParticipants = async (req, res) => {
           },
         },
         {
-          $project: {
-            _id: 0,
-            f: "$participants.user",
+          $replaceRoot: {
+            newRoot: "$participants.user",
           },
         },
       ])
@@ -189,7 +188,11 @@ const getFormJoinInByUser = async (req, res) => {
         {
           $project: {
             _id: 0,
-            forms: "$forms",
+            form_id: "$forms._id",
+            form_name: "$forms.form_name",
+            form_description: "$forms.form_description",
+            create_date: "$forms.create_date",
+            user: "$forms.user",
           },
         },
       ])

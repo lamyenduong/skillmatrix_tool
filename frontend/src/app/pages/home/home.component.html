@@ -17,6 +17,7 @@
                 <div class="filter__bar-right d-flex">
                     <button class="filter__time">
                         <p-calendar inputId="basic" class="mx-3" [(ngModel)]="date" [showButtonBar]="true"
+                            (onSelect)="searchByDate()"
                             placeholder="{{'HomePage.selectTimeDropdown' | translate}}"></p-calendar>
                     </button>
                     <form class="filter__searchbar p-input-icon-right">
@@ -24,7 +25,7 @@
                             (input)="searchForm($event)">
                         <i class="pi pi-search"></i>
                     </form>
-                    <button class="filter__btn">
+                    <button class="filter__btn" (click)="toggleSortOrder()">
                         <i class="pi pi-sort-alpha-down"></i>
                     </button>
                 </div>
@@ -33,7 +34,7 @@
     </div>
     <div class="main__second-frame">
         <div class="container">
-            <p-tabView class="main__tabview" (activeIndexChange)="onTabChange($event)">
+            <p-tabView class="main__tabview">
                 <!-- Assign me-->
                 <p-tabPanel header="{{'HomePage.firstTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsAssign" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
@@ -46,9 +47,9 @@
                                             <span class="material-icons">description</span>
                                             <div class="card__info">
                                                 <a class="card__title" role="button"
-                                                    (click)="getFormAssignMe(form.forms._id)">{{form.forms.form_name}}</a>
-                                                <p class="card__subtitle">{{form.forms.user.full_name}}</p>
-                                                <p class="card__subtitle">{{form.forms.create_date | date}}</p>
+                                                    (click)="getFormAssignMe(form.form_id)">{{form.form_name}}</a>
+                                                <p class="card__subtitle">{{form.user.full_name}}</p>
+                                                <p class="card__subtitle">{{form.create_date | date}}</p>
                                             </div>
                                         </div>
                                         <button><i class="pi pi-ellipsis-h"></i></button>
