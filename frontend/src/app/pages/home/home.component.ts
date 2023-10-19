@@ -219,18 +219,19 @@ export class HomeComponent implements OnInit {
   }
 
   //Search form
-  activeTab: string = 'owner';
+  activeIndex: number = 0;
   onTabChange(event: any) {
-    this.activeTab = event.index === 0 ? 'owner' : 'assign';
+    this.activeIndex ? 'owner' : 'assign';
+    console.log(this.activeIndex)
   }
   searchForm(event: any) {
     const user_id = this.cookieService.getCookie("user_id");
     const searchContext = event.target.value.toLowerCase();
-    if (this.activeTab === 'owner') {
+    if (this.activeIndex === 0) {
       this.formService.getFormOwner(user_id).subscribe((data: Form[]) => {
         this.formsOwner = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
       });
-    } else if (this.activeTab === 'assign') {
+    } else if (this.activeIndex === 0) {
       this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
         this.formsAssign = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
       });

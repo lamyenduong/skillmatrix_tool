@@ -33,8 +33,8 @@
     </div>
     <div class="main__second-frame">
         <div class="container">
-            <p-tabView class="main__tabview" (onTabChange)="onTabChange($event)">
-                <!-- Assign me -->
+            <p-tabView class="main__tabview" (activeIndexChange)="onTabChange($event)">
+                <!-- Assign me-->
                 <p-tabPanel header="{{'HomePage.firstTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsAssign" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
                         [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
@@ -63,7 +63,7 @@
                         </ng-template>
                     </p-table>
                 </p-tabPanel>
-                <!-- Owner by me -->
+                <!-- Owner by me-->
                 <p-tabPanel header="{{'HomePage.secondTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsOwner" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
                         [tableStyle]="{'min-width': '50rem'}" [rowsPerPageOptions]="[10,20,30]">
