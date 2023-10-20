@@ -156,6 +156,7 @@ export class HomeComponent implements OnInit {
     this.readFileService.readFile(file)
       .then((resultArray: any[]) => {
         // Name
+        console.log(resultArray)
         const names = resultArray.map(row => row[0])
         const name: any[] = []
         for (let i = 0; i < names.length; i++) {
@@ -184,7 +185,22 @@ export class HomeComponent implements OnInit {
         this.getJoinInDomain(79, 88, resultArray, domain) //unit testing
         this.getJoinInDomain(89, 96, resultArray, domain) //databases
         this.getJoinInDomain(97, 99, resultArray, domain) //cloud
-        this.getJoinInDomain(100, 101, resultArray, domain) //working model
+        this.getJoinInDomain(100, 101, resultArray, domain) //working model 
+        //Skill and point
+        this.skillService.getAllSkills().subscribe(skills => {
+          if (skills) {
+            this.skills.filter(skill => {
+              if (skill && skill.skill_name) {
+                for (let i = 0; i < this.skills.length; i++) {
+                  if (resultArray[1][i] === this.skill.skill_name) {
+                    this.selectedValue = resultArray[2][i]
+                    console.log(this.selectedValue)
+                  }
+                }
+              }
+            })
+          }
+        })
         const data = {
           setTeam: setTeam,
           name: name,

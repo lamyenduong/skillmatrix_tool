@@ -8,16 +8,10 @@
         <div class="d-flex edit__frame-btn">
             <button class="frame__btn-back" pButton icon="pi pi-arrow-left" (click)="backToHomePage()"
                 label="{{ 'GeneralMessage.btnBackLabel' | translate}}"></button>
-            <button pRipple pButton (click)="editDomainForm($event)">
-                <ng-container *ngIf="isEditing; else elseBlock">
-                    <i class="pi pi-check me-1"></i>
-                    {{'GeneralMessage.btnSaveLabel' | translate}}
-                </ng-container>
-                <ng-template #elseBlock>
-                    <i class="pi pi-file-edit me-1"></i>
-                    {{'GeneralMessage.btnEditLabel' | translate}}
-                </ng-template>
-            </button>
+            <button *ngIf="!isEditing" pRipple pButton icon="pi pi-file-edit"
+                label=" {{'GeneralMessage.btnEditLabel' | translate}}" (click)="editDomainForm($event)"></button>
+            <button *ngIf="isEditing" pRipple pButton icon="pi pi-check" (click)="saveDomainForm($event)"
+                label="{{'GeneralMessage.btnSaveLabel' | translate}}"></button>
         </div>
     </div>
 </div>
@@ -50,13 +44,14 @@
                 </div>
                 <div *ngFor="let skill of skills">
                     <div *ngIf="skill.skill_domain?.domain_name?.toLowerCase() === domain.domain_name.toLowerCase()">
-                        <div class="radio__form d-flex align-items-center mb-4">
+                        <div class="radio__form d-flex align-items-center mb-4" [(ngModel)]="selectedValue"
+                            ngDefaultControl>
                             <div class="col-2">
                                 <span class="skill__name">{{skill.skill_name}}</span>
                             </div>
                             <div class="radio__options col-10">
-                                <p-radioButton *ngFor="let point of points" id={{point}} name="number" value={{point}}
-                                    [(ngModel)]="selectedValue" [disabled]="!isEditing"></p-radioButton>
+                                <p-radioButton *ngFor="let point of points" name="{{skill.skill_name}}" value={{point}}
+                                    [disabled]="!isEditing"></p-radioButton>
                             </div>
                         </div>
                     </div>

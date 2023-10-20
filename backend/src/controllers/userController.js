@@ -94,7 +94,6 @@ const updateUser = async (req, res) => {
         team: user.team,
       },
     };
-
     const newUser = await userCollection.updateOne(filter, updateDoc);
     res.status(200).json(newUser);
   } catch (error) {

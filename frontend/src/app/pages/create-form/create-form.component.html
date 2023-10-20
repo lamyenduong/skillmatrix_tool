@@ -8,7 +8,7 @@
     <div class="container-fluid mx-auto second__frame">
         <div class="container">
             <div class="step__frame">
-                <p-steps [model]="items" [readonly]="false" [activeIndex]="currentStep"></p-steps>
+                <p-steps [model]="items" [readonly]="true" [activeIndex]="currentStep"></p-steps>
             </div>
             <ng-container>
                 <!-- Step 1 -->
@@ -139,13 +139,14 @@
                             <div *ngFor="let skill of skills">
                                 <div
                                     *ngIf="skill.skill_domain?.domain_name?.toLowerCase() === domain.domain_name.toLowerCase()">
-                                    <div class="radio__form d-flex align-items-center mb-4">
+                                    <div class="radio__form d-flex align-items-center mb-4" [(ngModel)]="selectedValue"
+                                        ngDefaultControl>
                                         <div class="col-2">
                                             <span>{{skill.skill_name}}</span>
                                         </div>
                                         <div class="radio__options col-10">
-                                            <p-radioButton *ngFor="let point of points" id={{point}} name="number"
-                                                [(ngModel)]="selectedValue" value={{point}}
+                                            <p-radioButton *ngFor="let point of points" id={{point}}
+                                                name="{{skill.skill_name}}" value={{point}}
                                                 [disabled]="true"></p-radioButton>
                                         </div>
                                     </div>

@@ -8,6 +8,7 @@ import { FormService } from '../../services/form/form.service';
 import { SkillService } from 'src/app/services/form/skill.service';
 import { DomainService } from '../../services/form/domain.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-detail-form',
@@ -17,7 +18,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class DetailFormComponent implements OnInit {
   points = [0, 1, 2, 3, 4, 5];
-  selectedValue!: string;
+  selectedValue: any
   detailFormPageText: any;
   form: Form = {
     form_id: '',
@@ -52,7 +53,8 @@ export class DetailFormComponent implements OnInit {
     private domainService: DomainService,
     private formService: FormService,
     private skillService: SkillService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private messageService: MessageService,) { }
 
   ngOnInit(): void {
     this.router.paramMap.subscribe(params => {
@@ -105,6 +107,18 @@ export class DetailFormComponent implements OnInit {
   editDomainForm(event: any) {
     this.isEditing = true;
     const overlay = document.getElementById("overlay") as HTMLDivElement;
-    overlay.style.display = "none";
+    if (overlay) {
+      overlay.style.visibility = "hidden";
+    }
+  }
+
+  //Save button 
+  saveDomainForm(event: any) {
+    this.isEditing = false;
+    const overlay = document.getElementById("overlay") as HTMLDivElement;
+    if (overlay) {
+      overlay.style.visibility = "visible";
+    }
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Editing successful!' });
   }
 }
