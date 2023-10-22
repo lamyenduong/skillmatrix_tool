@@ -4,6 +4,7 @@ import { Form } from '../../models/form.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from 'src/app/models/user.model';
+import { Domain } from 'src/app/models/domain.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,9 @@ export class FormService {
   }
   getFormParticipants(form_id: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/forms/participants/${form_id}`)
+  }
+  getDomainByFormId(form_id: string): Observable<Domain[]> {
+    return this.http.get<Domain[]>(`${this.apiUrl}/forms/domains/${form_id}`)
   }
   getFormJoinInByUser(user_id: string): Observable<Form[]> {
     return this.http.get<Form[]>(`${this.apiUrl}/forms/participant/${user_id}`)

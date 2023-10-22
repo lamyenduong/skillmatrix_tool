@@ -6,8 +6,10 @@ const {
   getFormOwner,
   getFormManager,
   getFormParticipants,
+  getDomainByFormId,
   getFormJoinInByUser,
   createFormParticipant,
+  createFormSkill,
 } = require("../controllers/formController");
 const {
   getAllUsers,
@@ -21,7 +23,6 @@ const {
   getAllDomains,
   getDomainById,
   createDomain,
-  getDomainByFormId,
 } = require("../controllers/domainController");
 const {
   loginUser,
@@ -45,8 +46,10 @@ const apiRoute = (app) => {
   apiRouter.get("/forms/manager/:user_id", getFormManager);
   apiRouter.get("/forms/participants/:form_id", getFormParticipants);
   apiRouter.get("/forms/participant/:user_id", getFormJoinInByUser);
+  apiRouter.get("/forms/domains/:form_id", getDomainByFormId);
   apiRouter.post("/create-form", createForm);
   apiRouter.post("/create-formparticipant", createFormParticipant);
+  apiRouter.post("/create-formskill", createFormSkill);
   //user
   apiRouter.get("/users", getAllUsers);
   apiRouter.get("/users/:user_id", getUserById);
@@ -57,7 +60,7 @@ const apiRoute = (app) => {
   //domain
   apiRouter.get("/domains", getAllDomains);
   apiRouter.get("/domains/:domain_id", getDomainById);
-  apiRouter.get("/domains/forms/:form_id", getDomainByFormId);
+
   apiRouter.post("/create-domain", createDomain);
   //team
   apiRouter.get("/teams", getAllTeams);

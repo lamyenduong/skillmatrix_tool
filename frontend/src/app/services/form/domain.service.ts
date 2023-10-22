@@ -18,7 +18,4 @@ export class DomainService {
   getDomainById(domain_id: string): Observable<Domain> {
     return this.http.get<Domain>(`${this.apiUrl}/domains/${domain_id}`)
   }
-  getDomainByFormId(form_id: string): Observable<Domain[]> {
-    return this.http.get<Domain[]>(`${this.apiUrl}/domains/forms/${form_id}`)
-  }
 }

@@ -7,6 +7,7 @@ import { TeamService } from 'src/app/services/form/team.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { DataService } from 'src/app/services/data.service';
 import { FormParticipantService } from 'src/app/services/form/form-participant.service';
+import { FormSkillService } from 'src/app/services/form/form-skill.service';
 import { SkillService } from 'src/app/services/form/skill.service';
 import { CookieService } from '../../services/cookie.service';
 import { Form } from '../../models/form.model';
@@ -15,6 +16,7 @@ import { Domain } from 'src/app/models/domain.model';
 import { Skill } from 'src/app/models/skill.model';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
+import { FormSkill } from 'src/app/models/form-skill.model';
 import { concatMap, from } from 'rxjs';
 
 @Component({
@@ -85,7 +87,8 @@ export class CreateFormComponent implements OnInit {
     private messageService: MessageService,
     private dataService: DataService,
     private fpService: FormParticipantService,
-    private skillService: SkillService
+    private skillService: SkillService,
+    private fsService: FormSkillService
   ) { }
 
   ngOnInit(): void {
@@ -262,6 +265,25 @@ export class CreateFormComponent implements OnInit {
                 console.error('Error creating form participant:', error);
               }
             );
+            const formSkills: FormSkill[] = this.selectedDomains.map((domain) => ({
+              form_skill_id: '',
+              domain: domain,
+              form: form,
+            }))
+            from(formSkills).pipe(
+              concatMap((formSkill) => this.fsService.createFormSkill(formSkill))
+            ).subscribe(
+              (response) => {
+                if (response) {
+                  // Handle success
+                  console.log('Form skill created:', response);
+                }
+              },
+              (error) => {
+                // Handle error
+                console.error('Error creating form skill:', error);
+              }
+            );
           })
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
         }
@@ -269,8 +291,6 @@ export class CreateFormComponent implements OnInit {
       (error) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
       })
-
-
   }
 
   getMemberInTeam(selectedTeams: Team[]) {

@@ -78,6 +78,41 @@ const getFormManager = async (req, res) => {
   }
 };
 
+const getDomainByFormId = async (req, res) => {
+  const form_id = req.params.form_id;
+  try {
+    const db = getDb();
+    const formCollection = db.collection("form");
+    const domains = await formCollection
+      .aggregate([
+        {
+          $lookup: {
+            from: "form-skill",
+            localField: "_id",
+            foreignField: "form.form_id",
+            as: "domains",
+          },
+        },
+        { $unwind: "$domains" },
+        {
+          $match: {
+            _id: new ObjectId(form_id),
+          },
+        },
+        {
+          $replaceRoot: {
+            newRoot: "$domains.domain",
+          },
+        },
+      ])
+      .toArray();
+    res.status(200).json(domains);
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 const getFormParticipants = async (req, res) => {
   const form_id = req.params.form_id;
   try {
@@ -191,7 +226,10 @@ const createForm = async (req, res) => {
           status: reqForm.user.status,
           birthday: reqForm.user.birthday,
           avatar: reqForm.user.avatar,
-          team: reqForm.user.team,
+          team: {
+            team_id: new ObjectId(reqForm.user.team.team_id),
+            team_name: reqForm.user.team.team_name,
+          },
         },
       };
       const form = await formCollection.insertOne(newForm);
@@ -210,9 +248,9 @@ const createFormParticipant = async (req, res) => {
       form: {
         form_id: new ObjectId(reqFp.form._id),
         form_name: reqFp.form.form_name,
-        form_description: reqFp.form_description,
-        form_deadline: new Date(reqFp.form_deadline),
-        create_date: new Date(reqFp.create_date),
+        form_description: reqFp.form.form_description,
+        form_deadline: new Date(reqFp.form.form_deadline),
+        create_date: new Date(reqFp.form.create_date),
         user: {
           user_id: new ObjectId(reqFp.form.user.user_id),
           full_name: reqFp.form.user.full_name,
@@ -261,12 +299,59 @@ const createFormParticipant = async (req, res) => {
   }
 };
 
+const createFormSkill = async (req, res) => {
+  const repFs = req.body;
+  if (repFs.form) {
+    const newFs = {
+      form: {
+        form_id: new ObjectId(repFs.form._id),
+        form_name: repFs.form.form_name,
+        form_description: repFs.form.form_description,
+        form_deadline: new Date(repFs.form.form_deadline),
+        create_date: new Date(repFs.form.create_date),
+        user: {
+          user_id: new ObjectId(repFs.form.user.user_id),
+          full_name: repFs.form.user.full_name,
+          email: repFs.form.user.email,
+          password: repFs.form.user.password,
+          create_date: new Date(repFs.form.user.create_date),
+          gender: repFs.form.user.gender,
+          phone_number: repFs.form.user.phone_number,
+          role: repFs.form.user.role,
+          status: repFs.form.user.status,
+          birthday: repFs.form.user.birthday,
+          avatar: repFs.form.user.avatar,
+          team: {
+            team_id: new ObjectId(repFs.form.user.team.team_id),
+            team_name: repFs.form.user.team.team_name,
+          },
+        },
+      },
+      domain: {
+        domain_id: new ObjectId(repFs.domain._id),
+        domain_name: repFs.domain.domain_name,
+      },
+    };
+    try {
+      const db = getDb();
+      const fsCollection = db.collection("form-skill");
+      const fs = await fsCollection.insertOne(newFs);
+      res.status(200).json(fs);
+    } catch (error) {
+      console.error("Error fetching forms:", error);
+      res.status(500).json({ error: "An error occurred" });
+    }
+  }
+};
+
 module.exports = {
   getFormById,
   createForm,
   createFormParticipant,
+  createFormSkill,
   getFormOwner,
   getFormManager,
   getFormParticipants,
+  getDomainByFormId,
   getFormJoinInByUser,
 };

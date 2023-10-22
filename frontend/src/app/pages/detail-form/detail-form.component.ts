@@ -74,7 +74,7 @@ export class DetailFormComponent implements OnInit {
             }
           }
         });
-        this.domainService.getDomainByFormId(form_id).subscribe(data => {
+        this.formService.getDomainByFormId(form_id).subscribe(data => {
           if (data) {
             this.domains = data;
           }

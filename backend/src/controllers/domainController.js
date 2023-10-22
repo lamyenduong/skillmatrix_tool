@@ -41,53 +41,8 @@ const createDomain = async (req, res) => {
   }
 };
 
-const getDomainByFormId = async (req, res) => {
-  const form_id = req.params.form_id;
-  try {
-    const db = getDb();
-    const domainCollection = db.collection("skill-domain");
-    const domains = await domainCollection
-      .aggregate([
-        {
-          $lookup: {
-            from: "form-skill",
-            localField: "_id",
-            foreignField: "skill.skill_domain.skill_domain_id",
-            as: "formSkill",
-          },
-        },
-        {
-          $unwind: "$formSkill",
-        },
-        {
-          $match: {
-            "formSkill.form.form_id": new ObjectId(form_id),
-          },
-        },
-        {
-          $project: {
-            _id: "$_id",
-            domain_name: "$domain_name",
-          },
-        },
-        {
-          $group: {
-            _id: "$_id",
-            domain_name: { $first: "$domain_name" },
-          },
-        },
-      ])
-      .toArray();
-    res.status(200).json(domains);
-  } catch (error) {
-    console.error("Error fetching forms:", error);
-    res.status(500).json({ error: "An error occurred" });
-  }
-};
-
 module.exports = {
   getAllDomains,
   getDomainById,
   createDomain,
-  getDomainByFormId,
 };
