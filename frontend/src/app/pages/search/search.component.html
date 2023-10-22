@@ -33,7 +33,8 @@
                         <th style="width: 20%;">{{'SearchPage.mailColumnHeader' | translate}}</th>
                         <th style="width: 15%;">{{'SearchPage.phoneColumnheader' | translate}}</th>
                         <th style="width: 15%;">{{'SearchPage.statusColumnHeader' | translate}}</th>
-                        <th style="width: 10%; ">{{'SearchPage.actionColumnHeader' | translate}}</th>
+                        <th class="text-center" style="width: 10%; ">{{'SearchPage.actionColumnHeader' | translate}}
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
@@ -50,7 +51,7 @@
                         <td>{{user.email}}</td>
                         <td>{{user.phone_number}}</td>
                         <td class="table__col-status">
-                            <i class="pi pi-circle-fill"></i>
+                            <i class="pi pi-circle-fill me-2"></i>
                             <span>{{user.status}}</span>
                         </td>
                         <td class="text-center">

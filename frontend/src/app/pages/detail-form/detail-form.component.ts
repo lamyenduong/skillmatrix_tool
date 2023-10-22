@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Form } from 'src/app/models/form.model';
 import { Skill } from 'src/app/models/skill.model';
 import { User } from './../../models/user.model';
@@ -8,7 +9,6 @@ import { FormService } from '../../services/form/form.service';
 import { SkillService } from 'src/app/services/form/skill.service';
 import { DomainService } from '../../services/form/domain.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-detail-form',

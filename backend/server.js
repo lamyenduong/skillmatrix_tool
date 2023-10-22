@@ -23,8 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-apiRoute(app);
 connectToMongoDB();
+apiRoute(app);
 
 app.listen(port, () => {
   console.log(`Server is running on http://${host}:${port}`);

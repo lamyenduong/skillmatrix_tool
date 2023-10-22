@@ -91,7 +91,7 @@
         "btnNextLabel": "Next"
     },
     "ProfilePage": {
-        "frameTitle": "Information",
+        "frameTitle": "Edit profile",
         "mailLabel": "E-mail:",
         "fullNameLabel": "Full name:",
         "dobLabel": "Date of birth:",

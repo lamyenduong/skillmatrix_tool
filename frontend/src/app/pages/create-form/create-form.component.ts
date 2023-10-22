@@ -15,6 +15,7 @@ import { Domain } from 'src/app/models/domain.model';
 import { Skill } from 'src/app/models/skill.model';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
+import { concatMap, from } from 'rxjs';
 
 @Component({
   selector: 'app-create-form',
@@ -234,61 +235,42 @@ export class CreateFormComponent implements OnInit {
     return this.form
   }
 
-  formParticipant: FormParticipant = {
-    form_participant_id: '',
-    user: undefined,
-    form: undefined
-  }
-  user0: User = {
-    user_id: '',
-    password: '',
-    full_name: '',
-    gender: '',
-    phone_number: '',
-    birthday: '',
-    email: '',
-    status: '',
-    role: '',
-    create_date: '',
-    avatar: '',
-    team: undefined
-  }
-  formParticipantVariable() {
-    this.members.map((member: User) => {
-      if (member && member.user_id) {
-        this.userService.getUserById(member.user_id).subscribe(user => {
-          this.user0 = user
-        })
-      }
-    })
-    const formP = {
-      form_participant_id: '',
-      form: this.form,
-      user: this.user0
-    }
-    this.formParticipant = formP
-    return this.formParticipant
-  }
-
   createForm() {
+    let form = this.formVariable();
     this.formService.createForm(this.formVariable()).subscribe(
       (response) => {
         if (response) {
+          console.log(response)
+          this.formService.getFormById(response.insertedId).subscribe(newForm => {
+            form = newForm
+            const formParticipants: FormParticipant[] = this.selectedMembers.map((user) => ({
+              form_participant_id: '',
+              user: user,
+              form: form,
+            }));
+            from(formParticipants).pipe(
+              concatMap((formParticipant) => this.fpService.createFormParticipant(formParticipant))
+            ).subscribe(
+              (response) => {
+                if (response) {
+                  // Handle success
+                  console.log('Form participant created:', response);
+                }
+              },
+              (error) => {
+                // Handle error
+                console.error('Error creating form participant:', error);
+              }
+            );
+          })
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
         }
       },
       (error) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
       })
-    // this.fpService.createFormParticipant(this.formParticipant).subscribe(
-    //   (response) => {
-    //     if (response) {
-    //       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
-    //     }
-    //   },
-    //   (error) => {
-    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
-    //   })
+
+
   }
 
   getMemberInTeam(selectedTeams: Team[]) {
