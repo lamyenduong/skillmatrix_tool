@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 import { FormService } from '../../services/form/form.service';
 import { ReadFileService } from 'src/app/services/read-file.service';
 import { CookieService } from '../../services/cookie.service';
@@ -45,6 +45,8 @@ export class HomeComponent implements OnInit {
   isDragOver = false;
   fileSelected = false;
   droppedFile: File | null = null;
+  panelStates: boolean[] = [];
+
 
   constructor(private formService: FormService,
     private domainService: DomainService,
@@ -53,7 +55,8 @@ export class HomeComponent implements OnInit {
     private messageService: MessageService,
     private readFileService: ReadFileService,
     private cookieService: CookieService,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private confirmationService: ConfirmationService) {
   }
 
   ngOnInit(): void {
@@ -70,6 +73,7 @@ export class HomeComponent implements OnInit {
             this.domain.domain_name = domain.domain_name
           }
         })
+        this.panelStates = this.domains.map(() => true);
       }
     });
     this.skillService.getAllSkills().subscribe((data: Skill[]) => {
@@ -84,7 +88,7 @@ export class HomeComponent implements OnInit {
           }
         })
       }
-    })
+    });
   }
 
   getFormOwnerByMe(form_id: string) {
@@ -262,7 +266,6 @@ export class HomeComponent implements OnInit {
           });
         }
       });
-      console.log(selectedDate)
     }
   }
 
@@ -310,15 +313,48 @@ export class HomeComponent implements OnInit {
         return b.form_name.localeCompare(a.form_name);
       }
     });
+    this.domains.sort((a, b) => {
+      if (this.sortOrder === 'asc') {
+        return a.domain_name.localeCompare(b.domain_name);
+      } else {
+        return b.domain_name.localeCompare(a.domain_name);
+      }
+    })
+    this.panelStates = this.domains.map(() => true);
+  }
+
+  togglePanel(index: number) {
+    this.panelStates[index] = !this.panelStates[index];
   }
 
   //Domain tabpanel
   removePanel() {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this domain?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Domain deleted' });
+      },
+      reject: (type: any) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+            break;
+        }
+      },
+    });
   }
 
   //Add domain button 
   showAddDomainDialog() {
     this.displayAddDomainButton = true
+  }
+  submitAddDomain() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
   }
 
   //Edit domain button

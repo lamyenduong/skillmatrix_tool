@@ -16,6 +16,8 @@ import { CreateFormComponent } from './pages/create-form/create-form.component';
 import { DetailFormComponent } from './pages/detail-form/detail-form.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 // Primeng
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
@@ -84,6 +86,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     SplitButtonModule,
     DropdownModule,
     ChipsModule,
+    ConfirmDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -92,7 +95,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
       }
     }),
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

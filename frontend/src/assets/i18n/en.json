@@ -9,7 +9,8 @@
         "btnCancelLabel": "Cancel",
         "btnBackLabel": "Back",
         "btnEditLabel": "Edit",
-        "btnSaveLabel": "Save"
+        "btnSaveLabel": "Save",
+        "confirmDialogHeader": "Confirmation"
     },
     "Navbar": {
         "notificationTitle": "Notifications"

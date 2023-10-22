@@ -79,36 +79,37 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser() {
-    if (this.formUpdate.valid) {
-      this.router.paramMap.subscribe(params => {
-        const user_id = params.get('user_id');
-        if (user_id !== null) {
-          const user: User = {
-            user_id: user_id,
-            email: this.formUpdate.get('email')?.value || this.currentUser.email,
-            full_name: this.formUpdate.get('fname')?.value || this.currentUser.full_name,
-            birthday: this.formUpdate.get('dob')?.value || this.currentUser.birthday,
-            gender: this.formUpdate.get('gender')?.value || this.currentUser.gender,
-            phone_number: this.formUpdate.get('phone_number')?.value || this.currentUser.phone_number,
-            avatar: '',
-            status: '',
-            password: '',
-            create_date: '',
-            role: '',
-            team: undefined
-          }
-          this.user = user
-          console.log(this.user)
-          this.userService.updateUser(user_id, this.user).subscribe(
-            () => {
-              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update successful!' });
-            },
-            (error) => {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Update failed!' });
-            }
-          );
-        }
-      })
-    }
+    // if (this.formUpdate.valid) {
+    //   this.router.paramMap.subscribe(params => {
+    //     const user_id = params.get('user_id');
+    //     if (user_id !== null) {
+    //       const user: User = {
+    //         user_id: user_id,
+    //         email: this.formUpdate.get('email')?.value || this.currentUser.email,
+    //         full_name: this.formUpdate.get('fname')?.value || this.currentUser.full_name,
+    //         birthday: this.formUpdate.get('dob')?.value || this.currentUser.birthday,
+    //         gender: this.formUpdate.get('gender')?.value || this.currentUser.gender,
+    //         phone_number: this.formUpdate.get('phone_number')?.value || this.currentUser.phone_number,
+    //         avatar: '',
+    //         status: '',
+    //         password: '',
+    //         create_date: '',
+    //         role: '',
+    //         team: undefined
+    //       }
+    //       this.user = user
+    //       console.log(this.user)
+    //       this.userService.updateUser(user_id, this.user).subscribe(
+    //         () => {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update successful!' });
+    this.displayEditInfoButton = false
+    //         },
+    //         (error) => {
+    //           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Update failed!' });
+    //         }
+    //       );
+    //     }
+    //   })
+    // }
   }
 }

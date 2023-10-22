@@ -1,4 +1,6 @@
 <p-toast position="top-center"></p-toast>
+<p-confirmDialog header="{{'GeneralMessage.confirmDialogHeader' | translate}}" icon="pi pi-exclamation-triangle"
+    rejectButtonStyleClass="p-button-text"></p-confirmDialog>
 <div class="frame">
     <div class="main__first-frame">
         <div class="container">
@@ -108,10 +110,10 @@
                         <button pButton icon="pi pi-plus" label="{{'HomePage.btnAddLabel' | translate}}"
                             (click)="showAddDomainDialog()"></button>
                     </div>
-                    <p-panel *ngFor="let domain of domains" class="domain__panel" [toggleable]="true"
-                        [collapsed]="true">
+                    <p-panel *ngFor="let domain of domains; let i = index" class="domain__panel" [toggleable]="true"
+                        [collapsed]="panelStates[i]">
                         <ng-template pTemplate="header">
-                            <span class="domain__name">{{domain.domain_name}}</span>
+                            <span class="domain__name" (click)="togglePanel(i)">{{domain.domain_name}}</span>
                         </ng-template>
                         <ng-template pTemplate="icons">
                             <button pButton class="p-panel-header-icon p-link"
@@ -176,7 +178,7 @@
             <p-chips>
                 <ng-template let-item pTemplate="item">{{item}}</ng-template>
             </p-chips>
-            <button pButton label="{{'HomePage.btnAddLabel' | translate}}"></button>
+            <button pButton label="{{'HomePage.btnAddLabel' | translate}}" (click)="submitAddDomain() "></button>
         </div>
         <div class="dialog__domain-second">
             <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
@@ -204,7 +206,7 @@
                 class="p-button-outlined p-button-rounded"
                 label="{{'GeneralMessage.btnCancelLabel' | translate}}"></button>
             <button pButton type="submit" class="p-button-rounded"
-                label="{{'GeneralMessage.btnSubmitLabel' | translate}}"></button>
+                label="{{'GeneralMessage.btnSubmitLabel' | translate}}" (click)="submitAddDomain()"></button>
         </div>
     </p-dialog>
     <!-- dialog edit domain panel -->
