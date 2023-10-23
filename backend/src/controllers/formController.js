@@ -31,53 +31,6 @@ const getFormOwner = async (req, res) => {
   }
 };
 
-const getFormManager = async (req, res) => {
-  const user_id = req.params.user_id;
-  try {
-    const db = getDb();
-    const formCollection = db.collection("form");
-    const forms = await formCollection
-      .aggregate([
-        {
-          $lookup: {
-            from: "form-participant",
-            localField: "_id",
-            foreignField: "form.form_id",
-            as: "participants",
-          },
-        },
-        { $unwind: "$participants" },
-        {
-          $lookup: {
-            from: "user",
-            localField: "participants.user.user_id",
-            foreignField: "_id",
-            as: "users",
-          },
-        },
-        {
-          $unwind: "$users",
-        },
-        {
-          $match: {
-            "user.user_id": new ObjectId(user_id),
-          },
-        },
-        {
-          $project: {
-            _id: 0,
-            form: "$$ROOT",
-          },
-        },
-      ])
-      .toArray();
-    res.status(200).json(forms);
-  } catch (error) {
-    console.error("Error fetching forms:", error);
-    res.status(500).json({ error: "An error occurred" });
-  }
-};
-
 const getDomainByFormId = async (req, res) => {
   const form_id = req.params.form_id;
   try {
@@ -350,7 +303,6 @@ module.exports = {
   createFormParticipant,
   createFormSkill,
   getFormOwner,
-  getFormManager,
   getFormParticipants,
   getDomainByFormId,
   getFormJoinInByUser,

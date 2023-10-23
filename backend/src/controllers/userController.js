@@ -80,17 +80,16 @@ const updateUser = async (req, res) => {
     const filter = { _id: new ObjectId(user_id) };
     const updateDoc = {
       $set: {
-        user_id: new ObjectId(user_id),
+        _id: new ObjectId(user_id),
         full_name: user.full_name,
         email: user.email,
-        password: user.password,
-        create_date: new Date(user.create_date),
         gender: user.gender,
         phone_number: user.phone_number,
-        role: user.role,
-        status: user.status,
         birthday: user.birthday,
         avatar: user.avatar,
+        status: user.status,
+        role: user.role,
+        create_date: user.create_date,
         team: user.team,
       },
     };

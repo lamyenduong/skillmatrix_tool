@@ -28,7 +28,12 @@ export class LoginComponent implements OnInit {
     role: '',
     create_date: '',
     avatar: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-    user_id: ''
+    user_id: '',
+    team: {
+      team_id: '',
+      team_name: '',
+      status: true
+    }
   };
   selectedValue: any;
 
@@ -99,11 +104,11 @@ export class LoginComponent implements OnInit {
     if (this.registerForm.valid) {
       this.authService.register(this.user).subscribe(
         () => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: "{{'CreatePage.successMessage' | translate}}" });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registered successfully' });
           this.isLoginForm = true;
         },
         (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: "{{'CreatePage.failedMessage' | translate}}" });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registered failed' });
         }
       );
     } else {

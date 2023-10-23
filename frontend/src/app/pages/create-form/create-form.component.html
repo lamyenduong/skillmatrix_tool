@@ -63,12 +63,6 @@
                             </div>
                         </div>
                         <div class="step__form-row">
-                            <label for="formManager">{{'CreatePage.managerLabel' | translate}}</label>
-                            <p-dropdown placeholder="{{'CreatePage.managerPlaceholder' | translate}}"
-                                formControlName="formManager" styleClass="form__input px-0" [options]="users"
-                                optionLabel="full_name"></p-dropdown>
-                        </div>
-                        <div class="step__form-row">
                             <label for="formTeam">{{'CreatePage.teamLabel' | translate}}</label>
                             <p-multiSelect formControlName="formTeam" styleClass="form__input px-0"
                                 defaultLabel="{{'CreatePage.teamPlaceholder' | translate}}" [(ngModel)]="selectedTeams"
@@ -158,9 +152,8 @@
                         <button class="btn__previous" type="button" pButton pRipple icon="pi pi-arrow-left"
                             label="{{'GeneralMessage.btnBackLabel' | translate}}"
                             (click)="navigateToSecondStep()"></button>
-                        <p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
-                            [model]="submitMenuItems" label="{{'GeneralMessage.btnSubmitLabel' | translate}}"
-                            icon="pi pi-send" pRipple (onClick)="createForm()"></p-splitButton>
+                        <button pButton label="{{'GeneralMessage.btnSubmitLabel' | translate}}" icon="pi pi-send"
+                            pRipple (click)="createForm()"></button>
                     </div>
                 </div>
             </ng-container>

@@ -38,6 +38,7 @@ const loginUser = async (req, res) => {
       role: user.role,
       create_date: user.create_date,
       avatar: user.avatar,
+      team: user.team,
     };
     res.json({ accessToken, refreshToken, user: currentUser });
   } catch (error) {
@@ -71,6 +72,10 @@ const registerUser = async (req, res) => {
       gender: user.gender,
       avatar:
         "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+      team: {
+        team_id: user.team.team_id,
+        team_name: user.team.team_name,
+      },
     };
     const users = await userCollection.insertOne(newUser);
     res.status(200).json(users);

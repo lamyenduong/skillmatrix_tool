@@ -28,7 +28,7 @@ import { concatMap, from } from 'rxjs';
 export class CreateFormComponent implements OnInit {
   selectedTeams: Team[] = [];
   selectedMembers: User[] = [];
-  selectedDomains: Domain[] = []
+  selectedDomains: Domain[] = [];
   members!: User[]
   team!: Team
   skill!: Skill
@@ -58,16 +58,6 @@ export class CreateFormComponent implements OnInit {
     { label: 'Create' },
     { label: 'In progress', },
     { label: 'Finished' }];
-  submitMenuItems: MenuItem[] = [
-    {
-      icon: 'pi pi-send',
-      label: 'Submit'
-    },
-    {
-      icon: 'pi pi-save',
-      label: 'Save'
-    }
-  ]
   //Default date 
   date = new Date();
   currentDay = this.date.getUTCDate();
@@ -256,12 +246,10 @@ export class CreateFormComponent implements OnInit {
             ).subscribe(
               (response) => {
                 if (response) {
-                  // Handle success
                   console.log('Form participant created:', response);
                 }
               },
               (error) => {
-                // Handle error
                 console.error('Error creating form participant:', error);
               }
             );
@@ -275,12 +263,10 @@ export class CreateFormComponent implements OnInit {
             ).subscribe(
               (response) => {
                 if (response) {
-                  // Handle success
                   console.log('Form skill created:', response);
                 }
               },
               (error) => {
-                // Handle error
                 console.error('Error creating form skill:', error);
               }
             );

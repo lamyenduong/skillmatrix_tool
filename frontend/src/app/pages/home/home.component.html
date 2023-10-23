@@ -215,14 +215,19 @@
         <div class="dialog__domain-first">
             <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
             <input class="w-100" type="text" pInputText value={{domainDetail.domain_name}} disabled>
-            <p-chips>
-                <ng-template let-item pTemplate="item">{{item}}</ng-template>
-            </p-chips>
+            <div class="domain__input-first">
+                <div *ngFor="let skill of skills">
+                    <div class="domain__input-chip"
+                        *ngIf="skill.skill_domain?.domain_name?.toLowerCase() === domainDetail.domain_name.toLowerCase()">
+                        <p-chip label={{skill.skill_name}} [removable]="true"></p-chip>
+                    </div>
+                </div>
+            </div>
+            <div class="domain__input-second">
+                <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
+                <input class="w-100" type="text" pInputText>
+            </div>
             <button pButton label="{{'HomePage.btnAddLabel' | translate}}"></button>
-        </div>
-        <div class="dialog__domain-second">
-            <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
-            <input class="w-100" type="text" pInputText>
         </div>
         <div class="dialog__form">
             <p class="dialog__form-title"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"

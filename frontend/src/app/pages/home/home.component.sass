@@ -293,17 +293,22 @@
             margin-bottom: 16px
             input
                 margin-block: 8px
-            .p-chips
-                width: 100%
-                margin-block: 8px
-                .p-chips-multiple-container
-                    width: 100%
+            .domain__input-first
+                position: relative
+                display: flex
+                flex-wrap: wrap
+                border: 1px solid #ced4da
+                border-radius: 4px
+                padding: .5rem .75rem
+                .domain__input-chip
+                    margin: 4px
+                    width: fit-content
             .p-button
                 width: 100%
                 border-radius: 50px
                 margin-block: 8px
-        .dialog__domain-second
-            margin-top: 8px
+            .domain__input-second
+                margin-top: 8px
         .dialog__form
             .dialog__form-title
                 color: $primary-03

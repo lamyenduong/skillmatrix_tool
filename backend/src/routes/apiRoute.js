@@ -4,7 +4,6 @@ const {
   getFormById,
   createForm,
   getFormOwner,
-  getFormManager,
   getFormParticipants,
   getDomainByFormId,
   getFormJoinInByUser,
@@ -43,7 +42,6 @@ const apiRoute = (app) => {
   //form
   apiRouter.get("/forms/owner/:user_id", getFormOwner);
   apiRouter.get("/forms/:form_id", getFormById);
-  apiRouter.get("/forms/manager/:user_id", getFormManager);
   apiRouter.get("/forms/participants/:form_id", getFormParticipants);
   apiRouter.get("/forms/participant/:user_id", getFormJoinInByUser);
   apiRouter.get("/forms/domains/:form_id", getDomainByFormId);
@@ -60,14 +58,13 @@ const apiRoute = (app) => {
   //domain
   apiRouter.get("/domains", getAllDomains);
   apiRouter.get("/domains/:domain_id", getDomainById);
-
   apiRouter.post("/create-domain", createDomain);
   //team
   apiRouter.get("/teams", getAllTeams);
   //skill
   apiRouter.get("/skills", getAllSkills);
   apiRouter.get("/skills/:domain_id", getSkillInDomain);
-  app.use("/", apiRouter);
+  app.use("/api", apiRouter);
 };
 
 module.exports = apiRoute;
