@@ -224,10 +224,10 @@
                 </div>
             </div>
             <div class="domain__input-second">
-                <h6>{{'HomePage.domainNameHeader' | translate}}</h6>
-                <input class="w-100" type="text" pInputText>
+                <h6>{{'HomePage.skillNameHeader' | translate}}</h6>
+                <input class="w-100" type="text" pInputText (input)="skillNameInput($event)">
             </div>
-            <button pButton label="{{'HomePage.btnAddLabel' | translate}}"></button>
+            <button pButton label="{{'HomePage.btnAddLabel' | translate}}" (click)="addSkillName()"></button>
         </div>
         <div class="dialog__form">
             <p class="dialog__form-title"><a href="../../../assets/file/WSI_SkillMatrix.xlsx"
@@ -251,7 +251,7 @@
                 class="p-button-outlined p-button-rounded"
                 label="{{'GeneralMessage.btnCancelLabel' | translate}}"></button>
             <button pButton type="submit" class="p-button-rounded"
-                label="{{'GeneralMessage.btnSubmitLabel' | translate}}"></button>
+                label="{{'GeneralMessage.btnSubmitLabel' | translate}}" (click)="submitEditDomain()"></button>
         </div>
     </p-dialog>
 </div>

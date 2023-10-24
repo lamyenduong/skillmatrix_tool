@@ -33,7 +33,7 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}/users/full-name`)
   }
 
-  updateUser(user_id: string, user: any): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/user/profile/${user_id}`, user_id, user)
+  updateUser(user_id: string, user: User): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/user/profile/${user_id}`, user)
   }
 }

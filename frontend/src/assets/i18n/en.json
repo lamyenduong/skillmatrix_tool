@@ -54,6 +54,7 @@
         "emptyMessage": "No forms found.",
         "addDomainTitle": "Add Domain",
         "domainNameHeader": "Domain name",
+        "skillNameHeader": "Skill name",
         "editDomainTitle": "Edit Domain",
         "btnAddLabel": "Add",
         "btnUploadLabel": "Upload"

@@ -73,14 +73,12 @@ const getUserInTeam = async (req, res) => {
 const updateUser = async (req, res) => {
   const user_id = req.params.user_id;
   const user = req.body;
-  console.log(req.body);
   try {
     const db = getDb();
     const userCollection = db.collection("user");
     const filter = { _id: new ObjectId(user_id) };
     const updateDoc = {
       $set: {
-        _id: new ObjectId(user_id),
         full_name: user.full_name,
         email: user.email,
         gender: user.gender,

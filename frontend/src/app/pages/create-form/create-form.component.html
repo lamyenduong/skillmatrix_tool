@@ -63,6 +63,12 @@
                             </div>
                         </div>
                         <div class="step__form-row">
+                            <label for="formManager">{{'CreatePage.managerLabel' | translate}}</label>
+                            <p-dropdown placeholder="{{'CreatePage.managerPlaceholder' | translate}}"
+                                formControlName="formManager" styleClass="form__input px-0" [options]="users"
+                                optionLabel="full_name"></p-dropdown>
+                        </div>
+                        <div class="step__form-row">
                             <label for="formTeam">{{'CreatePage.teamLabel' | translate}}</label>
                             <p-multiSelect formControlName="formTeam" styleClass="form__input px-0"
                                 defaultLabel="{{'CreatePage.teamPlaceholder' | translate}}" [(ngModel)]="selectedTeams"

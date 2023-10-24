@@ -367,4 +367,14 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+  submitEditDomain() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
+  }
+  skillNameInput(e: any) {
+    console.log(e.target.value)
+    return e.target.value
+  }
+  addSkillName() {
+
+  }
 }
