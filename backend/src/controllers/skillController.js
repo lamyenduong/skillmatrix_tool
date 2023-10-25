@@ -28,7 +28,29 @@ const getSkillInDomain = async (req, res) => {
   }
 };
 
+const createSkill = async (req, res) => {
+  const newSkill = req.body;
+  try {
+    const db = getDb();
+    const skillCollection = db.collection("skill");
+    const skillCheck = await skillCollection.findOne({
+      skill_name: newSkill.skill_name,
+    });
+    if (skillCheck) {
+      res.status(400).json({ error: "Skill already exists" });
+      return;
+    } else {
+      const skill = await skillCollection.insertOne(newSkill);
+      res.status(200).json(skill);
+    }
+  } catch (error) {
+    console.error("Error fetching forms:", error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 module.exports = {
   getAllSkills,
   getSkillInDomain,
+  createSkill,
 };

@@ -36,7 +36,7 @@
     </div>
     <div class="main__second-frame">
         <div class="container">
-            <p-tabView class="main__tabview">
+            <p-tabView class="main__tabview" [(activeIndex)]="activeIndex">
                 <!-- Assign me-->
                 <p-tabPanel header="{{'HomePage.firstTabPanel' | translate}}" headerStyleClass="tabpanel__header">
                     <p-table [value]="formsAssign" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
@@ -225,7 +225,7 @@
             </div>
             <div class="domain__input-second">
                 <h6>{{'HomePage.skillNameHeader' | translate}}</h6>
-                <input class="w-100" type="text" pInputText (input)="skillNameInput($event)">
+                <input class="w-100" type="text" pInputText (input)="skillNameInput($event)" [(ngModel)]="addedValue">
             </div>
             <button pButton label="{{'HomePage.btnAddLabel' | translate}}" (click)="addSkillName()"></button>
         </div>

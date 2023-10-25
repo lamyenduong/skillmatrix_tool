@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Team } from 'src/app/models/team.model';
 import { User } from 'src/app/models/user.model';
-import { CookieService } from '../../services/cookie.service';
 import { TeamService } from '../../services/form/team.service';
 import { UserService } from '../../services/user/user.service';
 
@@ -52,8 +51,7 @@ export class ProfileComponent implements OnInit {
     private router: ActivatedRoute,
     private teamService: TeamService,
     private fb: FormBuilder,
-    private messageService: MessageService,
-    private cookieService: CookieService) { }
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.router.paramMap.subscribe(params => {

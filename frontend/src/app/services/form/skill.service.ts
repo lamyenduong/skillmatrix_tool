@@ -16,8 +16,11 @@ export class SkillService {
     return this.http.get<Skill[]>(`${this.apiUrl}/skills/`)
   }
 
-
   getSkillInDomain(domain_id: string): Observable<Skill[]> {
     return this.http.get<Skill[]>(`${this.apiUrl}/skills/${domain_id}`)
+  }
+
+  createSkill(skill: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/create-skill`, skill)
   }
 }

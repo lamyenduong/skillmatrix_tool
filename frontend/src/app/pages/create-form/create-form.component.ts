@@ -243,16 +243,7 @@ export class CreateFormComponent implements OnInit {
             }));
             from(formParticipants).pipe(
               concatMap((formParticipant) => this.fpService.createFormParticipant(formParticipant))
-            ).subscribe(
-              (response) => {
-                if (response) {
-                  console.log('Form participant created:', response);
-                }
-              },
-              (error) => {
-                console.error('Error creating form participant:', error);
-              }
-            );
+            ).subscribe();
             const formSkills: FormSkill[] = this.selectedDomains.map((domain) => ({
               form_skill_id: '',
               domain: domain,
@@ -260,27 +251,21 @@ export class CreateFormComponent implements OnInit {
             }))
             from(formSkills).pipe(
               concatMap((formSkill) => this.fsService.createFormSkill(formSkill))
-            ).subscribe(
-              (response) => {
-                if (response) {
-                  console.log('Form skill created:', response);
-                }
-              },
-              (error) => {
-                console.error('Error creating form skill:', error);
-              }
-            );
+            ).subscribe();
           })
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
         }
       },
       (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
+        if (error.status === 400) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Form name is available!' });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' })
+        };
       })
   }
 
   getMemberInTeam(selectedTeams: Team[]) {
-    const selectedTeamIds = selectedTeams.map((team: any) => team._id);
     const updatedMembers: User[] = [];
     selectedTeams.forEach((team: any) => {
       const selectedTeam = {
@@ -296,6 +281,6 @@ export class CreateFormComponent implements OnInit {
         }
       });
     })
-    this.members = this.members.filter((member: User) => selectedTeamIds.includes(member.team?.team_id))
+    this.selectedMembers = []
   }
 }

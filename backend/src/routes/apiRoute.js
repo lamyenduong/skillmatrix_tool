@@ -32,6 +32,7 @@ const { getAllTeams } = require("../controllers/teamController");
 const {
   getSkillInDomain,
   getAllSkills,
+  createSkill,
 } = require("../controllers/skillController");
 
 const apiRoute = (app) => {
@@ -64,6 +65,8 @@ const apiRoute = (app) => {
   //skill
   apiRouter.get("/skills", getAllSkills);
   apiRouter.get("/skills/:domain_id", getSkillInDomain);
+  apiRouter.post("/create-skill", createSkill);
+
   app.use("/api", apiRouter);
 };
 

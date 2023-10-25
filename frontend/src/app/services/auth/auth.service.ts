@@ -65,6 +65,7 @@ export class AuthService {
     this.cookieService.removeCookie('refresh_token')
     this.cookieService.removeCookie('user_id');
     this.isAuthenticatedSubject.next(false);
+    window.location.reload();
     this.router.navigate(['/login']);
   }
 

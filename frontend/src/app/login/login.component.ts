@@ -108,7 +108,10 @@ export class LoginComponent implements OnInit {
           this.isLoginForm = true;
         },
         (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registered failed' });
+          if (error.status === 409) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'This e-mail is available!' });
+          } else
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registered failed' });
         }
       );
     } else {

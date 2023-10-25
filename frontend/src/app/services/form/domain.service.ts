@@ -15,7 +15,12 @@ export class DomainService {
   getAllSkillDomains(): Observable<Domain[]> {
     return this.http.get<Domain[]>(`${this.apiUrl}/domains`)
   }
+
   getDomainById(domain_id: string): Observable<Domain> {
     return this.http.get<Domain>(`${this.apiUrl}/domains/${domain_id}`)
+  }
+
+  createDomain(domain: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/create-domain`, domain)
   }
 }

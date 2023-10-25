@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Component
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +44,7 @@ import { ChipsModule } from 'primeng/chips';
 //Service
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { JwtInterceptor } from './services/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
       }
     }),
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

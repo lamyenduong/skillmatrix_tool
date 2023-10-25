@@ -19,6 +19,7 @@ import { Form } from '../../models/form.model';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+  activeIndex: number = 0;
   filePath: string = "../../../assets/file/WSI_SkillMatrix.xlsx"
   points = [0, 1, 2, 3, 4, 5]
   formsOwner!: Form[]
@@ -56,7 +57,7 @@ export class HomeComponent implements OnInit {
     private readFileService: ReadFileService,
     private cookieService: CookieService,
     private dataService: DataService,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService,) {
   }
 
   ngOnInit(): void {
@@ -273,16 +274,20 @@ export class HomeComponent implements OnInit {
   searchForm(event: any) {
     const user_id = this.cookieService.getCookie("user_id");
     const searchContext = event.target.value.toLowerCase();
-    this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
-      if (data) {
-        this.formsAssign = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
-      }
-    });
-    this.formService.getFormOwner(user_id).subscribe((data: Form[]) => {
-      if (data) {
-        this.formsOwner = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
-      }
-    });
+    if (this.activeIndex === 0) {
+      this.formService.getFormJoinInByUser(user_id).subscribe((data: Form[]) => {
+        if (data) {
+          this.formsAssign = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
+        }
+      });
+    }
+    if (this.activeIndex === 1) {
+      this.formService.getFormOwner(user_id).subscribe((data: Form[]) => {
+        if (data) {
+          this.formsOwner = data.filter(form => form.form_name.toLowerCase().includes(searchContext));
+        }
+      });
+    }
   }
 
   //Search domain
@@ -299,27 +304,32 @@ export class HomeComponent implements OnInit {
   sortOrder: 'asc' | 'desc' = 'asc';
   toggleSortOrder() {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    this.formsOwner.sort((a, b) => {
-      if (this.sortOrder === 'asc') {
-        return a.form_name.localeCompare(b.form_name);
-      } else {
-        return b.form_name.localeCompare(a.form_name);
-      }
-    });
-    this.formsAssign.sort((a, b) => {
-      if (this.sortOrder === 'asc') {
-        return a.form_name.localeCompare(b.form_name);
-      } else {
-        return b.form_name.localeCompare(a.form_name);
-      }
-    });
-    this.domains.sort((a, b) => {
-      if (this.sortOrder === 'asc') {
-        return a.domain_name.localeCompare(b.domain_name);
-      } else {
-        return b.domain_name.localeCompare(a.domain_name);
-      }
-    })
+    if (this.activeIndex === 0) {
+      this.formsAssign.sort((a, b) => {
+        if (this.sortOrder === 'asc') {
+          return a.form_name.localeCompare(b.form_name);
+        } else {
+          return b.form_name.localeCompare(a.form_name);
+        }
+      });
+    }
+    if (this.activeIndex === 1) {
+      this.formsOwner.sort((a, b) => {
+        if (this.sortOrder === 'asc') {
+          return a.form_name.localeCompare(b.form_name);
+        } else {
+          return b.form_name.localeCompare(a.form_name);
+        }
+      });
+    }
+    if (this.activeIndex === 3)
+      this.domains.sort((a, b) => {
+        if (this.sortOrder === 'asc') {
+          return a.domain_name.localeCompare(b.domain_name);
+        } else {
+          return b.domain_name.localeCompare(a.domain_name);
+        }
+      })
     this.panelStates = this.domains.map(() => true);
   }
 
@@ -370,11 +380,31 @@ export class HomeComponent implements OnInit {
   submitEditDomain() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
   }
+  addedValue!: string
   skillNameInput(e: any) {
-    console.log(e.target.value)
-    return e.target.value
+    this.addedValue = e.target.value
+  }
+  newSkill: Skill = {
+    skill_id: '',
+    skill_name: this.addedValue,
+    skill_domain: {
+      domain_id: '',
+      domain_name: ''
+    }
   }
   addSkillName() {
-
+    console.log(this.addedValue)
+    this.skillService.createSkill(this.newSkill).subscribe(
+      (response) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' })
+      },
+      (error) => {
+        if (error.status === 400) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Skill already exists' });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
+        }
+      }
+    )
   }
 }
