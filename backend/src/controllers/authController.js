@@ -4,8 +4,6 @@ const salt = bcrypt.genSaltSync(10);
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const secretKey = process.env.JWT_SECRET_KEY;
-const accessKey = process.env.ACCESS_TOKEN;
-const refreshKey = process.env.REFRESH_TOKEN;
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -90,7 +88,7 @@ const refreshToken = async (req, res) => {
   if (!refreshToken || !refreshTokens.includes(refreshToken)) {
     return res.status(401).json({ message: "Invalid refresh token" });
   }
-  const accessToken = jwt.sign({ user_id: user._id }, accessKey, {
+  const accessToken = jwt.sign({ user_id: user._id }, secretKey, {
     expiresIn: "1d",
   });
   res.json({ accessToken });

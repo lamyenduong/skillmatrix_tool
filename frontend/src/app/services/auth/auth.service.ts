@@ -13,7 +13,7 @@ import { TokenService } from '../token.service';
 
 export class AuthService {
   private apiUrl = environment.apiUrl
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(true);
   public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
   public currentUserSubject = new BehaviorSubject<User | null>(null);
 

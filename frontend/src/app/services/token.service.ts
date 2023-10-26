@@ -30,7 +30,7 @@ export class TokenService {
   }
 
   getRefreshToken(): string | null {
-    return this.cookieService.getCookie('refreshToken');
+    return this.cookieService.getCookie('refreshtoken');
   }
 
   setRefreshToken(token: string): void {

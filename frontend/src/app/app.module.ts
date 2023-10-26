@@ -45,6 +45,7 @@ import { ChipsModule } from 'primeng/chips';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { JwtInterceptor } from './services/jwt-interceptor.service';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,7 @@ import { JwtInterceptor } from './services/jwt-interceptor.service';
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,
     multi: true,
-  }],
+  }, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
