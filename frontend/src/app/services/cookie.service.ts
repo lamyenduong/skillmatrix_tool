@@ -36,6 +36,6 @@ export class CookieService {
   }
 
   checkCookie(cname: string): boolean {
-    return this.getCookie(cname) !== null;
+    return this.getCookie(cname) !== "";
   }
 }

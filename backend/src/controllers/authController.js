@@ -1,9 +1,9 @@
 const { getDb } = require("../config/database");
-const { ObjectId } = require("mongodb");
 const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const secretKey = process.env.JWT_SECRET_KEY;
 const accessKey = process.env.ACCESS_TOKEN;
 const refreshKey = process.env.REFRESH_TOKEN;
 
@@ -20,10 +20,10 @@ const loginUser = async (req, res) => {
     if (!isPasswordValid) {
       res.statusCode = 401;
     }
-    const accessToken = jwt.sign({ user_id: user._id }, accessKey, {
+    const accessToken = jwt.sign({ user_id: user._id }, secretKey, {
       expiresIn: "1d",
     });
-    const refreshToken = jwt.sign({ user_id: user._id }, refreshKey, {
+    const refreshToken = jwt.sign({ user_id: user._id }, secretKey, {
       expiresIn: "30d",
     });
     const currentUser = {
@@ -96,8 +96,34 @@ const refreshToken = async (req, res) => {
   res.json({ accessToken });
 };
 
+const checkAccessToken = (req, res) => {
+  const { accessToken } = req.body;
+  if (accessTokenIsValid(accessToken, secretKey)) {
+    res.json({ valid: true });
+  } else {
+    res.json({ valid: false });
+  }
+};
+
+function accessTokenIsValid(accessToken, secretKey) {
+  try {
+    const decodedToken = jwt.verify(accessToken, secretKey);
+    const currentTime = Date.now() / 1000;
+    if (decodedToken.exp && currentTime > decodedToken.exp) {
+      return false;
+    }
+    if (decodedToken.role !== "user") {
+      return false;
+    }
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 module.exports = {
   loginUser,
   registerUser,
   refreshToken,
+  checkAccessToken,
 };

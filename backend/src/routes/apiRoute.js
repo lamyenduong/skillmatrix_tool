@@ -27,6 +27,7 @@ const {
   loginUser,
   registerUser,
   refreshToken,
+  checkAccessToken,
 } = require("../controllers/authController");
 const { getAllTeams } = require("../controllers/teamController");
 const {
@@ -40,6 +41,7 @@ const apiRoute = (app) => {
   apiRouter.post("/register", registerUser);
   apiRouter.post("/login", loginUser);
   apiRouter.post("/refresh-token", refreshToken);
+  apiRouter.post("/access-token", checkAccessToken);
   //form
   apiRouter.get("/forms/owner/:user_id", getFormOwner);
   apiRouter.get("/forms/:form_id", getFormById);
