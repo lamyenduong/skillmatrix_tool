@@ -281,6 +281,7 @@ export class CreateFormComponent implements OnInit {
         }
       });
     })
-    this.selectedMembers = []
+    // this.selectedMembers = []
+
   }
 }

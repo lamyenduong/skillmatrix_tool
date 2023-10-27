@@ -192,20 +192,20 @@ export class HomeComponent implements OnInit {
         this.getJoinInDomain(97, 99, resultArray, domain) //cloud
         this.getJoinInDomain(100, 101, resultArray, domain) //working model 
         //Skill and point
-        this.skillService.getAllSkills().subscribe(skills => {
-          if (skills) {
-            this.skills.filter(skill => {
-              if (skill && skill.skill_name) {
-                for (let i = 0; i < this.skills.length; i++) {
-                  if (resultArray[1][i] === this.skill.skill_name) {
-                    this.selectedValue = resultArray[2][i]
-                    console.log(this.selectedValue)
-                  }
-                }
-              }
-            })
-          }
-        })
+        // this.skillService.getAllSkills().subscribe(skills => {
+        //   if (skills) {
+        //     this.skills.filter(skill => {
+        //       if (skill && skill.skill_name) {
+        //         for (let i = 0; i < this.skills.length; i++) {
+        //           if (resultArray[1][i] === this.skill.skill_name) {
+        //             this.selectedValue = resultArray[2][i]
+        //             console.log(this.selectedValue)
+        //           }
+        //         }
+        //       }
+        //     })
+        //   }
+        // })
         const data = {
           setTeam: setTeam,
           name: name,
@@ -380,31 +380,47 @@ export class HomeComponent implements OnInit {
   submitEditDomain() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' });
   }
-  addedValue!: string
+  addedValue!: string;
+
   skillNameInput(e: any) {
-    this.addedValue = e.target.value
+    this.addedValue = e.target.value;
   }
-  newSkill: Skill = {
-    skill_id: '',
-    skill_name: this.addedValue,
-    skill_domain: {
-      domain_id: '',
-      domain_name: ''
-    }
-  }
+
   addSkillName() {
-    console.log(this.addedValue)
-    this.skillService.createSkill(this.newSkill).subscribe(
-      (response) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creation successful!' })
-      },
-      (error) => {
-        if (error.status === 400) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Skill already exists' });
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Creation failed!' });
+    if (this.addedValue && this.domainDetail && this.domainDetail.domain_id) {
+      const newSkill: Skill = {
+        skill_id: '',
+        skill_name: this.addedValue,
+        skill_domain: {
+          domain_id: this.domainDetail.domain_id,
+          domain_name: this.domainDetail.domain_name,
+        },
+      };
+
+      this.skillService.createSkill(newSkill).subscribe(
+        (response) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Thành công',
+            detail: 'Tạo mới thành công!',
+          });
+        },
+        (error) => {
+          if (error.status === 400) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Lỗi',
+              detail: 'Kỹ năng đã tồn tại',
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Lỗi',
+              detail: 'Tạo mới thất bại!',
+            });
+          }
         }
-      }
-    )
+      );
+    }
   }
 }
